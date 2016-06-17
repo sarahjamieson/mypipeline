@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Samples</title>
+</head>
+<body>
+    <p align="right"><a href="/aml/">Home</a></p>
+    <p>Run: {{ run }}</p>
+    {% if samples %}
+        <p>Choose sample to view results:</p>
+        <ol>
+            {% for sample in samples %}
+            <li><a href="/aml/results/{{ sample.sample }}">{{ sample.sample }}</a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No samples available.</p>
+    {% endif %}
+</body>
+</html>

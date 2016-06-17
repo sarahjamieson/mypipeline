@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+    <p align="right"><a href="/pipeline/">Home</a></p>
+    <p>Sample searched for: {{ sample }}</p>
+    {% if results %}
+        <style type="text/css" scoped>
+            table{
+                width: 100%;
+                font-family: Calibri;
+                border: 1px solid;
+                border-color:#4863A0;
+                border-collapse: collapse;
+            }
+            table td{
+                border: 1px solid;
+                border-color:#4863A0;
+                word-wrap: break-word;
+                max-width: 150px;
+            }
+            table th{
+                border: 1px solid;
+                border-color:#4863A0;
+                word-wrap: break-word;
+                max-width: 150px;
+            }
+            h1{
+                font-family: Cambria;
+                border-bottom: 5px solid;
+                border-color: #C2DFFF;
+            }
+            p{
+                font-family: Cambria;
+            }
+        </style>
+        <table>
+            <tr>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>SAMPLE</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>CALLER</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>CHROM</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>POS</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>REF</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>ALT</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>CHR2</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>END</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>REGION</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>TYPE</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>SIZE</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>GT</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>DEPTH</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>ALLELES</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>AB</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>GENE</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>FUNC.refGENE</b></th>
+                <th bgcolor="#4863A0" style="color:#FFFFFF"><b>EXONIC_FUNC.refGENE</b></th>
+            </tr>
+            {% for row in results.rows %}
+            <tr>
+                <td align="center">{{ row.sample }}</td>
+                <td align="center">{{ row.caller }}</td>
+                <td align="center">{{ row.chrom }}</td>
+                <td align="center">{{ row.pos }}</td>
+                <td align="center">{{ row.ref }}</td>
+                <td align="center">{{ row.alt }}</td>
+                <td align="center">{{ row.chr2 }}</td>
+                <td align="center">{{ row.end }}</td>
+                <td align="center">{{ row.region }}</td>
+                <td align="center">{{ row.sv_type }}</td>
+                <td align="center">{{ row.size }}</td>
+                <td align="center">{{ row.gt }}</td>
+                <td align="center">{{ row.depth }}</td>
+                <td align="center">{{ row.alleles }}</td>
+                <td align="center">{{ row.ab }}</td>
+                <td align="center">{{ row.gene }}</td>
+                <td align="center">{{ row.func }}</td>
+                <td align="center">{{ row.exonic_func }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+    <p>No results available.</p>
+    {% endif %}
+</body>
+</html>

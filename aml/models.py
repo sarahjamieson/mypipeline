@@ -5,7 +5,7 @@ import django_tables2 as table
 
 
 class Results(models.Model):
-    sample_id = models.AutoField(primary_key=True, unique=True)
+    result_id = models.AutoField(primary_key=True, unique=True)
     run = models.CharField(max_length=100, default='Unknown')
     sample = models.CharField(max_length=100, default='Unknown')
     caller = models.CharField(max_length=20, default='Unknown')
@@ -34,3 +34,14 @@ class Results(models.Model):
 class ResultTable(table.Table):
     class Meta:
         model = Results
+
+
+class Runs(models.Model):
+    run_id = models.AutoField(primary_key=True, unique=True)
+    run = models.CharField(max_length=100, default='Unknown')
+
+
+class Samples(models.Model):
+    sample_id = models.AutoField(primary_key=True, unique=True)
+    sample = models.CharField(max_length=100, default='Unknown')
+    run = models.CharField(max_length=100, default='Unknown')
