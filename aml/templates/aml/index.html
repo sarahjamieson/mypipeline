@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Runs</title>
 </head>
 <body>
-
+    {% if runs %}
+        <p>Choose run to view samples:</p>
+        <ol>
+            {% for run in runs %}
+            <li><a href="/aml/samples/{{ run.run }}">{{ run.run }}</a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>No runs available.</p>
+    {% endif %}
 </body>
 </html>

@@ -203,6 +203,7 @@ class CreatePDF(object):
         ax.plot([30, 30], [0, y_max], color='g', linewidth=1, zorder=5)
         percent = '%s%%' % format(avg_qual, '.2f')
         ax.text(23, y_max - 100, percent, fontsize=16, color='g')
+        fig.savefig('%s_qual_bar.png' % self.worksheet)
 
     def get_qual_heatmap(self):
         quality_df = self.quality.df
@@ -276,6 +277,7 @@ class CreatePDF(object):
         ax.set_xlabel('Cycle')
         ax.set_ylabel('Q Score')
         plt.colorbar(heatmap)
+        fig.savefig('%s_qual_heatmap.png' % self.worksheet)
 
     def get_phas_prephas(self):
         read_1_phas = self.tile.mean_phasing[0] * 100
@@ -307,6 +309,7 @@ class CreatePDF(object):
         ax.scatter(sample_id, percent_clusters)
         ax.set_ylabel('% Reads')
         ax.set_xlabel('Sample_Id')
+        fig.savefig('%s_indexing_scatter.png' % self.worksheet)
 
         return sample_id, index1, index2, percent_clusters, percent_pf, total_aligned_clusters, pf_aligned_clusters
 
@@ -358,3 +361,4 @@ class CreatePDF(object):
         ax.set_yticklabels(y_labels, minor=False)
 
         plt.colorbar(heatmap)
+        fig.savefig('%s_clusters_heatmap.png' % self.worksheet)
