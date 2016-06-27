@@ -218,9 +218,7 @@ class CreateFastQCPDF(object):
                     plot.add_caption('Quality per cycle')
 
         pdflatex = '/usr/local/texlive/2015/bin/x86_64-linux/pdflatex'
-        doc.generate_pdf('%s' % self.sample, clean_tex=False, compiler=pdflatex)
-        os.system('mv /home/cuser/PycharmProjects/amlpipeline/%s.pdf /media/sf_sarah_share/MiSeq_quality_outputs/'
-                  % self.sample)
+        doc.generate_pdf('%ssample_quality' % self.sample, clean_tex=False, compiler=pdflatex)
 
     def get_trimmed_data(self):
         # Get R1 trimmed

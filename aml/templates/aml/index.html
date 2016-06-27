@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <head>
     <meta charset="UTF-8">
     <title>Runs</title>
 </head>
 <body>
+    <h1>AML pipeline results</h1>
     {% if runs %}
-        <p>Choose run to view samples:</p>
-        <ol>
-            {% for run in runs %}
-            <li><a href="/aml/samples/{{ run.run }}">{{ run.run }}</a></li>
-            {% endfor %}
-        </ol>
+    <p>Select run to view results and quality data:</p>
+    <ul class="w3-ul w3-border">
+        {% for run in runs %}
+        <li><a href="/aml/{{ run.run }}">{{ run.run }}</a></li>
+        {% endfor %}
+    </ul>
     {% else %}
-        <p>No runs available.</p>
+    <p>No runs available.</p>
     {% endif %}
+
+
 </body>
 </html>

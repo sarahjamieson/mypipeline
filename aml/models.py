@@ -25,6 +25,8 @@ class Results(models.Model):
     gene = models.CharField(max_length=50, default='Unknown')
     func = models.CharField(max_length=200, default='Unknown')
     exonic_func = models.CharField(max_length=200, default='Unknown')
+    freq = models.CharField(max_length=30, default='Unknown')
+    af = models.FloatField(default='0.0')
 
     class Meta:
         app_label = 'aml'
@@ -40,8 +42,16 @@ class Runs(models.Model):
     run_id = models.AutoField(primary_key=True, unique=True)
     run = models.CharField(max_length=100, default='Unknown')
 
+    class Meta:
+        app_label = 'aml'
+        db_table = 'Runs'
+
 
 class Samples(models.Model):
     sample_id = models.AutoField(primary_key=True, unique=True)
     sample = models.CharField(max_length=100, default='Unknown')
     run = models.CharField(max_length=100, default='Unknown')
+
+    class Meta:
+        app_label = 'aml'
+        db_table = 'Samples'

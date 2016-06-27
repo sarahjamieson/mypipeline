@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
     url(r'^(?P<run>[-\w]+)/$', get_samples_for_run, name='samples'),
-    url(r'^(?P<sample>[-\w]+)/$', get_results_for_sample, name='results'),
+    url(r'^results/(?P<sample>[-\w]+)/$', get_results_for_sample, name='results'),
     url(r'^interop/(?P<run>[-\w]+)/$', get_interop_for_run, name='interop'),
 ]

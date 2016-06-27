@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 def index(request):
     run = Runs.objects.all()
-    return render(request, 'aml/index.html', {'run': run})
+    return render(request, 'aml/index.html', {'runs': run})
 
 
 def get_samples_for_run(request, run):
