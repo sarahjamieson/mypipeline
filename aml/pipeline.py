@@ -96,6 +96,10 @@ def assess_quality():
     pdf.create_pdf()
 
     os.system('cp %s_InterOp_Results.pdf %s%s/' % (worksheet, args.output_dir, worksheet))
+    os.system('mv %s_InterOp_Results.pdf %s/static/aml/' % (worksheet, script_dir))
+    filelist = glob.glob("*tex")
+    for f in filelist:
+        os.remove(f)
 
 
 assess_quality()
@@ -258,9 +262,8 @@ def run_pindel(infile, outfile, pindel_prefix):
               "--report_breakpoints TRUE "
               "--report_long_insertions TRUE "
               "--name_of_logfile %spindel.log "
-              "-b %s.breakdancer_output.sv "  # file name with BreakDancer results     or -Q???
-              "-Q %s.breakdancer_with_pindel.sv"
-              % (pindel, genome, infile, pindel_prefix, pindel_prefix, bd_file, bd_file))
+              "-b %s.breakdancer_output.sv"  # file name with BreakDancer results     or -Q???
+              % (pindel, genome, infile, pindel_prefix, pindel_prefix, bd_file))
 
 
 # https://github.com/ELIXIR-ITA-training/VarCall2015/blob/master/Tutorials/T5.2_variantcalling_stucturalvariants_tutorial.md
@@ -288,12 +291,14 @@ def pindel_to_vcf(infile, outfile, pindel_prefix):
 @transform(["*.bwa.drm.sorted.bam"], suffix(".bwa.drm.sorted.bam"), r"\1.bcf")
 def call_delly(infile, outfile):
     sample_name = infile[:-19]
-    blacklisted_regions = 'excluded_regions.excl.bed'
+    blacklisted_regions = '/home/cuser/PycharmProjects/django_apps/mypipeline/excluded_regions.excl.bed'
     os.system("%s call -t DEL -x %s -o %s.del.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t TRA -x %s -o %s.tra.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t INV -x %s -o %s.inv.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t INS -x %s -o %s.ins.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t DUP -x %s -o %s.dup.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
+
+
 
 
 @follows(call_delly)
@@ -337,6 +342,7 @@ def combine_vcfs(infile, outfile):
               '##INFO=<ID=Caller,Number=1,Type=String,Description="Caller used">\n',
               '##INFO=<ID=MAPQ,Number=1,Type=Integer,Description="Median mapping quality of paired-ends">\n',
               '##INFO=<ID=PE,Number=1,Type=Integer,Description="Paired-end support of the structural variant">\n',
+              '##INFO=<ID=Region,Number=1,Type=String,Description="Chromosomal region of variant">\n',
               '##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">\n',
               '##FORMAT=<ID=AD,Number=2,Type=Integer,Description="Allele depth">\n',
               '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t%s\n' % sample_name]
@@ -489,18 +495,17 @@ def add_freq_to_vcf(infile, outfile):
 def vcf_to_excel(infile, outfile):
     con = sql.connect('/home/cuser/PycharmProjects/django_apps/mypipeline/db.sqlite3')
     curs = con.cursor()
-    curs.execute("DROP TABLE IF EXISTS Results")
-    curs.execute("CREATE TABLE Results(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, run TEXT, "
+    curs.execute("CREATE TABLE IF NOT EXISTS Results(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, run TEXT, "
                  "sample TEXT, caller TEXT, chrom TEXT, pos INTEGER, ref TEXT, alt TEXT, chr2 TEXT, end INTEGER, "
                  "region TEXT, sv_type TEXT, size INTEGER, gt TEXT, depth INTEGER, alleles TEXT, ab REAL, gene TEXT, "
-                 "func TEXT, exonic_func TEXT, freq TEXT, af REAL)")
+                 "func TEXT, exonic_func TEXT, freq TEXT, af REAL, precision TEXT)")
     curs.execute("CREATE TABLE IF NOT EXISTS Runs(run_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, run TEXT)")
     curs.execute("CREATE TABLE IF NOT EXISTS Samples(sample_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                  "sample TEXT, run TEXT)")
 
     vcf_reader = vcf.Reader(open(infile, 'r'))
-    col_list = ['run', 'sample', 'caller', 'chrom', 'pos', 'ref', 'alt', 'chr2', 'end', 'sv_type', 'size', 'gt',
-                'depth', 'alleles', 'ab', 'gene', 'func', 'exonic_func', 'freq', 'af']
+    col_list = ['run', 'sample', 'caller', 'chrom', 'pos', 'ref', 'alt', 'chr2', 'end', 'region', 'sv_type', 'size',
+                'gt', 'depth', 'alleles', 'ab', 'gene', 'func', 'exonic_func', 'freq', 'af', 'precision']
     annovar_df = pd.DataFrame(columns=col_list)
     sample_name = infile[:-18]
     for record in vcf_reader:
@@ -530,14 +535,13 @@ def vcf_to_excel(infile, outfile):
             freq_split = freq.split('|')
             allele_freq = float(freq_split[2])
             if alt_reads != 0 and ref_reads != 0:
-                ab = (float(alt_reads) / float(total_reads) * 100)
+                ab = format((float(alt_reads) / float(total_reads) * 100), '.2f')
             else:
-                ab = int(0)
+                ab = format(int(0), '.2f')
             size = info_dict.get("SVLEN")
             ad_str = '%s,%s' % (str(ref_reads), str(alt_reads))
             caller = info_dict.get("Caller")
-            prec = info_dict.get("Precision")
-            caller_prec = "%s_%s" % (caller, prec)
+            prec = ",".join(str(a) for a in info_dict.get("PRECISION"))
             if re.match("None", exonic_func):
                 exonic_func_mod = '.'
             else:
@@ -546,16 +550,17 @@ def vcf_to_excel(infile, outfile):
                 func_mod = '.'
             else:
                 func_mod = func
+            region = info_dict.get("Region")
             if caller == 'Delly':
-                output_df = pd.DataFrame([[worksheet, sample_name, caller_prec, chrom, pos, ref, alt, chr2, end_pos,
-                                           sv_type, size, gt, total_reads, ad_str, ab, gene_mod, func_mod,
-                                           exonic_func_mod, freq, allele_freq]], columns=col_list)
+                output_df = pd.DataFrame([[worksheet, sample_name[3:12:], caller, chrom, pos, ref, alt, chr2,
+                                           end_pos, region, sv_type, size, gt, total_reads, ad_str, ab, gene_mod,
+                                           func_mod, exonic_func_mod, freq, allele_freq, prec]], columns=col_list)
                 annovar_df = annovar_df.append(output_df)
             else:
                 if re.match("(.*)exonic(.*)", func) or re.match("(.*)splicing(.*)", func):
-                    output_df = pd.DataFrame([[worksheet, sample_name, caller, chrom, pos, ref, alt, chr2, end_pos,
-                                               sv_type, size, gt, total_reads, ad_str, ab, gene_mod, func_mod,
-                                               exonic_func_mod, freq, allele_freq]], columns=col_list)
+                    output_df = pd.DataFrame([[worksheet, sample_name[3:12:], caller, chrom, pos, ref, alt, chr2,
+                                               end_pos, region, sv_type, size, gt, total_reads, ad_str, ab, gene_mod,
+                                               func_mod, exonic_func_mod, freq, allele_freq, prec]], columns=col_list)
                     annovar_df = annovar_df.append(output_df)
                 else:
                     pass
@@ -577,10 +582,9 @@ def vcf_to_excel(infile, outfile):
 
     os.system("mkdir -p %s%s/%s/Data/" % (args.output_dir, worksheet, sample_name))
     os.system("mkdir -p %s%s/%s/Results/" % (args.output_dir, worksheet, sample_name))
+    os.system("mkdir -p %s/static/aml/%s/" % (script_dir, worksheet))
     os.system("mv %s.annovar.xlsx %s%s/%s/Results/" % (sample_name, args.output_dir, worksheet, sample_name))
-    os.system("mv %ssample_quality.pdf %s%s/%s/Results/" % (sample_name, args.output_dir, worksheet, sample_name))
-    os.system("mv *.html %s/static/aml/" % script_dir)
-    os.system("mv *.png %s%s/%s/Data/" % (args.output_dir, worksheet, sample_name))
+    os.system("mv %ssample_quality.pdf %s/static/aml/%s/" % (sample_name[3:12:], script_dir, worksheet))
     os.system("mv %s* %s%s/%s/Data/" % (sample_name, args.output_dir, worksheet, sample_name))
 
 pipeline_run()

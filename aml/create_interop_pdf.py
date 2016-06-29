@@ -35,7 +35,7 @@ class CreatePDF(object):
         doc.append(Command('Large', bold('MiSeq Quality Check')))
         doc.append(Command('end', 'center'))
         doc.append(Command('begin', 'flushright'))
-        doc.append(Command('Large', '<Run_name>'))
+        doc.append(Command('Large', '%s' % self.worksheet))
         doc.append(Command('end', 'flushright'))
         doc.append(Command('begin', 'flushright'))
         doc.append(Command('Large', NoEscape(r'\mydate\today')))

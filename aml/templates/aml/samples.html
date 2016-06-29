@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <head>
     <meta charset="UTF-8">
-    <title>Samples</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>{{ run }}</title>
 </head>
 <body>
-    <p align="right"><a href="/aml/">Home</a></p>
-    <p>Run: {{ run }}</p>
-    <p><a href="/aml/interop/{{ run }}">View run quality as PDF</a></p>
+    <p align="right"><a href="/aml/"><i class="fa fa-home w3-xxlarge"  ></i></a></p>
+    <h1>Run: {{ run }}
+        <a class="w3-btn w3-round-xlarge w3-indigo w3-medium" href="/aml/interop/{{ run }}">
+            <i class="fa fa-file-pdf-o"></i> View run quality
+        </a>
+    </h1>
+    <br/>
     {% if samples %}
-        <p>Choose sample to view results:</p>
-        <ol>
-            {% for sample in samples %}
-            <li><a href="/aml/results/{{ sample.sample }}">{{ sample.sample }}</a></li>
-            {% endfor %}
-        </ol>
+        {% for sample in samples %}
+            <div class="w3-accordion w3-white">
+                <button onclick="myFunction('{{ sample.sample }}')" class="w3-btn-block w3-left-align w3-light-blue w3-border w3-border-white">
+                    {{ sample.sample }}  <i class="fa fa-chevron-down"></i>
+                </button>
+                <div id="{{ sample.sample }}" class="w3-accordion-content w3-container">
+                    <a href="/aml/results/{{ sample.sample }}"><i class="fa fa-chevron-right"></i>  View results</a>
+                    <a href="/aml/quality/{{ sample.run }}/{{ sample.sample }}"><i class="fa fa-chevron-right"></i>  View sample quality</a>
+                </div>
+            </div>
+            <script>
+                function myFunction(id) {
+                    var x = document.getElementById(id);
+                    if (x.className.indexOf("w3-show") == -1) {
+                        x.className += " w3-show";
+                    } else {
+                        x.className = x.className.replace(" w3-show", "");
+                    }
+                }
+            </script>
+        {% endfor %}
     {% else %}
-        <p>No samples available.</p>
+        <p>No samples available to view.</p>
     {% endif %}
 </body>
 </html>

@@ -3,15 +3,22 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <title>Runs</title>
+    <style type="text/css">
+        a:link {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
+    <p align="right"><a href="/aml/"><i class="fa fa-home w3-xxlarge"  ></i></a></p>
     <h1>AML pipeline results</h1>
     {% if runs %}
     <p>Select run to view results and quality data:</p>
-    <ul class="w3-ul w3-border">
+    <ul class="w3-ul w3-border w3-light-blue w3-border w3-border-white">
         {% for run in runs %}
-        <li><a href="/aml/{{ run.run }}">{{ run.run }}</a></li>
+        <li><a href="/aml/{{ run.run }}"><i class="fa fa-chevron-right"></i>  {{ run.run }}</a></li>
         {% endfor %}
     </ul>
     {% else %}

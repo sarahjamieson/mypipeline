@@ -27,13 +27,67 @@ class Results(models.Model):
     exonic_func = models.CharField(max_length=200, default='Unknown')
     freq = models.CharField(max_length=30, default='Unknown')
     af = models.FloatField(default='0.0')
+    precision = models.CharField(max_length=10, default='')
 
     class Meta:
         app_label = 'aml'
         db_table = 'Results'
 
 
-class ResultTable(table.Table):
+class PindelTable(table.Table):
+    result_id = table.Column(visible=False)
+    run = table.Column(visible=False)
+    sample = table.Column(verbose_name="SAMPLE", default='', visible=False)
+    caller = table.Column(verbose_name="CALLER", default='', visible=False)
+    chrom = table.Column(verbose_name="CHROM", default='')
+    pos = table.Column(verbose_name="POS", default='')
+    ref = table.Column(verbose_name="REF", default='')
+    alt = table.Column(verbose_name="ALT", default='')
+    chr2 = table.Column(verbose_name="CHR2", default='', visible=False)
+    end = table.Column(verbose_name="END", default='')
+    region = table.Column(verbose_name="REGION", default='')
+    sv_type = table.Column(verbose_name="TYPE", default='')
+    size = table.Column(verbose_name="SIZE", default='')
+    gt = table.Column(verbose_name="GT", default='')
+    depth = table.Column(verbose_name="DEPTH", default='')
+    alleles = table.Column(verbose_name="ALLELES", default='')
+    ab = table.Column(verbose_name="AB", default='')
+    gene = table.Column(verbose_name="GENE", default='')
+    func = table.Column(verbose_name="FUNC", default='')
+    exonic_func = table.Column(verbose_name="EXONIC_FUNC", default='')
+    freq = table.Column(verbose_name="FREQ", default='')
+    af = table.Column(verbose_name="AF", default='')
+    precision = table.Column(verbose_name="PRECISION", default='', visible=False)
+
+    class Meta:
+        model = Results
+
+
+class DellyTable(table.Table):
+    result_id = table.Column(visible=False)
+    run = table.Column(visible=False)
+    sample = table.Column(verbose_name="SAMPLE", default='', visible=False)
+    caller = table.Column(verbose_name="CALLER", default='', visible=False)
+    precision = table.Column(verbose_name="PRECISION", default='')
+    chrom = table.Column(verbose_name="CHROM", default='')
+    pos = table.Column(verbose_name="POS", default='')
+    ref = table.Column(verbose_name="REF", default='', visible=False)
+    alt = table.Column(verbose_name="ALT", default='', visible=False)
+    chr2 = table.Column(verbose_name="CHR2", default='')
+    end = table.Column(verbose_name="END", default='')
+    region = table.Column(verbose_name="REGION", default='')
+    sv_type = table.Column(verbose_name="TYPE", default='')
+    size = table.Column(verbose_name="SIZE", default='')
+    gt = table.Column(verbose_name="GT", default='')
+    depth = table.Column(verbose_name="DEPTH", default='')
+    alleles = table.Column(verbose_name="ALLELES", default='')
+    ab = table.Column(verbose_name="AB", default='')
+    gene = table.Column(verbose_name="GENE", default='')
+    func = table.Column(verbose_name="FUNC", default='')
+    exonic_func = table.Column(verbose_name="EXONIC_FUNC", default='')
+    freq = table.Column(verbose_name="FREQ", default='')
+    af = table.Column(verbose_name="AF", default='')
+
     class Meta:
         model = Results
 
