@@ -1,0 +1,2 @@
+#name	g1chr	g1start	g1end	g1name	g2chr	g2start	g2end	g2name
+ETV6--NTRK3	12	11905384	12043977	ETV6	15	88420169	88799384	NTRK3

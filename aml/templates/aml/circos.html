@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Circos</title>
+</head>
+<body>
+    <script src="{% static 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/link01.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/d3.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/biocircos-1.1.0.js' %}" type="text/javascript"></script>
+
+    <div id="biocircos"></div>
+    <div id="link01"></div>
+
+    <script>
+        var BioCircosGenome = [
+            ["1" , 249250621],
+            ["2" , 243199373],
+            ["3" , 198022430],
+            ["4" , 191154276],
+            ["5" , 180915260],
+            ["6" , 171115067],
+            ["7" , 159138663],
+            ["8" , 146364022],
+            ["9" , 141213431],
+            ["10" , 135534747],
+            ["11" , 135006516],
+            ["12" , 133851895],
+            ["13" , 115169878],
+            ["14" , 107349540],
+            ["15" , 102531392],
+            ["16" , 90354753],
+            ["17" , 81195210],
+            ["18" , 78077248],
+            ["19" , 59128983],
+            ["20" , 63025520],
+            ["21" , 48129895],
+            ["22" , 51304566],
+            ["X" , 155270560],
+            ["Y" , 59373566]
+        ];
+        BioCircos01 = new BioCircos(link01,BioCircosGenome,{
+            target : "biocircos",
+            svgWidth : 900,
+            svgHeight : 600,
+            chrPad : 0.04,
+            innerRadius: 246,
+            outerRadius: 270,
+        });
+        BioCircos01.draw_genome(BioCircos01.genomeLength);
+</script>
+</body>
+</html>

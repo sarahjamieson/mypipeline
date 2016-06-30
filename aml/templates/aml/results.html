@@ -44,7 +44,7 @@
     <h1>Sample: {{ sample }}</h1>
         <div class="w3-btn-bar w3-show-inline-block">
             <button class="w3-btn w3-black">Indels (Pindel)</button>
-            <a class="w3-btn w3-light-grey" href="/aml/delly/{{ sample }}">Structural Variants (Delly)</a>
+            <a class="w3-btn w3-light-grey" href="/aml/delly/{{ run }}/{{ sample }}">Structural Variants (Delly)</a>
         </div>
         {% if pindel %}
         <div class="table-container" style="overflow-x:auto;">
@@ -64,7 +64,8 @@
                                             <span class="hidden">
                                                 {{ cell }}
                                             </span>
-                                        </div></label>
+                                        </div>
+                                    </label>
                                 </td>
                             {% endfor %}
 

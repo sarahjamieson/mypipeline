@@ -45,7 +45,7 @@
     <p align="right"><a href="/aml/"><i class="fa fa-home w3-xxlarge"  ></i></a></p>
     <h1>Sample: {{ sample }}</h1>
     <div class="w3-btn-bar w3-show-inline-block">
-        <a class="w3-btn w3-light-grey" href="/aml/results/{{ sample }}">Indels (Pindel)</a>
+        <a class="w3-btn w3-light-grey" href="/aml/results/{{ run }}/{{ sample }}">Indels (Pindel)</a>
         <button class="w3-btn w3-black">Structural Variants (Delly)</button>
     </div>
         {% if delly %}

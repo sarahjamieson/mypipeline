@@ -96,7 +96,6 @@ def assess_quality():
     pdf.create_pdf()
 
     os.system('cp %s_InterOp_Results.pdf %s%s/' % (worksheet, args.output_dir, worksheet))
-    os.system('mv %s_InterOp_Results.pdf %s/static/aml/' % (worksheet, script_dir))
     filelist = glob.glob("*tex")
     for f in filelist:
         os.remove(f)
@@ -584,7 +583,8 @@ def vcf_to_excel(infile, outfile):
     os.system("mkdir -p %s%s/%s/Results/" % (args.output_dir, worksheet, sample_name))
     os.system("mkdir -p %s/static/aml/%s/" % (script_dir, worksheet))
     os.system("mv %s.annovar.xlsx %s%s/%s/Results/" % (sample_name, args.output_dir, worksheet, sample_name))
-    os.system("mv %ssample_quality.pdf %s/static/aml/%s/" % (sample_name[3:12:], script_dir, worksheet))
+    os.system('mv %s_InterOp_Results.pdf %s/static/aml/%s/' % (worksheet, script_dir, worksheet))
+    os.system("mv %s_sample_quality.pdf %s/static/aml/%s/" % (sample_name[3:12:], script_dir, worksheet))
     os.system("mv %s* %s%s/%s/Data/" % (sample_name, args.output_dir, worksheet, sample_name))
 
 pipeline_run()

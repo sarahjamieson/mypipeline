@@ -14,16 +14,16 @@ def get_samples_for_run(request, run):
     return render(request, 'aml/samples.html', {'samples': samples, 'run': run})
 
 
-def get_results_for_sample(request, sample):
-    pindel = PindelTable(Results.objects.filter(sample__icontains=sample, caller='Pindel'))
+def get_results_for_sample(request, sample, run):
+    pindel = PindelTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel'))
     RequestConfig(request).configure(pindel)
-    return render(request, 'aml/results.html', {'pindel': pindel, 'sample': sample})
+    return render(request, 'aml/results.html', {'pindel': pindel, 'sample': sample, 'run': run})
 
 
-def get_delly_for_sample(request, sample):
-    delly = DellyTable(Results.objects.filter(sample__icontains=sample, caller='Delly'))
+def get_delly_for_sample(request, sample, run):
+    delly = DellyTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Delly'))
     RequestConfig(request).configure(delly)
-    return render(request, 'aml/delly.html', {'sample': sample, 'delly': delly})
+    return render(request, 'aml/delly.html', {'sample': sample, 'delly': delly, 'run': run})
 
 
 def get_interop_for_run(request, run):
@@ -40,3 +40,7 @@ def get_sample_quality(request, sample, run):
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-disposition'] = 'filename=%s_sample_quality.pdf' % sample
         return response
+
+
+def get_circos(request):
+    return render(request, 'aml/circos.html')
