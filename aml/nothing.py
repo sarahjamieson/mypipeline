@@ -12,13 +12,12 @@ samples = ['D15-18331', 'D15-21584', 'D15-22373', 'D15-20343', 'D15-25430', 'D03
            ]
 
 for sample in samples:
-    con = sql.connect('/home/cuser/PycharmProjects/django_apps/mypipeline/db.sqlite3')
-    curs = con.cursor()
-    curs.execute("INSERT INTO Samples (sample, run) VALUES (?,?)", (sample, worksheet))
-    con.commit()
+    os.system("cp /media/sf_sarah_share/MiSeq_Nextera_Results/16053/*%s*/Data/*%s*.annovar.final.vcf /home/cuser/PycharmProjects/django_apps/mypipeline/aml/"
+              % (sample, sample))
+
 '''
 script_dir = os.path.dirname(os.path.abspath(__file__))
-worksheet = ''
+worksheet = '16053'
 
 
 @transform(["*.annovar.final.vcf"], suffix(".annovar.final.vcf"), ".annovar.xlsx")
@@ -42,6 +41,11 @@ def vcf_to_excel(infile, outfile):
                     rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos))
 
     rcircos_file.close()
-    os.system("rcircos_link.R %s %s.png" % (rcircos_file, sample_name[3:12:]))
-    os.system("mkdir %s/static/rcircos/%s/" % (script_dir, worksheet))
+    if os.stat("%s.txt" % sample_name[3:12:]).st_size != 0:
+        os.system("Rscript /home/cuser/PycharmProjects/django_apps/mypipeline/aml/rcircos_link.R %s.txt %s.png"
+                  % (sample_name[3:12:], sample_name[3:12:]))
+    os.system("mkdir -p %s/static/rcircos/%s/" % (script_dir, worksheet))
     os.system("mv %s.png %s/static/rcircos/%s/" % (sample_name[3:12:], script_dir, worksheet))
+
+
+pipeline_run()

@@ -49,6 +49,13 @@
         <button class="w3-btn w3-black">Structural Variants (Delly)</button>
     </div>
         {% if delly %}
+        <div class="basic" align="center">
+            {% if var %}
+                {% include "aml/circos.html" with run=run sample=sample %}
+            {% else %}
+                <p>No Precise results.</p>
+            {% endif %}
+        </div>
         <div class="table-container" style="overflow-x:auto;">
         <table class="w3-table w3-bordered w3-striped w3-border">
                 <tr class="w3-light-blue">

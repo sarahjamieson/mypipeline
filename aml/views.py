@@ -2,6 +2,7 @@ from django.shortcuts import render
 from aml.models import Runs, Results, Samples, PindelTable, DellyTable
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
+import os
 
 
 def index(request):
@@ -23,7 +24,10 @@ def get_results_for_sample(request, sample, run):
 def get_delly_for_sample(request, sample, run):
     delly = DellyTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Delly'))
     RequestConfig(request).configure(delly)
-    return render(request, 'aml/delly.html', {'sample': sample, 'delly': delly, 'run': run})
+    var = False
+    if os.path.isfile("/home/cuser/PycharmProjects/django_apps/mypipeline/aml/static/rcircos/%s/%s.png" % (run, sample)):
+        var = True
+    return render(request, 'aml/delly.html', {'sample': sample, 'delly': delly, 'run': run, 'var': var})
 
 
 def get_interop_for_run(request, run):
@@ -42,5 +46,5 @@ def get_sample_quality(request, sample, run):
         return response
 
 
-def get_circos(request):
-    return render(request, 'aml/circos.html')
+def get_circos(request, sample, run):
+    return render(request, 'aml/circos.html', {'sample': sample, 'run': run})

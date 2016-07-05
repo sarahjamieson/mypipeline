@@ -19,7 +19,7 @@ link.data <- read.table(input, col.names=c("Chromosome", "chromStart", "chromEnd
 link.colours <- rep("blue", nrow(link.data));
 rows <- seq(1, nrow(link.data), by=5);
 link.colours[rows] <- "red";
-link.data["PlotColor"] <- link.colors;
+link.data["PlotColor"] <- link.colours;
 track.num <- 2;
 
 RCircos.Link.Plot(link.data, track.num, FALSE);

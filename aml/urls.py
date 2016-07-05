@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^delly/(?P<run>[-\w]+)/(?P<sample>[-\w]+)/$', get_delly_for_sample, name='delly'),
     url(r'^interop/(?P<run>[-\w]+)/$', get_interop_for_run, name='interop'),
     url(r'^quality/(?P<run>[-\w]+)/(?P<sample>[-\w]+)/$', get_sample_quality, name='quality'),
-    url(r'^circos/$', get_circos, name='circos'),
+    url(r'^circos/(?P<run>[-\w]+)/(?P<sample>[-\w]+)/$', get_circos, name='circos'),
 ]
