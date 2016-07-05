@@ -298,8 +298,6 @@ def call_delly(infile, outfile):
     os.system("%s call -t DUP -x %s -o %s.dup.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
 
 
-
-
 @follows(call_delly)
 @transform(["*.bcf"], suffix(".bcf"), r"\1.delly.vcf")
 def delly_to_vcf(infile, outfile):
@@ -507,6 +505,7 @@ def vcf_to_excel(infile, outfile):
                 'gt', 'depth', 'alleles', 'ab', 'gene', 'func', 'exonic_func', 'freq', 'af', 'precision']
     annovar_df = pd.DataFrame(columns=col_list)
     sample_name = infile[:-18]
+    rcircos_file = open("%s.txt" % sample_name[3:12:], "w")  # write into output file
     for record in vcf_reader:
         for sample in record:
             # PyVCF reader
@@ -551,6 +550,9 @@ def vcf_to_excel(infile, outfile):
                 func_mod = func
             region = info_dict.get("Region")
             if caller == 'Delly':
+                if prec == 'PRECISE':
+                    rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos))
+
                 output_df = pd.DataFrame([[worksheet, sample_name[3:12:], caller, chrom, pos, ref, alt, chr2,
                                            end_pos, region, sv_type, size, gt, total_reads, ad_str, ab, gene_mod,
                                            func_mod, exonic_func_mod, freq, allele_freq, prec]], columns=col_list)
@@ -564,6 +566,10 @@ def vcf_to_excel(infile, outfile):
                 else:
                     pass
 
+    rcircos_file.close()
+    os.system("rcircos_link.R %s %s.png" % (rcircos_file, sample_name[3:12:]))
+    os.system("mkdir %s/static/rcircos/%s/" % (script_dir, worksheet))
+    os.system("mv %s.png %s/static/rcircos/%s/" % (sample_name[3:12:], script_dir, worksheet))
     writer = ExcelWriter('%s' % outfile)
     annovar_df.to_excel(writer, sheet_name="Variants-all", index=False)
     writer.save()
