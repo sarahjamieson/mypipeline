@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>FASTQC Report</title>
+    <style>
+        div.container {
+            display:inline-block;
+            margin-left: 150px;
+            margin-right: auto;
+        }
+        p {
+            text-align:center;
+        }
+        ul {
+            list-style-type: none;
+        }
+        u {
+            text-decoration: none;
+            border-bottom: 2px solid black;
+        }
+        a.LinkButton {
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            text-decoration: none;
+            padding: 6px;
+            border-color: #3964c3;
+            border-radius: 24px;
+            background-color: #3964c3;
+            color: #ffffff;
+        }
+        table {
+            width: 600px;
+            border-collapse: collapse;
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+        th {
+            background-color: #ADD8E6;
+        }
+        p.ptwo {
+            text-align: left;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <p style="text-align:right;"><a href="/aml/" style="color:black;"><i class="fa fa-home w3-xxlarge"  ></i></a></p>
+    <div style="margin:10px;">
+        <h1>Sample: {{ sample }}</h1>
+        <a href="/aml/quality/{{ run }}/{{ sample }}" class="LinkButton"><i class="fa fa-file-pdf-o"></i>   Download full quality results</a>
+    </div>
+    <p class="ptwo">
+        File type: {{ stats.1 }}
+        <br/>
+        Encoding: {{ stats.2 }}
+    </p>
+    <table align="center">
+        <tr>
+            <th></th>
+            <th>Before trimming</th>
+            <th>After trimming</th>
+        </tr>
+        <tr>
+            <td>Total Sequences</td>
+            <td align="center">{{ stats.3 }}</td>
+            <td align="center">{{ stats.4 }} ({{ stats.11 }}%)</td>
+        </tr>
+        <tr>
+            <td>Sequences flagged as poor quality</td>
+            <td align="center">{{ stats.5 }}</td>
+            <td align="center">{{ stats.6 }}</td>
+        </tr>
+        <tr>
+            <td>Sequence length</td>
+            <td align="center">{{ stats.7 }}</td>
+            <td align="center">{{ stats.8 }}</td>
+        </tr>
+        <tr>
+            <td>%GC</td>
+            <td align="center">{{ stats.9 }}</td>
+            <td align="center">{{ stats.10 }}</td>
+        </tr>
+    </table>
+    <p></p>
+    <br/>
+    <h2><u>1. Per base sequence quality</u></h2>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1/{{ sample }}_per_base_quality.png" height="500" width="700"/>
+        {% for key, value in r1.items %}
+            {% if 'Per base sequence quality' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1_trim/{{ sample }}_per_base_quality.png" height="500" width="700"/>
+        {% for key, value in r1_trim.items %}
+            {% if 'Per base sequence quality' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2/{{ sample }}_per_base_quality.png" height="500" width="700"/>
+        {% for key, value in r2.items %}
+            {% if 'Per base sequence quality' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2_trim/{{ sample }}_per_base_quality.png" height="500" width="700"/>
+        {% for key, value in r2_trim.items %}
+            {% if 'Per base sequence quality' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <p></p>
+    <br/>
+    <h2><u>2. Per sequence GC content</u></h2>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1/{{ sample }}_per_sequence_gc_content.png" height="500" width="700"/>
+        {% for key, value in r1.items %}
+            {% if 'Per sequence GC content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1_trim/{{ sample }}_per_sequence_gc_content.png" height="500" width="700"/>
+        {% for key, value in r1_trim.items %}
+            {% if 'Per sequence GC content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2/{{ sample }}_per_sequence_gc_content.png" height="500" width="700"/>
+        {% for key, value in r2.items %}
+            {% if 'Per sequence GC content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2_trim/{{ sample }}_per_sequence_gc_content.png" height="500" width="700"/>
+        {% for key, value in r2_trim.items %}
+            {% if 'Sequence Length Distribution' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <p></p>
+    <br/>
+    <h2><u>3. Sequence Length Distribution</u></h2>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1/{{ sample }}_sequence_length_distribution.png" height="500" width="700"/>
+        {% for key, value in r1.items %}
+            {% if 'Sequence Length Distribution' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1_trim/{{ sample }}_sequence_length_distribution.png" height="500" width="700"/>
+        {% for key, value in r1_trim.items %}
+            {% if 'Sequence Length Distribution' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2/{{ sample }}_sequence_length_distribution.png" height="500" width="700"/>
+        {% for key, value in r2.items %}
+            {% if 'Sequence Length Distribution' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2_trim/{{ sample }}_sequence_length_distribution.png" height="500" width="700"/>
+        {% for key, value in r2_trim.items %}
+            {% if 'Sequence Length Distribution' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <p></p>
+    <br/>
+    <h2><u>4. Adapter Content</u></h2>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1/{{ sample }}_adapter_content.png" height="500" width="700"/>
+        {% for key, value in r1.items %}
+            {% if 'Adapter Content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R1_trim/{{ sample }}_adapter_content.png" height="500" width="700"/>
+        {% for key, value in r1_trim.items %}
+            {% if 'Adapter Content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R1 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2/{{ sample }}_adapter_content.png" height="500" width="700"/>
+        {% for key, value in r2.items %}
+            {% if 'Adapter Content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 before trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="container">
+        <img src="/static/aml/{{ run }}/{{ sample }}/fastqc_R2_trim/{{ sample }}_adapter_content.png" height="500" width="700"/>
+        {% for key, value in r2_trim.items %}
+            {% if 'Adapter Content' in key %}
+                <div style="text-align:center;">
+                    <font size="5">
+                        R2 after trimming
+                    </font>
+                    <img src="/static/aml/{{ value }}.png" height="30" width="30">
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
