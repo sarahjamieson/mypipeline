@@ -24,7 +24,7 @@ class CreatePDF(object):
 
 
         """
-        pdflatex = '/usr/local/texlive/2015/bin/x86_64-linux/pdflatex'
+        pdflatex = '/usr/local/texlive/2016/bin/x86_64-linux/pdflatex'
         doc = Document()
         doc.packages.append(Package('geometry', options=['tmargin=0.75in', 'lmargin=0.75in', 'rmargin=0.75in']))
         doc.packages.append(Package('datetime', options=['ddmmyyyy']))

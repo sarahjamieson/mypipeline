@@ -17,6 +17,7 @@ from parse_sample_sheet import ParseSampleSheet
 import shelve
 from collections import defaultdict
 import warnings
+from sorting import sort_pipeline_data
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 curr_datetime = datetime.datetime.now().isoformat()
@@ -43,23 +44,21 @@ args = parser.parse_args()
 # ----------------------------------------------------------------------------------------------------------------------
 # Paths to all tools used in pipeline. Put in config file?
 # ----------------------------------------------------------------------------------------------------------------------
-Trimmomatic = '/home/cuser/programs/Trimmomatic-0.36/trimmomatic-0.36.jar'
-trim_adapters = '/home/cuser/programs/Trimmomatic-0.36/adapters/NexteraPE-PE.fa'
+Trimmomatic = '/opt/programs/Trimmomatic-0.36/trimmomatic-0.36.jar'
+trim_adapters = '/opt/programs/Trimmomatic-0.36/adapters/NexteraPE-PE.fa'
 InterOp = '%sInterOp/' % args.result_dir
-bwa = '/home/cuser/programs/bwa/bwa'
-samblaster = '/home/cuser/programs/samblaster/samblaster'
-samtools = '/home/cuser/programs/samtools/samtools/bin/samtools'
-plot_bamstats = '/home/cuser/programs/samtools/samtools/bin/plot-bamstats'
-bam2cfg = '/home/cuser/programs/breakdancer/breakdancer-max1.4.5/bam2cfg.pl'
-breakdancer = '/home/cuser/programs/breakdancer/breakdancer-max'
-pindel = '/home/cuser/programs/pindel/pindel'
-genome = '/media/genomicdata/ucsc_hg19/ucsc.hg19.fasta'
-pindel2vcf = '/home/cuser/programs/pindel/pindel2vcf'
+bwa = '/opt/programs/bwa-0.7.15/bwa'
+samblaster = '/opt/programs/samtools/samblaster-0.1.22/samblaster'
+samtools = '/opt/programs/samtools/samtools-1.3.1/bin/samtools'
+plot_bamstats = '/opt/programs/samtools/samtools-1.3.1/bin/plot-bamstats'
+breakdancer = '/opt/programs/breakdancer-1.4.5/bin/breakdancer-max'
+pindel = '/opt/programs/pindel-0.2.5/pindel'
+genome = '/media/sf_S_DRIVE/genomic_resources/gatk_bundle/ucsc.hg19.fasta'
+pindel2vcf = '/opt/programs/pindel-0.2.5/pindel2vcf'
 annovar = '/media/sf_sarah_share/ANNOVAR/annovar/table_annovar.pl'
-varscan = '/home/cuser/programs/VarScan2/VarScan.v2.4.0.jar'
-fastqc = '/home/cuser/programs/FastQC/fastqc'
-delly = '/home/cuser/programs/delly_v0.7.3/delly'
-bcftools = '/home/cuser/programs/samtools/bcftools-1.3.1/bcftools'
+fastqc = '/opt/programs/FastQC-0.11.5/fastqc'
+delly = '/opt/programs/delly-0.7.3/delly_v0.7.3_linux_x86_64bit'
+bcftools = '/opt/programs/samtools/bcftools-1.3.1/bcftools'
 
 # ----------------------------------------------------------------------------------------------------------------------
 # 1) Copy fastqc files to current directory.
@@ -67,7 +66,7 @@ bcftools = '/home/cuser/programs/samtools/bcftools-1.3.1/bcftools'
 # 3) Make new directory for results in user-inputted output directory.
 # ----------------------------------------------------------------------------------------------------------------------
 script_dir = os.path.dirname(os.path.abspath(__file__))
-os.system("cp %s/Data/Intensities/BaseCalls/*.fastq.gz %s/" % (args.result_dir, script_dir))
+# os.system("cp %s/Data/Intensities/BaseCalls/*.fastq.gz %s/" % (args.result_dir, script_dir))
 parse_sheet = ParseSampleSheet(args.sample_sheet)
 run_dict, sample_dict = parse_sheet.parse_sample_sheet()
 worksheet = run_dict.get('worksheet')
@@ -100,7 +99,6 @@ def assess_quality():
     for f in filelist:
         os.remove(f)
 
-
 assess_quality()
 
 
@@ -115,6 +113,7 @@ assess_quality()
 #   7) Run SAMtools "Stats" and "Plot-bamstats" & combine with FastQC results.
 #   8)
 # ----------------------------------------------------------------------------------------------------------------------
+
 @collate("*.fastq.gz", formatter("([^/]+)R[12]_001.fastq.gz$"), "{path[0]}/{1[0]}.fastq.gz")
 def run_fastqc(infile, outfile):
     fastq1 = infile[0]
@@ -290,7 +289,7 @@ def pindel_to_vcf(infile, outfile, pindel_prefix):
 @transform(["*.bwa.drm.sorted.bam"], suffix(".bwa.drm.sorted.bam"), r"\1.bcf")
 def call_delly(infile, outfile):
     sample_name = infile[:-19]
-    blacklisted_regions = '/home/cuser/PycharmProjects/django_apps/mypipeline/excluded_regions.excl.bed'
+    blacklisted_regions = '/home/shjn/PycharmProjects/mypipeline/aml/excluded_regions.excl.bed'
     os.system("%s call -t DEL -x %s -o %s.del.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t TRA -x %s -o %s.tra.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
     os.system("%s call -t INV -x %s -o %s.inv.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
@@ -490,7 +489,9 @@ def add_freq_to_vcf(infile, outfile):
 @follows(add_freq_to_vcf)
 @transform(["*.annovar.final.vcf"], suffix(".annovar.final.vcf"), ".annovar.xlsx")
 def vcf_to_excel(infile, outfile):
-    con = sql.connect('/home/cuser/PycharmProjects/django_apps/mypipeline/db.sqlite3')
+    colors = ['blue', 'red', 'green', 'orange', 'purple', 'black', 'cyan4', 'deeppink', 'seagreen', 'yellow']
+    color_no = 0
+    con = sql.connect('/home/shjn/PycharmProjects/mypipeline/db.sqlite3')
     curs = con.cursor()
     curs.execute("CREATE TABLE IF NOT EXISTS Results(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, run TEXT, "
                  "sample TEXT, caller TEXT, chrom TEXT, pos INTEGER, ref TEXT, alt TEXT, chr2 TEXT, end INTEGER, "
@@ -551,7 +552,8 @@ def vcf_to_excel(infile, outfile):
             region = info_dict.get("Region")
             if caller == 'Delly':
                 if prec == 'PRECISE':
-                    rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos))
+                    rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos, colors[color_no]))
+                    color_no += 1
 
                 output_df = pd.DataFrame([[worksheet, sample_name[3:12:], caller, chrom, pos, ref, alt, chr2,
                                            end_pos, region, sv_type, size, gt, total_reads, ad_str, ab, gene_mod,
@@ -567,9 +569,9 @@ def vcf_to_excel(infile, outfile):
                     pass
 
     rcircos_file.close()
-    os.system("rcircos_link.R %s %s.png" % (rcircos_file, sample_name[3:12:]))
-    os.system("mkdir %s/static/rcircos/%s/" % (script_dir, worksheet))
-    os.system("mv %s.png %s/static/rcircos/%s/" % (sample_name[3:12:], script_dir, worksheet))
+    os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/rcircos_link.R %s.txt %s.png"
+              % (sample_name[3:12:], sample_name[3:12:]))
+
     writer = ExcelWriter('%s' % outfile)
     annovar_df.to_excel(writer, sheet_name="Variants-all", index=False)
     writer.save()
@@ -578,19 +580,13 @@ def vcf_to_excel(infile, outfile):
     run_result = curs.fetchone()
     if run_result is None:
         curs.execute("INSERT INTO Runs (run) VALUES (?)", (worksheet,))
-    curs.execute("SELECT * FROM Samples WHERE sample LIKE '%s'" % sample_name[3:12:])
+    curs.execute("SELECT * FROM Samples WHERE sample LIKE '%s' and run LIKE '%s'" % (sample_name[3:12:], worksheet))
     sample_result = curs.fetchone()
     if sample_result is None:
         curs.execute("INSERT INTO Samples (sample, run) VALUES (?,?)", (sample_name[3:12:], worksheet))
     annovar_df.to_sql("Results", con=con, if_exists='append', index=False)
     con.commit()
 
-    os.system("mkdir -p %s%s/%s/Data/" % (args.output_dir, worksheet, sample_name))
-    os.system("mkdir -p %s%s/%s/Results/" % (args.output_dir, worksheet, sample_name))
-    os.system("mkdir -p %s/static/aml/%s/" % (script_dir, worksheet))
-    os.system("mv %s.annovar.xlsx %s%s/%s/Results/" % (sample_name, args.output_dir, worksheet, sample_name))
-    os.system('mv %s_InterOp_Results.pdf %s/static/aml/%s/' % (worksheet, script_dir, worksheet))
-    os.system("mv %s_sample_quality.pdf %s/static/aml/%s/" % (sample_name[3:12:], script_dir, worksheet))
-    os.system("mv %s* %s%s/%s/Data/" % (sample_name, args.output_dir, worksheet, sample_name))
+    sort_pipeline_data(script_dir, worksheet, sample_name, args.output_dir)
 
 pipeline_run()

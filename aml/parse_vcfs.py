@@ -25,7 +25,7 @@ def get_delly_output(vcf_file):
             svlen = info_dict.get("END") - record.POS
             variant_key = "%s_%s_%s_%s" % (record.CHROM, record.POS, record.REF, record.ALT[0])
 
-            with open('/home/cuser/PycharmProjects/django_apps/mypipeline/cytoBand.txt', 'r') as cyto:
+            with open('/home/shjn/PycharmProjects/mypipeline/aml/cytoBand.txt', 'r') as cyto:
                 reader = csv.reader(cyto, delimiter='\t')
                 for row in reader:
                     if (record.CHROM == row[0]) and (int(row[1]) <= record.POS <= int(row[2])):
@@ -84,7 +84,7 @@ def get_pindel_output(vcf_file):
             variant_key = "%s_%s_%s_%s" % (record.CHROM, record.POS, record.REF, record.ALT[0])
             ad = ",".join(str(a) for a in sample['AD'])
 
-            with open('/home/cuser/PycharmProjects/django_apps/mypipeline/cytoBand.txt', 'r') as cyto:
+            with open('/home/shjn/PycharmProjects/mypipeline/aml/cytoBand.txt', 'r') as cyto:
                 reader = csv.reader(cyto, delimiter='\t')
                 for row in reader:
                     if (record.CHROM == row[0]) and (int(row[1]) <= record.POS <= int(row[2])):
