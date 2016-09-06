@@ -21,7 +21,7 @@ $ pipeline.py -s /path/to/samplesheet.csv -d /path/to/miseq/output/ -o /path/to/
 To deploy the app:
 
 1. cd to the directory with the `manage.py` file.
-2. `$ python manage.py runserver 127.0.0.1:8000/`
+2. `$ python manage.py runserver 127.0.0.1:8000`
 
 `127.0.0.1:8000` is a development server; to deploy on another server replace this with another IP address.
   
