@@ -7,13 +7,21 @@
     <title>FLT3 only results</title>
     <style type="text/css">
         table.w3-table {
-            width: 400px;
+            width: 600px;
+            border-collapse: collapse;
+            border: 1px solid LightGrey;
+        }
+        th, td {
+            border: 1px solid LightGrey;
         }
         p.p2 {
             margin-lefT: 5px;
         }
         h2{
             margin-lefT: 5px;
+        }
+        td.valign {
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -25,27 +33,52 @@
             <a class="w3-btn w3-light-grey" href="/aml/delly/{{ run }}/{{ sample }}">Structural Variants (Delly)</a>
             <button class="w3-btn w3-black">FLT3 only</button>
         </div>
-    {% if list %}
-        <p></p>
-        <br/>
-        <table class="w3-table w3-bordered w3-striped w3-border">
-            <tr>
-                <th>Size</th>
-                <th>Count</th>
-                <th>Total allelic ratio (%)</th>
+        {% if pindel %}
+        <table class="w3-table w3-bordered w3-border">
+            <tr class="w3-light-blue">
+                <th style="text-align: center;">POS</th>
+                <th style="text-align: center;">REF</th>
+                <th style="text-align: center;">ALT</th>
+                <th style="text-align: center;">SIZE</th>
+                <th style="text-align: center;">Total AB</th>
+                <th style="text-align: center;">Runs</th>
+                <th style="text-align: center;">Samples</th>
             </tr>
-            {% for item1, item2, item3 in list %}
+            {% for row in pindel.rows %}
             <tr>
-                <td>{{ item1 }}</td>
-                <td>{{ item3 }}</td>
-                <td>{{ item2 }}</td>
+                <td style="text-align: center;">{{ row.pos }}</td>
+                <td style="text-align: center;">{{ row.ref|truncatechars:9 }}</td>
+                <td style="text-align: center;">{{ row.alt|truncatechars:9 }}</td>
+                {% if row.size|divisibleby:3 %}
+                <td style="text-align: center;"><font color="#006699"><b>{{ row.size }}</b></font></td>
+                {% else %}
+                <td style="text-align: center;">{{ row.size }}</td>
+                {% endif %}
+                {% if row.result_id in no_counts %}
+                {% with counts_d|lookup:row.result_id as count %}
+                <td class="valign" rowspan="{{ count }}" style="text-align: center;">{{ ab|lookup:row.size }}</td>
+                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
+                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
+                {% endwith %}
+                {% elif row.result_id in counts %}
+                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
+                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
+                {% else %}
+                <td style="text-align: center;">{{ ab|lookup:row.size }}</td>
+                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
+                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </table>
+        {% else %}
+        <p>No FLT3 results for this patient.</p>
+        {% endif %}
+
         <p></p>
         <br/>
         <h3>Repeated sequences</h3>
-        {% if var %}
+        {% if counts_d %}
         {% for key, values in d.items %}
             <p class="p2">Size: {{ key }}, Locations: {{ values }}</p>
             <img src="/static/aml/{{ run }}/{{ sample }}/{{ sample }}_{{ key }}.meme.png"/>
@@ -53,8 +86,5 @@
         {% else %}
         <p class="p2">No repeated FLT3 sequences in sample.</p>
         {% endif %}
-    {% else %}
-        <p>No FLT3 results for this patient.</p>
-    {% endif %}
 </body>
 </html>

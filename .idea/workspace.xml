@@ -2,17 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D03-21521_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D13-42537_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-16565.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-16565_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-27112_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-30832_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-33938_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-45300_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-00899_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-02217_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-04183_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-08791_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-08798_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-18331_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-20343_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-21584_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-22373_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-25430_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-26810_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-31492_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-35262_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-41762_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-45066_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-50424_sample_quality.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/excluded_regions.excl.bed" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/.ruffus_history.sqlite" afterPath="$PROJECT_DIR$/aml/.ruffus_history.sqlite" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/AML_variant_frequency.db" afterPath="$PROJECT_DIR$/aml/AML_variant_frequency.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/pipeline.py" afterPath="$PROJECT_DIR$/aml/pipeline.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/nothing.py" afterPath="$PROJECT_DIR$/aml/nothing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/bamstats.html" afterPath="$PROJECT_DIR$/aml/templates/aml/bamstats.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/circos.html" afterPath="$PROJECT_DIR$/aml/templates/aml/circos.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/delly.html" afterPath="$PROJECT_DIR$/aml/templates/aml/delly.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/flt3.html" afterPath="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/results.html" afterPath="$PROJECT_DIR$/aml/templates/aml/results.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/samples.html" afterPath="$PROJECT_DIR$/aml/templates/aml/samples.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/urls.py" afterPath="$PROJECT_DIR$/aml/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/views.py" afterPath="$PROJECT_DIR$/aml/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mypipeline/settings.py" afterPath="$PROJECT_DIR$/mypipeline/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
     </list>
     <ignored path="mypipeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,8 +63,8 @@
       <file leaf-file-name="pipeline.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="573" column="38" selection-start-line="573" selection-start-column="38" selection-end-line="573" selection-end-column="38" />
+            <state relative-caret-position="504">
+              <caret line="47" column="73" selection-start-line="47" selection-start-column="73" selection-end-line="47" selection-end-column="73" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -45,96 +72,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nothing.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/aml/nothing.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.18120806">
-              <caret line="6" column="99" selection-start-line="6" selection-start-column="90" selection-end-line="6" selection-end-column="99" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="results.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8148148">
-              <caret line="44" column="53" selection-start-line="44" selection-start-column="53" selection-end-line="44" selection-end-column="53" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aml/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="94" selection-start-line="19" selection-start-column="94" selection-end-line="19" selection-end-column="94" />
+            <state relative-caret-position="108">
+              <caret line="99" column="113" selection-start-line="99" selection-start-column="113" selection-end-line="99" selection-end-column="113" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nothing.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aml/nothing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="delly.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/templates/aml/delly.html">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aml/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.259259">
-              <caret line="47" column="69" selection-start-line="47" selection-start-column="69" selection-end-line="47" selection-end-column="69" />
+            <state relative-caret-position="1056">
+              <caret line="81" column="58" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circos.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/templates/aml/circos.html">
+      <file leaf-file-name="flt3.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aml/templates/aml/flt3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.4444447">
-              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="link01.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/static/js/link01.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="samples.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/templates/aml/samples.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.740741">
-              <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mypipeline/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="306">
+              <caret line="59" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="7" />
+              <folding>
+                <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#3;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#4;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#5;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#th#6;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#3;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#4;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#5;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#6;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#7;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#8;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#9;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#10;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#11;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#12;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -155,23 +151,30 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/aml/create_sample_quality_pdf.py" />
         <option value="$PROJECT_DIR$/aml/templates/aml/index.html" />
-        <option value="$PROJECT_DIR$/aml/create_interop_pdf.py" />
-        <option value="$PROJECT_DIR$/aml/parse_vcfs.py" />
         <option value="$PROJECT_DIR$/aml/models.py" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/bamstats.html" />
         <option value="$PROJECT_DIR$/mypipeline/settings.py" />
         <option value="$PROJECT_DIR$/aml/static/js/link01.txt" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/circos.html" />
         <option value="$PROJECT_DIR$/aml/static/js/link01.js" />
-        <option value="$PROJECT_DIR$/aml/nothing.py" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/circos.html" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/samples.html" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/bamstats.html" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/fastqc.html" />
         <option value="$PROJECT_DIR$/aml/urls.py" />
         <option value="$PROJECT_DIR$/aml/templates/aml/delly.html" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/results.html" />
-        <option value="$PROJECT_DIR$/aml/views.py" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/samples.html" />
+        <option value="$PROJECT_DIR$/create_pipeline.py" />
+        <option value="$PROJECT_DIR$/aml/parse_vcfs.py" />
+        <option value="$PROJECT_DIR$/aml/run_multiple.py" />
+        <option value="$PROJECT_DIR$/aml/multiple_log.txt" />
+        <option value="$PROJECT_DIR$/aml/create_interop_pdf.py" />
         <option value="$PROJECT_DIR$/aml/pipeline.py" />
+        <option value="$PROJECT_DIR$/aml/create_sample_quality_pdf.py" />
+        <option value="$PROJECT_DIR$/aml/sorting.py" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/results.html" />
+        <option value="$PROJECT_DIR$/aml/02-bbmap-less-rg.sam" />
+        <option value="$PROJECT_DIR$/aml/nothing.py" />
+        <option value="$PROJECT_DIR$/aml/views.py" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
       </list>
     </option>
   </component>
@@ -179,7 +182,26 @@
     <option name="x" value="-1" />
     <option name="y" value="28" />
     <option name="width" value="1922" />
-    <option name="height" value="884" />
+    <option name="height" value="883" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyCompatibilityInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -236,86 +258,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypipeline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aml" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="aml" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -327,14 +269,16 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/aml/static/aml/16053/D15-18331" />
+      <recent name="$PROJECT_DIR$/aml/static/aml/16053/D14-16565/fastqc_R1" />
+      <recent name="$PROJECT_DIR$/aml/static/aml/16053" />
       <recent name="$PROJECT_DIR$/aml/static/aml/160628_merged" />
       <recent name="$PROJECT_DIR$/aml/static/js" />
-      <recent name="$PROJECT_DIR$/aml/static/aml/16053" />
-      <recent name="$PROJECT_DIR$/aml/templates/aml/fastqc/D15-18331" />
-      <recent name="$PROJECT_DIR$/aml/templates/aml/fastqc" />
     </key>
   </component>
   <component name="RunManager" selected="Python.nothing">
@@ -355,6 +299,40 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="run_multiple" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aml" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="mypipeline" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aml/run_multiple.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sorting" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/aml" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="mypipeline" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/aml/sorting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -370,6 +348,18 @@
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="mypipeline" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -477,16 +467,22 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.nothing" />
+      <item index="1" class="java.lang.String" itemvalue="Python.run_multiple" />
+      <item index="2" class="java.lang.String" itemvalue="Python.sorting" />
     </list>
     <recent_temporary>
-      <list size="1">
+      <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.nothing" />
+        <item index="1" class="java.lang.String" itemvalue="Python.sorting" />
+        <item index="2" class="java.lang.String" itemvalue="Python.run_multiple" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -495,32 +491,52 @@
       <changelist id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="" />
       <created>1467024117779</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1467024117779</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="28" width="1922" height="884" extended-state="6" />
+    <frame x="-1" y="28" width="1922" height="883" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2671875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931727" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3424802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281046" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1579652" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931727" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3633987" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281046" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931727" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34509805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22552083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931727" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -534,246 +550,243 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="76" selection-start-line="9" selection-start-column="76" selection-end-line="9" selection-end-column="76" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#35#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/static/js/jquery.js" />
+    <entry file="file://$PROJECT_DIR$/aml/static/js/d3.js" />
+    <entry file="file://$PROJECT_DIR$/aml/static/js/biocircos-1.1.0.js" />
+    <entry file="file://$PROJECT_DIR$/aml/static/js/link01.js" />
     <entry file="file://$PROJECT_DIR$/mypipeline/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="2214">
+          <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/models.py">
+    <entry file="file://$PROJECT_DIR$/aml/rcircos_link.R" />
+    <entry file="file://$PROJECT_DIR$/aml/static/aml/16053/D14-16565.png" />
+    <entry file="file://$PROJECT_DIR$/aml/D14-16565.png" />
+    <entry file="file://$PROJECT_DIR$/aml/D14-16565.txt" />
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="86" selection-start-line="60" selection-start-column="86" selection-end-line="60" selection-end-column="86" />
-          <folding>
-            <marker date="1467207307473" expanded="true" signature="1522:2931" placeholder="..." />
-            <marker date="1467207307473" expanded="true" signature="2907:2931" placeholder="..." />
-          </folding>
+        <state relative-caret-position="198">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/aml/static/aml/16053/D14-16565/bamstats/D14-16565.bam.stats-quals.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/parse_vcfs.py">
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/bamstats.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="134" column="58" selection-start-line="134" selection-start-column="58" selection-end-line="134" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="2232">
+          <caret line="124" column="53" selection-start-line="124" selection-start-column="53" selection-end-line="124" selection-end-column="53" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/templates/aml/samples.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="84" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/create_sample_quality_pdf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="243" column="0" selection-start-line="243" selection-start-column="0" selection-end-line="243" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/create_interop_pdf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3277311">
-          <caret line="38" column="48" selection-start-line="38" selection-start-column="48" selection-end-line="38" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/parse_vcfs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding>
-            <marker date="1467207307473" expanded="true" signature="1522:2931" placeholder="..." />
-            <marker date="1467207307473" expanded="true" signature="2907:2931" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28820962">
-          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/static/js/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/static/js/d3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/static/js/biocircos-1.1.0.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/static/js/link01.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="22" selection-start-line="0" selection-start-column="22" selection-end-line="0" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/circos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.4444447">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="288">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/templates/aml/delly.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.259259">
-          <caret line="47" column="69" selection-start-line="47" selection-start-column="69" selection-end-line="47" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8148148">
-          <caret line="44" column="53" selection-start-line="44" selection-start-column="53" selection-end-line="44" selection-end-column="53" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="94" selection-start-line="19" selection-start-column="94" selection-end-line="19" selection-end-column="94" />
-          <folding />
+        <state relative-caret-position="126">
+          <caret line="52" column="93" selection-start-line="52" selection-start-column="93" selection-end-line="52" selection-end-column="93" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="288">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mypipeline/settings.py">
+    <entry file="file://$PROJECT_DIR$/aml/parse_sample_sheet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="23" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/samples.html">
+    <entry file="file://$PROJECT_DIR$/aml/08-D15-08791-AD-Nextera-Myeloid-Val1-Repeat_S8_L001_.breakdancer_config.txt" />
+    <entry file="file://$PROJECT_DIR$/aml/08-D15-08791-AD-Nextera-Myeloid-Val1-Repeat_S8_L001_.breakdancer_output.sv" />
+    <entry file="file://$PROJECT_DIR$/create_pipeline.py" />
+    <entry file="file://$PROJECT_DIR$/aml/23-D15-02217-LT-Nextera-Myeloid-Val1-Repeat_S23_L001_._BP" />
+    <entry file="file://$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_._INV" />
+    <entry file="file://$PROJECT_DIR$/aml/02-D15-18331-AR-Nextera-Myeloid-Val1-Repeat_S2_L001_.pindel.merged.vcf" />
+    <entry file="file://$PROJECT_DIR$/rcircos_link.R" />
+    <entry file="file://$PROJECT_DIR$/aml/D15-20343.txt" />
+    <entry file="file://$PROJECT_DIR$/aml/07-D03-21521-KT-Nextera-Myeloid-Val1-Repeat_S7_L001_.pindel_config" />
+    <entry file="file://$PROJECT_DIR$/aml/07-D03-21521-KT-Nextera-Myeloid-Val1-Repeat_S7_L001_._BP" />
+    <entry file="file://$PROJECT_DIR$/aml/07-D03-21521-KT-Nextera-Myeloid-Val1-Repeat_S7_L001_._INV" />
+    <entry file="file://$PROJECT_DIR$/aml/run_multiple.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.740741">
-          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
-          <folding />
+        <state relative-caret-position="342">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/02-D15-18331-AR-Nextera-Myeloid-Val1-Repeat_S2_L001_.sorted.bam" />
+    <entry file="file://$PROJECT_DIR$/aml/-" />
+    <entry file="file://$PROJECT_DIR$/aml/static/aml/16053/D15-08798/D15-08798.meme.eps" />
+    <entry file="file://$PROJECT_DIR$/aml/multiple_log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="104" selection-start-line="1" selection-start-column="104" selection-end-line="1" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/fastqc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="43" column="14" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/circos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/160805_qual_bar.png" />
+    <entry file="file://$PROJECT_DIR$/aml/160805_qual_heatmap.png" />
+    <entry file="file:///usr/lib64/python2.7/site-packages/matplotlib/axes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131148">
+          <caret line="7294" column="0" selection-start-line="7294" selection-start-column="0" selection-end-line="7294" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/create_interop_pdf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="31" column="52" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/02-D06-20828-SG-Val2-Enrich3-Run4_S2_L001_sample_quality.tex" />
+    <entry file="file:///usr/lib/python2.7/site-packages/pylatex/document.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1229">
+          <caret line="192" column="0" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/create_sample_quality_pdf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3906">
+          <caret line="220" column="136" selection-start-line="220" selection-start-column="136" selection-end-line="220" selection-end-column="136" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/static/aml/160805/D06-20828/D06-20828.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/sorting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2304">
+          <caret line="128" column="75" selection-start-line="128" selection-start-column="75" selection-end-line="128" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/02-bbmap-less-rg.sam">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1178">
+          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/parse_vcfs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="904">
+          <caret line="86" column="65" selection-start-line="86" selection-start-column="65" selection-end-line="86" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="573" column="38" selection-start-line="573" selection-start-column="38" selection-end-line="573" selection-end-column="38" />
+        <state relative-caret-position="504">
+          <caret line="47" column="73" selection-start-line="47" selection-start-column="73" selection-end-line="47" selection-end-column="73" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/aml/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1056">
+          <caret line="81" column="58" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/aml/nothing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18120806">
-          <caret line="6" column="99" selection-start-line="6" selection-start-column="90" selection-end-line="6" selection-end-column="99" />
+        <state relative-caret-position="274">
+          <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/flt3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="59" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#2;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#3;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#4;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#5;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#th#6;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#4;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#5;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#6;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#7;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#8;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#9;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#10;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#11;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#12;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="99" column="113" selection-start-line="99" selection-start-column="113" selection-end-line="99" selection-end-column="113" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

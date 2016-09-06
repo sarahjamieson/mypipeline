@@ -152,7 +152,7 @@ for item in row:
     d[item.size].append(item.pos)
 for ke, va in d.items():
     print va
-'''
+
 samples = [
     '02-D06-20828-SG-Val2-Enrich3-Run4_S2_L001_',
     '03-D13-25437-PG-Val2-Enrich3-Run4_S3_L001_',
@@ -167,8 +167,61 @@ for sample in samples:
     os.system("mv /home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%ssample_quality.pdf "
               "/home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%s_sample_quality.pdf"
               % (name, name, name, name))
+'''
 
+# to add to view to get sequence in samples and runs
+import difflib
 
+a = 'CTGAGTCGA'
+b = 'TTGAGTCGA'
 
+# seq = difflib.SequenceMatcher(a=a.lower(), b=b.lower())
+# add to new_dict[variant_id] = number of occurrences
 
+sample = 'D15-18331'
+run = '16053'
+row = Results.objects.filter(
+    sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3'
+).order_by('size')
+repeats_dict = dict()
+results_duplicate_sizes = []
+for item in row:
+    total_ab = 0
+    size_count = Results.objects.filter(
+        sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size)
+    if len(size_count) > 1:
+        results_duplicate_sizes.append(item.result_id)
+        print item.result_id, item.size, item.pos
+    for result in size_count:
+        total_ab += result.ab
 
+    wide_search = Results.objects.filter(chrom=item.chrom)
+    run_list = []
+    sample_list = []
+    for result in wide_search:
+        seq = difflib.SequenceMatcher(a=item.alt.lower(), b=result.alt.lower())
+        if seq.ratio() > 0.90 and (item.pos - 60) < result.pos < (item.pos + 60) and item.size == result.size:
+            run_list.append(result.run)
+            sample_list.append(result.sample)
+        else:
+            pass
+    no_of_unique_runs = len(set(run_list))
+    no_of_unique_samples = len(set(sample_list))
+    repeats_dict[item.result_id] = {
+        "Pos": item.pos,
+        "Ref": item.ref,
+        "Alt": item.alt,
+        "Size": item.size,
+        "AB": total_ab,
+        "Runs": no_of_unique_runs,
+        "Samples": no_of_unique_samples
+    }
+counts = []
+counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
+counts_altered = [counts[i] for i in range(0, len(counts), 2)]
+no_counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
+counts_dict = dict()
+counter = 0
+for item in counts_list:
+    counts_dict[item] = counts_altered[counter]
+    counter += 1

@@ -3,6 +3,8 @@ from aml.models import Runs, Results, Samples, PindelTable, DellyTable
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
 import pandas as pd
+from django.template.defaulttags import register
+import difflib
 from collections import defaultdict
 
 
@@ -17,9 +19,33 @@ def get_samples_for_run(request, run):
 
 
 def get_results_for_sample(request, sample, run):
-    pindel = PindelTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel'))
+    gene = None
+    ab_min = None
+    if 'gene_filter' in request.GET:
+        gene = request.GET['gene_filter'].upper()
+    else:
+        pass
+    if 'ab_min' in request.GET:
+        ab_min = request.GET['ab_min']
+    else:
+        pass
+    if gene and ab_min:
+        pindel = PindelTable(Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains=gene, ab__gte=ab_min
+        ))
+    elif gene and not ab_min:
+        pindel = PindelTable(Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains=gene
+        ))
+    elif not gene and ab_min:
+        pindel = PindelTable(Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', ab__gte=ab_min
+        ))
+    else:
+        pindel = PindelTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel'))
+
     RequestConfig(request).configure(pindel)
-    return render(request, 'aml/results.html', {'pindel': pindel, 'sample': sample, 'run': run})
+    return render(request, 'aml/results.html', {'pindel': pindel, 'sample': sample, 'run': run, 'gene': gene})
 
 
 def get_delly_for_sample(request, sample, run):
@@ -57,31 +83,57 @@ def get_sample_quality(request, sample, run):
 
 def get_flt3_only(request, sample, run):
     row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3')
+    pindel = PindelTable(
+        Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3'
+        ).order_by('size', 'pos')
+    )
+    runs_dict = dict()
+    ab_dict = dict()
+    samples_dict = dict()
+    results_duplicate_sizes = []
+    counts = []
     d = defaultdict(list)
-    flt3_sizes = []
-    flt3_abs = []
-    flt3_counts = []
-    flt3_singles = []
     for item in row:
-        if item.size in flt3_sizes:
-            list_index = flt3_sizes.index(item.size)
-            flt3_abs[list_index] = flt3_abs[list_index] + item.ab
-            flt3_counts[list_index] += 1
-            flt3_singles.append(item.size)
-        else:
-            flt3_sizes.append(item.size)
-            flt3_abs.append(item.ab)
-            flt3_counts.append(1)
-    flt3_set = set(flt3_singles)
-    for size in flt3_set:
-        row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel',
-                                     gene__icontains='FLT3', size__icontains=size)
-        for item in row:
+        total_ab = 0
+        size_count = Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size
+        )
+        if len(size_count) > 1:
+            results_duplicate_sizes.append(item.result_id)
+            counts.append(len(size_count))
+        for result in size_count:
+            total_ab += result.ab
+        if len(size_count) > 1:
             d[item.size].append(item.pos)
-    flt3_combined = zip(flt3_sizes, flt3_abs, flt3_counts)
-    var = bool(d)
-    return render(request, 'aml/flt3.html', {'list': flt3_combined, 'sample': sample, 'run': run, 'd': dict(d),
-                                             'var': var})
+        ab_dict[item.size] = total_ab
+
+        wide_search = Results.objects.filter(chrom=item.chrom)
+        run_list = []
+        sample_list = []
+        for result in wide_search:
+            seq = difflib.SequenceMatcher(a=item.alt.lower(), b=result.alt.lower())
+            if seq.ratio() > 0.90 and (item.pos - 60) < result.pos < (item.pos + 60) and item.size == result.size:
+                run_list.append(result.run)
+                sample_list.append(result.sample)
+            else:
+                pass
+        no_of_unique_runs = len(set(run_list))
+        no_of_unique_samples = len(set(sample_list))
+        runs_dict[item.result_id] = no_of_unique_runs
+        samples_dict[item.result_id] = no_of_unique_samples
+
+    counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
+    no_counts_list = [results_duplicate_sizes[i] for i in range(1, len(results_duplicate_sizes), 2)]
+    counts_altered = [counts[i] for i in range(0, len(counts), 2)]
+    counts_dict = dict()
+    counter = 0
+    for item in no_counts_list:
+        counts_dict[item] = counts_altered[counter]
+        counter += 1
+    return render(request, 'aml/flt3.html', {'sample': sample, 'run': run, 'pindel': pindel, 'runs': runs_dict,
+                                             'samples': samples_dict, 'ab': ab_dict, 'counts': counts_list,
+                                             'no_counts': no_counts_list, 'counts_d': counts_dict, 'd': dict(d)})
 
 
 def get_fastqc(request, sample, run):
@@ -175,3 +227,8 @@ def get_bamstat_scores(infile):
     bamstats_list.append(error_rate)
 
     return bamstats_list
+
+
+@register.filter
+def lookup(dictionary, key):
+    return dictionary.get(key)

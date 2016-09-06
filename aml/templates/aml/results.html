@@ -45,9 +45,19 @@
         <div class="w3-btn-bar w3-show-inline-block">
             <button class="w3-btn w3-black">Indels (Pindel)</button>
             <a class="w3-btn w3-light-grey" href="/aml/delly/{{ run }}/{{ sample }}">Structural Variants (Delly)</a>
+            <a class="w3-btn w3-light-grey" href="/aml/{{ run }}/{{ sample }}/FLT3">FLT3 only</a>
         </div>
         {% if pindel %}
         <div class="table-container" style="overflow-x:auto;">
+        <p>Filter results by gene and/or allelic ratio (AB).</p>
+        <form action="" method="get">
+            <input type="text" name="gene_filter" placeholder="Gene...">
+            <br/>
+            <input type="text" name="ab_min" placeholder="Minimum AB...">
+            <input type="submit" value="Filter">
+            <br/>
+            <p></p>
+        </form>
         <table class="w3-table w3-bordered w3-striped w3-border">
                 <tr class="w3-light-blue">
                     {% for column in pindel.columns %}

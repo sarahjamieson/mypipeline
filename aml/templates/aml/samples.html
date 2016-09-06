@@ -22,7 +22,8 @@
                 </button>
                 <div id="{{ sample.sample }}" class="w3-accordion-content w3-container">
                     <a href="/aml/results/{{ sample.run }}/{{ sample.sample }}"><i class="fa fa-chevron-right"></i>  View results</a>
-                    <a href="/aml/quality/{{ sample.run }}/{{ sample.sample }}"><i class="fa fa-chevron-right"></i>  View sample quality</a>
+                    <a href="/aml/{{ sample.run }}/{{ sample.sample }}/fastqc"><i class="fa fa-chevron-right"></i>  View FastQC report</a>
+                    <a href="/aml/{{ sample.run }}/{{ sample.sample }}/bamstats"><i class="fa fa-chevron-right"></i>  View BAMStats report</a>
                 </div>
             </div>
             <script>

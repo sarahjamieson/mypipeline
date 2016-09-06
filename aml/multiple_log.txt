@@ -1,0 +1,2 @@
+2016-08-01T09:36:46.259269: Starting sensitivity 0.91.2016-08-01T11:54:10.849524: Ending sensitivity 91.
+2016-08-01T11:54:10.849585: Starting sensitivity 0.90.2016-08-01T22:27:36.362974: Ending sensitivity 90.

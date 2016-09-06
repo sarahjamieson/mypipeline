@@ -2,9 +2,160 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>BAMStats Report</title>
+    <style>
+                .thumbnail
+                {
+                    text-decoration:none;
+                    color:black;
+                    font-weight:bold;
+                }
+                .thumbnail span  /*CSS for enlarged image*/
+                {
+                    visibility: hidden;
+                    position: absolute;
+                    padding: 5px;
+                    border: 1px solid #000;
+                    background-color: #e5e5e5;
+                }
+                .thumbnail:hover span  /*CSS for enlarged image on hover*/
+                {
+                    visibility: visible;
+                    left: 550px;
+                    top: 10px;
+                }
+                .imgs td
+                {
+                    vertical-align:middle;
+                    padding: 0.5em;
+                    border: 1px solid black;
+                }
+                table.imgs
+                {
+                    border-collapse:collapse;
+                    margin-left:20px;
+                }
+                .nums th
+                {
+                    text-align: left;
+                }
+                table.nums
+                {
+                    margin-top: 1em;
+                    margin-left:20px;
+                    border: 1px dotted #83A4C3;
+                    background-color: #F5F5F5;
+                    padding: 0.5em;
+                }
+                .pad { padding-left:1em; vertical-align:top; }
+                .right { text-align:right; padding-left:1em; }
+                a.LinkButton {
+                    border-style: solid;
+                    border-width: 1px 1px 1px 1px;
+                    text-decoration: none;
+                    padding: 6px;
+                    border-color: #3964c3;
+                    border-radius: 24px;
+                    background-color: #3964c3;
+                    color: #ffffff;
+                }
+            </style>
 </head>
 <body>
+    <p style="text-align:right;"><a href="/aml/"><i class="fa fa-home" style="color:black; font-size: 2.5em"  ></i></a></p>
+    <div style="margin:10px;">
+        <h1 style="font-family:'Segoe UI'; font-weight:400; font-size:35px;">Sample: {{ sample }}</h1>
+        <a href="/aml/quality/{{ run }}/{{ sample }}" class="LinkButton">
+            <i class="fa fa-file-pdf-o"></i>   <font style="font-family:'Segoe UI'">Download full quality results</font>
+        </a>
+    </div>
+    <p></p>
+    <br/>
+    <table class="imgs">
+    <tr>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-insert-size.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-insert-size.png" width="150px">
+                <span>Insert size<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-insert-size.png"></span>
+            </a>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-content.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-content.png" width="150px">
+                <span>GC content<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-content.png"></span>
+            </a>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-acgt-cycles.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-acgt-cycles.png" width="150px">
+                <span>Per-base sequence content<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-acgt-cycles.png"></span>
+            </a>
+    </tr>
+    <tr>
+        <td>
+            <td>
+                <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals.png">
+                    <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals.png" width="150px">
+                    <span>Quality per cycle<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals.png"></span>
+                </a>
+            <td>
+                <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals2.png">
+                    <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals2.png" width="150px">
+                    <span>Quality per cycle<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals2.png"></span>
+                </a>
+    </tr>
+    <tr>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals3.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals3.png" width="150px">
+                <span>Quality per cycle<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals3.png"></span>
+            </a>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals-hm.png">
+            <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals-hm.png" width="150px">
+                <span>Quality per cycle<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-quals-hm.png"></span>
+            </a>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-cycles.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-cycles.png" width="150px">
+                <span>Indels per cycle<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-cycles.png"></span>
+            </a>
+    </tr>
+    <tr>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-dist.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-dist.png" width="150px">
+                <span>Indel lengths<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-indel-dist.png"></span>
+            </a>
+        <td>
+            <a class="thumbnail" href="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-depth.png">
+                <img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-depth.png" width="150px">
+                <span>Mapped depth vs GC<br><img src="/static/aml/{{ run }}/{{ sample }}/bamstats/{{ sample }}.bam.stats-gc-depth.png"></span>
+            </a>
+    </table>
 
+
+
+        <table class="nums">
+            <tr><th>Reads</tr>
+            <tr>
+                <td class="pad"><table>
+                <tr><td>total:       <td class="right"> {{ bamstats_list.0 }}     <td class="right"></tr>
+                <tr><td>filtered:    <td class="right"> {{ bamstats_list.1 }} <td class="right"> ({{ bamstats_list.2 }}%)</tr>
+                <tr><td>non-primary: <td class="right"> {{ bamstats_list.3 }} <td class="right"> </tr>
+                <tr><td>duplicated:  <td class="right"> {{ bamstats_list.4 }}      <td class="right"> ({{ bamstats_list.5 }}%)</tr>
+                <tr><td>mapped:      <td class="right"> {{ bamstats_list.6 }}   <td class="right"> ({{ bamstats_list.7 }}%)</tr>
+                <tr><td>zero MQ:     <td class="right"> {{ bamstats_list.8 }}      <td class="right"> ({{ bamstats_list.9 }}%)</tr>
+                <tr><td>avg read length: <td class="right"> {{ bamstats_list.10 }}    <td class="right"></tr>
+
+                </table></tr>
+
+            <tr><th>Bases</tr>
+            <tr>
+                <td class="pad"><table>
+                <tr><td>total:       <td class="right"> {{ bamstats_list.11 }}    <td class="right"> ({{ bamstats_list.12 }}%)</tr>
+                <tr><td>mapped:      <td class="right"> {{ bamstats_list.13 }}  <td class="right"></tr>
+                <tr><td>error rate:      <td class="right"> {{ bamstats_list.14 }}%  <td class="right"></tr>
+                </table></tr>
+        </table>
 </body>
 </html>

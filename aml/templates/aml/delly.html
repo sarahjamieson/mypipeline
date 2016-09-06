@@ -38,6 +38,9 @@
         .caller {
             display: none;
         }
+        .w3-check.check1 {
+            visibility: visible;
+        }
     </style>
 
 </head>
@@ -47,18 +50,19 @@
     <div class="w3-btn-bar w3-show-inline-block">
         <a class="w3-btn w3-light-grey" href="/aml/results/{{ run }}/{{ sample }}">Indels (Pindel)</a>
         <button class="w3-btn w3-black">Structural Variants (Delly)</button>
+        <a class="w3-btn w3-light-grey" href="/aml/{{ run }}/{{ sample }}/FLT3">FLT3 only</a>
     </div>
         {% if delly %}
         <div class="basic" align="center">
-            {% if var %}
-                {% include "aml/circos.html" with run=run sample=sample %}
-            {% else %}
-                <p>No Precise results.</p>
-            {% endif %}
+            {% include "aml/circos.html" with run=run sample=sample variant=variant%}
         </div>
+        <form id="delly_form" method="post">
+        {% csrf_token %}
         <div class="table-container" style="overflow-x:auto;">
+        <p>*Note:- some variants may overlap on the circos plot</p>
         <table class="w3-table w3-bordered w3-striped w3-border">
                 <tr class="w3-light-blue">
+                    <th></th>
                     {% for column in delly.columns %}
                     <th><a href="{% querystring delly.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a></th>
                     {% endfor %}
@@ -66,6 +70,13 @@
 
                     {% for row in delly.rows %}
                         <tr>
+                            <td>
+                                {% for key, value in color_dict.items %}
+                                    {% if key == row.result_id %}
+                                        <font color="{{ value }}">—</font>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
                             {% for column, cell in row.items %}
                                 <td>
                                     <label>
@@ -82,6 +93,7 @@
 
         </table>
         </div>
+        </form>
         {% else %}
         <p>No results available.</p>
         {% endif %}
