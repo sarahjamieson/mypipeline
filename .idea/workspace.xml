@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/nothing.py" afterPath="$PROJECT_DIR$/aml/nothing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/pipeline.py" afterPath="$PROJECT_DIR$/aml/pipeline.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/sorting.py" afterPath="$PROJECT_DIR$/aml/sorting.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/views.py" afterPath="$PROJECT_DIR$/aml/views.py" />
-    </list>
+    <list default="true" id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="" />
     <ignored path="mypipeline.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pipeline.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pipeline.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="508" column="85" selection-start-line="508" selection-start-column="85" selection-end-line="508" selection-end-column="85" />
+            <state relative-caret-position="396">
+              <caret line="46" column="67" selection-start-line="46" selection-start-column="67" selection-end-line="46" selection-end-column="67" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -49,7 +43,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
@@ -691,16 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="508" column="85" selection-start-line="508" selection-start-column="85" selection-end-line="508" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aml/sorting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -784,6 +768,16 @@
           <caret line="102" column="9" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="46" column="67" selection-start-line="46" selection-start-column="67" selection-end-line="46" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
