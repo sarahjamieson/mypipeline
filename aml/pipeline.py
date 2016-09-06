@@ -66,7 +66,7 @@ bcftools = '/opt/programs/samtools/bcftools-1.3.1/bcftools'
 # 3) Make new directory for results in user-inputted output directory.
 # ----------------------------------------------------------------------------------------------------------------------
 script_dir = os.path.dirname(os.path.abspath(__file__))
-# os.system("cp %s/Data/Intensities/BaseCalls/*.fastq.gz %s/" % (args.result_dir, script_dir))
+os.system("cp %s/Data/Intensities/BaseCalls/*.fastq.gz %s/" % (args.result_dir, script_dir))
 parse_sheet = ParseSampleSheet(args.sample_sheet)
 run_dict, sample_dict = parse_sheet.parse_sample_sheet()
 worksheet = run_dict.get('worksheet')
@@ -551,10 +551,11 @@ def vcf_to_excel(infile, outfile):
                 func_mod = func
             region = info_dict.get("Region")
             if caller == 'Delly':
+                if color_no > 9:
+                    color_no = 0
                 if prec == 'PRECISE':
                     rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos, colors[color_no]))
                     color_no += 1
-
                 output_df = pd.DataFrame([[worksheet, sample_name[3:12:], caller, chrom, pos, ref, alt, chr2,
                                            end_pos, region, sv_type, size, gt, total_reads, ad_str, ab, gene_mod,
                                            func_mod, exonic_func_mod, freq, allele_freq, prec]], columns=col_list)
@@ -587,6 +588,7 @@ def vcf_to_excel(infile, outfile):
     annovar_df.to_sql("Results", con=con, if_exists='append', index=False)
     con.commit()
 
-    sort_pipeline_data(script_dir, worksheet, sample_name, args.output_dir)
+    static_dir = "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML"
+    sort_pipeline_data(script_dir, static_dir, worksheet, sample_name, args.output_dir)
 
 pipeline_run()

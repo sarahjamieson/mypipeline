@@ -2,44 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D03-21521_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D13-42537_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-16565.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-16565_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-27112_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-30832_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-33938_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D14-45300_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-00899_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-02217_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-04183_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-08791_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-08798_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-18331_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-20343_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-21584_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-22373_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-25430_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-26810_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-31492_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-35262_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-41762_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-45066_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/aml/static/aml/16053/D15-50424_sample_quality.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/excluded_regions.excl.bed" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/.ruffus_history.sqlite" afterPath="$PROJECT_DIR$/aml/.ruffus_history.sqlite" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/AML_variant_frequency.db" afterPath="$PROJECT_DIR$/aml/AML_variant_frequency.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/nothing.py" afterPath="$PROJECT_DIR$/aml/nothing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/bamstats.html" afterPath="$PROJECT_DIR$/aml/templates/aml/bamstats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/circos.html" afterPath="$PROJECT_DIR$/aml/templates/aml/circos.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/delly.html" afterPath="$PROJECT_DIR$/aml/templates/aml/delly.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/flt3.html" afterPath="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/results.html" afterPath="$PROJECT_DIR$/aml/templates/aml/results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/samples.html" afterPath="$PROJECT_DIR$/aml/templates/aml/samples.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/pipeline.py" afterPath="$PROJECT_DIR$/aml/pipeline.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/sorting.py" afterPath="$PROJECT_DIR$/aml/sorting.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/views.py" afterPath="$PROJECT_DIR$/aml/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
     </list>
     <ignored path="mypipeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,8 +30,8 @@
       <file leaf-file-name="pipeline.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="47" column="73" selection-start-line="47" selection-start-column="73" selection-end-line="47" selection-end-column="73" />
+            <state relative-caret-position="120">
+              <caret line="508" column="85" selection-start-line="508" selection-start-column="85" selection-end-line="508" selection-end-column="85" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -72,11 +39,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="sorting.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aml/sorting.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="354">
+              <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aml/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="99" column="113" selection-start-line="99" selection-start-column="113" selection-end-line="99" selection-end-column="113" />
+            <state relative-caret-position="54">
+              <caret line="102" column="9" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -87,8 +64,8 @@
       <file leaf-file-name="nothing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/nothing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
+            <state relative-caret-position="302">
+              <caret line="197" column="168" selection-start-line="197" selection-start-column="145" selection-end-line="197" selection-end-column="170" />
               <folding />
             </state>
           </provider>
@@ -97,7 +74,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
+            <state relative-caret-position="418">
               <caret line="81" column="58" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
               <folding />
             </state>
@@ -107,8 +84,8 @@
       <file leaf-file-name="flt3.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/templates/aml/flt3.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="59" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="7" />
+            <state relative-caret-position="324">
+              <caret line="42" column="61" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -167,14 +144,14 @@
         <option value="$PROJECT_DIR$/aml/run_multiple.py" />
         <option value="$PROJECT_DIR$/aml/multiple_log.txt" />
         <option value="$PROJECT_DIR$/aml/create_interop_pdf.py" />
-        <option value="$PROJECT_DIR$/aml/pipeline.py" />
         <option value="$PROJECT_DIR$/aml/create_sample_quality_pdf.py" />
-        <option value="$PROJECT_DIR$/aml/sorting.py" />
         <option value="$PROJECT_DIR$/aml/templates/aml/results.html" />
         <option value="$PROJECT_DIR$/aml/02-bbmap-less-rg.sam" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
+        <option value="$PROJECT_DIR$/aml/sorting.py" />
+        <option value="$PROJECT_DIR$/aml/pipeline.py" />
         <option value="$PROJECT_DIR$/aml/nothing.py" />
         <option value="$PROJECT_DIR$/aml/views.py" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
       </list>
     </option>
   </component>
@@ -228,8 +205,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -264,6 +239,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -498,14 +475,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="28" width="1922" height="883" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2671875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281046" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3633987" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3633987" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -556,9 +533,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/aml/static/js/jquery.js" />
-    <entry file="file://$PROJECT_DIR$/aml/static/js/d3.js" />
-    <entry file="file://$PROJECT_DIR$/aml/static/js/biocircos-1.1.0.js" />
     <entry file="file://$PROJECT_DIR$/aml/static/js/link01.js" />
     <entry file="file://$PROJECT_DIR$/mypipeline/settings.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -696,13 +670,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/sorting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2304">
-          <caret line="128" column="75" selection-start-line="128" selection-start-column="75" selection-end-line="128" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aml/02-bbmap-less-rg.sam">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1178">
@@ -717,44 +684,75 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="47" column="73" selection-start-line="47" selection-start-column="73" selection-end-line="47" selection-end-column="73" />
+        <state relative-caret-position="120">
+          <caret line="508" column="85" selection-start-line="508" selection-start-column="85" selection-end-line="508" selection-end-column="85" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/models.py">
+    <entry file="file://$PROJECT_DIR$/aml/sorting.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="81" column="58" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
+        <state relative-caret-position="354">
+          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/results.html">
+    <entry file="file://$PROJECT_DIR$/aml/D15-18331_42.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/D15-18331_81.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/D15-18331_45.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/nothing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="221" column="61" selection-start-line="221" selection-start-column="61" selection-end-line="221" selection-end-column="61" />
+        <state relative-caret-position="302">
+          <caret line="197" column="168" selection-start-line="197" selection-start-column="145" selection-end-line="197" selection-end-column="170" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="81" column="58" selection-start-line="81" selection-start-column="58" selection-end-line="81" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/templates/aml/flt3.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="59" column="57" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="7" />
+        <state relative-caret-position="324">
+          <caret line="42" column="61" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#th#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#th#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -782,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aml/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="99" column="113" selection-start-line="99" selection-start-column="113" selection-end-line="99" selection-end-column="113" />
+        <state relative-caret-position="54">
+          <caret line="102" column="9" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

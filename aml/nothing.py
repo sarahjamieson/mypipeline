@@ -177,51 +177,27 @@ b = 'TTGAGTCGA'
 
 # seq = difflib.SequenceMatcher(a=a.lower(), b=b.lower())
 # add to new_dict[variant_id] = number of occurrences
-
+meme = "/home/shjn/meme/bin/meme"
 sample = 'D15-18331'
 run = '16053'
-row = Results.objects.filter(
-    sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3'
-).order_by('size')
-repeats_dict = dict()
-results_duplicate_sizes = []
+row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3')
+seq_length = 0
 for item in row:
-    total_ab = 0
     size_count = Results.objects.filter(
-        sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size)
+        sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size
+    )
     if len(size_count) > 1:
-        results_duplicate_sizes.append(item.result_id)
-        print item.result_id, item.size, item.pos
-    for result in size_count:
-        total_ab += result.ab
+        with open("D15-18331_%s.txt" % item.size, "w+") as seq_file:
+            for result in size_count:
+                seq_file.write(">chr13:%s\n" % result.pos)
+                seq_file.write("%s\n" % result.alt)
+                seq_length = len(result.alt)
+        seq_file.close()
+        os.system("%s D15-18331_%s.txt -dna -mod oops -w %s" % (meme, item.size, seq_length))
+        os.system(
+            "cp /home/shjn/PycharmProjects/mypipeline/aml/meme_out/logo1.png /media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
+            % (run, sample, sample, item.size)
+        )
+    else:
+        pass
 
-    wide_search = Results.objects.filter(chrom=item.chrom)
-    run_list = []
-    sample_list = []
-    for result in wide_search:
-        seq = difflib.SequenceMatcher(a=item.alt.lower(), b=result.alt.lower())
-        if seq.ratio() > 0.90 and (item.pos - 60) < result.pos < (item.pos + 60) and item.size == result.size:
-            run_list.append(result.run)
-            sample_list.append(result.sample)
-        else:
-            pass
-    no_of_unique_runs = len(set(run_list))
-    no_of_unique_samples = len(set(sample_list))
-    repeats_dict[item.result_id] = {
-        "Pos": item.pos,
-        "Ref": item.ref,
-        "Alt": item.alt,
-        "Size": item.size,
-        "AB": total_ab,
-        "Runs": no_of_unique_runs,
-        "Samples": no_of_unique_samples
-    }
-counts = []
-counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
-counts_altered = [counts[i] for i in range(0, len(counts), 2)]
-no_counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
-counts_dict = dict()
-counter = 0
-for item in counts_list:
-    counts_dict[item] = counts_altered[counter]
-    counter += 1

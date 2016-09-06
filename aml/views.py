@@ -6,6 +6,7 @@ import pandas as pd
 from django.template.defaulttags import register
 import difflib
 from collections import defaultdict
+import os
 
 
 def index(request):
@@ -94,20 +95,30 @@ def get_flt3_only(request, sample, run):
     results_duplicate_sizes = []
     counts = []
     d = defaultdict(list)
+    seq_length = 0
     for item in row:
         total_ab = 0
         size_count = Results.objects.filter(
             sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size
         )
         if len(size_count) > 1:
+            d[item.size].append(item.pos)
             results_duplicate_sizes.append(item.result_id)
             counts.append(len(size_count))
-        for result in size_count:
-            total_ab += result.ab
-        if len(size_count) > 1:
-            d[item.size].append(item.pos)
+            filename = "%s_%s.txt" % (sample, item.size)
+            with open("%s" % filename, "w+") as seq_file:
+                for result in size_count:
+                    total_ab += result.ab
+                    seq_file.write(">chr13:%s\n" % result.pos)
+                    seq_file.write("%s\n" % result.alt)
+                    seq_length = len(result.alt)
+            seq_file.close()
+            os.system("/home/shjn/meme/bin/meme %s -dna -mod oops -w %s" % (filename, seq_length))
+            os.system("cp /home/shjn/PycharmProjects/mypipeline/aml/meme_out/logo1.png "
+                      "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
+                      % (run, sample, sample, item.size))
+            os.system("rm %s" % filename)
         ab_dict[item.size] = total_ab
-
         wide_search = Results.objects.filter(chrom=item.chrom)
         run_list = []
         sample_list = []
