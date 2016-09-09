@@ -169,35 +169,10 @@ for sample in samples:
               % (name, name, name, name))
 '''
 
-# to add to view to get sequence in samples and runs
-import difflib
 
-a = 'CTGAGTCGA'
-b = 'TTGAGTCGA'
 
-# seq = difflib.SequenceMatcher(a=a.lower(), b=b.lower())
-# add to new_dict[variant_id] = number of occurrences
-meme = "/home/shjn/meme/bin/meme"
-sample = 'D15-18331'
-run = '16053'
-row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3')
-seq_length = 0
-for item in row:
-    size_count = Results.objects.filter(
-        sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size
-    )
-    if len(size_count) > 1:
-        with open("D15-18331_%s.txt" % item.size, "w+") as seq_file:
-            for result in size_count:
-                seq_file.write(">chr13:%s\n" % result.pos)
-                seq_file.write("%s\n" % result.alt)
-                seq_length = len(result.alt)
-        seq_file.close()
-        os.system("%s D15-18331_%s.txt -dna -mod oops -w %s" % (meme, item.size, seq_length))
-        os.system(
-            "cp /home/shjn/PycharmProjects/mypipeline/aml/meme_out/logo1.png /media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
-            % (run, sample, sample, item.size)
-        )
-    else:
-        pass
+
+
+
+
 
