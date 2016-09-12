@@ -1,6 +1,28 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="14">
+            <item index="0" class="java.lang.String" itemvalue="samblaster" />
+            <item index="1" class="java.lang.String" itemvalue="python" />
+            <item index="2" class="java.lang.String" itemvalue="breakdancer" />
+            <item index="3" class="java.lang.String" itemvalue="sqlite" />
+            <item index="4" class="java.lang.String" itemvalue="samtools" />
+            <item index="5" class="java.lang.String" itemvalue="delly" />
+            <item index="6" class="java.lang.String" itemvalue="texlive" />
+            <item index="7" class="java.lang.String" itemvalue="bwa" />
+            <item index="8" class="java.lang.String" itemvalue="pindel" />
+            <item index="9" class="java.lang.String" itemvalue="R" />
+            <item index="10" class="java.lang.String" itemvalue="fastqc" />
+            <item index="11" class="java.lang.String" itemvalue="bcftools" />
+            <item index="12" class="java.lang.String" itemvalue="Trimmomatic" />
+            <item index="13" class="java.lang.String" itemvalue="RCircos" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
     <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>

@@ -254,7 +254,7 @@ def run_pindel(infile, outfile, pindel_prefix):
               "-T 2 "  # number of threads
               "-w 50 "  # window size
               "-x 4 "  # maximum size of SVs to detect, 4 = 8092    why 4???
-              "--sensitivity 0.96 "
+              "--sensitivity 0.95 "
               "-v 6 "  # minimum inversion size in bases     why 6???
               "-e 0.01 "  # expected sequencing error rate
               "--report_breakpoints TRUE "

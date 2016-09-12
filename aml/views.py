@@ -59,6 +59,10 @@ def get_delly_for_sample(request, sample, run):
     if request.method == 'POST':
         variant = request.POST.get('var')
     for item in row:
+        if color_no > 9:
+            color_no = 0
+        else:
+            color_no = color_no
         color_dict[item.result_id] = colors[color_no]
         color_no += 1
     RequestConfig(request).configure(delly)
