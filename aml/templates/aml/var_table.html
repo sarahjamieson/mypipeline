@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Example variants</title>
+    <style type="text/css">
+        th, td {
+            border: 1px solid white;
+            text-align: center;
+            overflow: hidden;
+        }
+        table {
+            border-collapse: collapse;
+            border: 1px solid white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Polyphen example</h1>
+    <p>Select row to get polyphen result (may take a few minutes).</p>
+
+    <table class="w3-table w3-bordered w3-striped w3-border w3-centered">
+        <tr class="w3-light-blue">
+            <th>Chrom</th>
+            <th>Pos</th>
+            <th>Ref</th>
+            <th>Alt</th>
+            <th></th>
+        </tr>
+        {% for var in var_table %}
+        <tr>
+            <td>{{ var.chrom }}</td>
+            <td>{{ var.pos }}</td>
+            <td>{{ var.ref }}</td>
+            <td>{{ var.alt }}</td>
+            <td>
+                <a href="/aml/polyphen/{{ var.result_id }}">Calculate PolyPhen-2 score</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</body>
+</html>

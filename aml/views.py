@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from aml.models import Runs, Results, Samples, PindelTable, DellyTable
+from aml.models import Runs, Results, Samples, PindelTable, DellyTable, Variants, VariantTable
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
 import pandas as pd
@@ -242,6 +242,16 @@ def get_bamstat_scores(infile):
     bamstats_list.append(error_rate)
 
     return bamstats_list
+
+
+def view_variants(request):
+    variants = Variants.objects.all()
+    return render(request, 'aml/var_table.html', {'var_table': variants})
+
+
+def view_polyphen(request, result_id):
+    variants = Variants.objects.filter(result_id=result_id)
+
 
 
 @register.filter

@@ -10,9 +10,9 @@ from illuminate import InteropTileMetrics, InteropControlMetrics, InteropErrorMe
     InteropIndexMetrics, InteropQualityMetrics, InteropCorrectedIntensityMetrics
 from create_interop_pdf import CreatePDF
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mypipeline.settings'
-django.setup()
-from aml.models import Results
+# os.environ['DJANGO_SETTINGS_MODULE'] = 'mypipeline.settings'
+# django.setup()
+# from aml.models import Results
 import datetime
 import matplotlib.pyplot as plt
 import glob
@@ -168,11 +168,29 @@ for sample in samples:
               "/home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%s_sample_quality.pdf"
               % (name, name, name, name))
 '''
+from bs4 import BeautifulSoup
+import re
+import requests
+import pandas as pd
+import urllib2
 
+# write chrom location and new base into file
+# run curl polyphen-2 for humdiv and humvar and save to two different output files
 
+html_doc = open("output.txt", "r")
+soup = BeautifulSoup(html_doc, 'html.parser')
+session_id = None
 
+f = file("output.txt").read()
+for word in f.split():
+    if re.match("polyphenweb2=.{40,};", word):
+        session_id = word[13:53]
+print session_id
 
+url = "http://genetics.bwh.harvard.edu/ggi/pph2/%s/1/pph2-short.txt" % session_id
 
-
-
-
+opener = urllib2.build_opener()
+opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+response = opener.open(url)
+new_df = pd.read_table(response.read())
+print new_df

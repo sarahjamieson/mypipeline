@@ -34,6 +34,29 @@ class Results(models.Model):
         db_table = 'Results'
 
 
+class Variants(models.Model):
+    result_id = models.AutoField(primary_key=True, unique=True)
+    chrom = models.CharField(max_length=6, default='00')
+    pos = models.IntegerField(default=0)
+    ref = models.CharField(max_length=300, default='.')
+    alt = models.CharField(max_length=300, default='.')
+
+    class Meta:
+        app_label = 'aml'
+        db_table = 'Variants'
+
+
+class VariantTable(table.Table):
+    result_id = table.Column(visible=False)
+    chrom = table.Column(verbose_name="CHROM", default='')
+    pos = table.Column(verbose_name="POS", default='')
+    ref = table.Column(verbose_name="REF", default='')
+    alt = table.Column(verbose_name="ALT", default='')
+
+    class Meta:
+        model = Variants
+
+
 class PindelTable(table.Table):
     result_id = table.Column(visible=False)
     run = table.Column(visible=False)
