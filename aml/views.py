@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from aml.models import Runs, Results, Samples, PindelTable, DellyTable, Variants, VariantTable
+from aml.models import Runs, Results, Samples, PindelTable, DellyTable, Variants
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
 import pandas as pd
@@ -7,6 +7,8 @@ from django.template.defaulttags import register
 import difflib
 from collections import defaultdict
 import os
+import polyphen
+import time
 
 
 def index(request):
@@ -251,7 +253,18 @@ def view_variants(request):
 
 def view_polyphen(request, result_id):
     variants = Variants.objects.filter(result_id=result_id)
+    div_dict = {}
+    var_dict = {}
+    for item in variants:
+        filename = polyphen.create_polyphen_input(item.chrom, item.pos, item.ref, item.alt)
+        humdiv, humvar = polyphen.run_polyphen(filename)
+        time.sleep(30)
+        div_dict = polyphen.get_polyphen_results(humdiv)
+        var_dict = polyphen.get_polyphen_results(humvar)
+    polyphen.get_polyphen_colormap(div_dict.get('prob_score'), 'humdiv')
+    polyphen.get_polyphen_colormap(var_dict.get('prob_score'), 'humvar')
 
+    return render(request, 'aml/polyphen.html', {'div_dict': div_dict, 'var_dict': var_dict})
 
 
 @register.filter

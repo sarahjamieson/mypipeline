@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Polyphen-2 Results</title>
+    <style type="text/css">
+        th, td {
+            border: 1px solid white;
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            border: 1px solid white;
+            text-align: center;
+            width: 200px;
+        }
+        img {
+            clip: rect(0px,0px,200px,2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Polyphen results</h1>
+    <table class="w3-table w3-bordered w3-striped w3-border w3-centered">
+        <tr class="w3-light-blue">
+            <td>Protein Acc</td>
+            <td>Position</td>
+            <td>AA1</td>
+            <td>AA2</td>
+        </tr>
+        <tr>
+            <td>{{ div_dict|lookup:'up_acc' }}</td>
+            <td>{{ div_dict|lookup:'aa1' }}</td>
+            <td>{{ div_dict|lookup:'pos' }}</td>
+            <td>{{ div_dict|lookup:'aa2' }}</td>
+        </tr>
+    </table>
+    <h2>HumDiv</h2>
+    <p>This mutation is predicted to be {{ div_dict|lookup:'pred' }} with a score of <b>{{ div_dict|lookup:'prob_score' }}</b>
+    (sensivity: <b>{{ div_dict|lookup:'sens' }}</b>; specificity: <b>{{ div_dict|lookup:'spec' }}</b>).</p>
+    <img src="/static/aml/humdiv_{{ div_dict|lookup:'prob_score' }}.png"/>
+    <h2>HumVar</h2>
+    <p>This mutation is predicted to be {{ var_dict|lookup:'pred' }} with a score of <b>{{ var_dict|lookup:'prob_score' }}</b>
+    (sensivity: <b>{{ var_dict|lookup:'sens' }}</b>; specificity: <b>{{ var_dict|lookup:'spec' }}</b>).</p>
+    <img src="/static/aml/humvar_{{ var_dict|lookup:'prob_score' }}.png"/>
+
+</body>
+</html>

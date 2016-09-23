@@ -1,0 +1,7 @@
+#o_acc               	 o_pos	o_aa1	o_aa2	rsid      	acc       	   pos	aa1	aa2	        prediction	 pph2_prob	  pph2_FPR	  pph2_TPR
+P51587              	    25	    G	    R	         ?	P51587    	    25	  G	  R	 probably damaging	     0.999	   0.00759	    0.0901	# chr13:32893219|GA|uc001uub.1+|BRCA2|NP_000050
+## Sources:
+##   Predictions: PolyPhen-2 v2.2.2r398
+##   Sequences:   UniProtKB/UniRef100 Release 2011_12 (14-Dec-2011)
+##   Structures:  PDB/DSSP Snapshot 03-Jan-2012 (78304 Structures)
+##   Genes:       UCSC MultiZ46Way GRCh37/hg19 (08-Oct-2009)
