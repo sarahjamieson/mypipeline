@@ -33,7 +33,7 @@
             <a class="w3-btn w3-light-grey" href="/aml/delly/{{ run }}/{{ sample }}">Structural Variants (Delly)</a>
             <button class="w3-btn w3-black">FLT3 only</button>
         </div>
-        {% if pindel %}
+        {% if flt3 %}
         <table class="w3-table w3-bordered w3-border">
             <tr class="w3-light-blue">
                 <th style="text-align: center;">POS</th>
@@ -44,31 +44,25 @@
                 <th style="text-align: center;">Runs</th>
                 <th style="text-align: center;">Samples</th>
             </tr>
-            {% for row in pindel.rows %}
-            <tr>
-                <td style="text-align: center;">{{ row.pos }}</td>
-                <td style="text-align: center;">{{ row.ref|truncatechars:9 }}</td>
-                <td style="text-align: center;">{{ row.alt|truncatechars:9 }}</td>
-                {% if row.size|divisibleby:3 %}
-                <td style="text-align: center;"><font color="#00cc00"><b>{{ row.size }}</b></font></td>
-                {% else %}
-                <td style="text-align: center;">{{ row.size }}</td>
-                {% endif %}
-                {% if row.result_id in no_counts %}
-                {% with counts_d|lookup:row.result_id as count %}
-                <td class="valign" rowspan="{{ count }}" style="text-align: center;">{{ ab|lookup:row.size }}</td>
-                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
-                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
-                {% endwith %}
-                {% elif row.result_id in counts %}
-                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
-                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
-                {% else %}
-                <td style="text-align: center;">{{ ab|lookup:row.size }}</td>
-                <td style="text-align: center;">{{ runs|lookup:row.result_id }}</td>
-                <td style="text-align: center;">{{ samples|lookup:row.result_id }}</td>
-                {% endif %}
-            </tr>
+            {% regroup flt3 by ab as flt3_by_size %}
+            {% for data1 in flt3_by_size %}
+                {% for data in data1.list %}
+                    <tr>
+                        <td style="text-align: center;">{{ data.pos }}</td>
+                        <td style="text-align: center;">{{ data.ref|truncatechars:9 }}</td>
+                        <td style="text-align: center;">{{ data.alt|truncatechars:9 }}</td>
+                        {% if data.size|divisibleby:3 %}
+                        <td style="text-align: center;"><font color="#00cc00"><b>{{ data.size }}</b></font></td>
+                        {% else %}
+                        <td style="text-align: center;">{{ data.size }}</td>
+                        {% endif %}
+                        {% if forloop.first %}
+                            <td style="text-align: center;" class="valign" rowspan="{{ data1.list|length }}">{{ data1.grouper }}</td>
+                        {% endif %}
+                        <td style="text-align: center;">{{ data.runs }}</td>
+                        <td style="text-align: center;">{{ data.samples }}</td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
         </table>
         {% else %}
@@ -78,7 +72,7 @@
         <p></p>
         <br/>
         <h3>Repeated sequences</h3>
-        {% if counts_d %}
+        {% if d %}
         {% for key, values in d.items %}
             <p class="p2">Size: {{ key }}, Locations: {{ values }}</p>
             <img src="/static/aml/{{ run }}/{{ sample }}/{{ sample }}_{{ key }}.meme.png"/>

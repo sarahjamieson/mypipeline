@@ -89,68 +89,81 @@ def get_sample_quality(request, sample, run):
 
 
 def get_flt3_only(request, sample, run):
-    row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3')
-    pindel = PindelTable(
-        Results.objects.filter(
-            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3'
-        ).order_by('size', 'pos')
-    )
-    runs_dict = dict()
-    ab_dict = dict()
-    samples_dict = dict()
-    results_duplicate_sizes = []
-    counts = []
-    d = defaultdict(list)
-    seq_length = 0
-    for item in row:
-        total_ab = 0
-        size_count = Results.objects.filter(
-            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=item.size
-        )
-        if len(size_count) > 1:
-            d[item.size].append(item.pos)
-            results_duplicate_sizes.append(item.result_id)
-            counts.append(len(size_count))
-            filename = "%s_%s.txt" % (sample, item.size)
-            with open("%s" % filename, "w+") as seq_file:
-                for result in size_count:
-                    total_ab += result.ab
-                    seq_file.write(">chr13:%s\n" % result.pos)
-                    seq_file.write("%s\n" % result.alt)
-                    seq_length = len(result.alt)
-            seq_file.close()
-            os.system("/home/shjn/meme/bin/meme %s -dna -mod oops -w %s" % (filename, seq_length))
-            os.system("cp /home/shjn/PycharmProjects/mypipeline/aml/meme_out/logo1.png "
-                      "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
-                      % (run, sample, sample, item.size))
-            os.system("rm %s" % filename)
-        ab_dict[item.size] = total_ab
-        wide_search = Results.objects.filter(chrom=item.chrom)
+    """Gets FLT3 only results for sample in run.
+
+    Key steps:
+    (1) Get FLT3 results for sample and put relevant information into a list of dictionaries (one dictionary per result)
+    (2) Run "meme" where there are multiple results for one size of FLT3-ITD.
+    (3) Calculate the number of runs and samples the FLT3-ITD has previously been detected in.
+
+    """
+    flt3_results = []
+    duplicate_dict = {}
+
+    # Find all FLT3 results for sample in run.
+    flt3_results_for_sample = Results.objects.filter(
+        sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3'
+    ).order_by('size', 'pos')
+
+    # For each result...
+    for f in flt3_results_for_sample:
         run_list = []
         sample_list = []
-        for result in wide_search:
-            seq = difflib.SequenceMatcher(a=item.alt.lower(), b=result.alt.lower())
-            if seq.ratio() > 0.90 and (item.pos - 60) < result.pos < (item.pos + 60) and item.size == result.size:
-                run_list.append(result.run)
-                sample_list.append(result.sample)
+        ab_total = 0
+        seq_length = 0
+
+        # ...search for similar results across all samples and runs. A result is deemed similar if it has a sequence
+        # match of >90%, the ITD size is identical and the ITDs are within 60bp of each other.
+        all_results_for_chrom = Results.objects.filter(chrom=f.chrom)
+        for c in all_results_for_chrom:
+            seq = difflib.SequenceMatcher(a=f.alt.lower(), b=c.alt.lower())
+            if seq.ratio() > 0.90 and (f.pos - 60) < c.pos < (f.pos + 60) and f.size == c.size:
+                run_list.append(c.run)
+                sample_list.append(c.sample)
             else:
                 pass
         no_of_unique_runs = len(set(run_list))
         no_of_unique_samples = len(set(sample_list))
-        runs_dict[item.result_id] = no_of_unique_runs
-        samples_dict[item.result_id] = no_of_unique_samples
 
-    counts_list = [results_duplicate_sizes[i] for i in range(0, len(results_duplicate_sizes), 2)]
-    no_counts_list = [results_duplicate_sizes[i] for i in range(1, len(results_duplicate_sizes), 2)]
-    counts_altered = [counts[i] for i in range(0, len(counts), 2)]
-    counts_dict = dict()
-    counter = 0
-    for item in no_counts_list:
-        counts_dict[item] = counts_altered[counter]
-        counter += 1
-    return render(request, 'aml/flt3.html', {'sample': sample, 'run': run, 'pindel': pindel, 'runs': runs_dict,
-                                             'samples': samples_dict, 'ab': ab_dict, 'counts': counts_list,
-                                             'no_counts': no_counts_list, 'counts_d': counts_dict, 'd': dict(d)})
+        # ...find other results with the same size in this sample/run and combine to calculate a total AB.
+        flt3_results_with_same_size = Results.objects.filter(
+            sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3', size=f.size
+        )
+        for s in flt3_results_with_same_size:
+            ab_total += s.ab
+
+        # ...if there are multiple results for the size, add these to a dictionary and run meme.
+        if len(flt3_results_with_same_size) > 1:
+            if f.size in duplicate_dict:
+                duplicate_dict[f.size].append(f.pos)
+            else:
+                duplicate_dict[f.size] = [f.pos]
+
+            filename = "%s_%s.txt" % (sample, f.size)
+            with open("%s" % filename, "w+") as seq_file:
+                for s in flt3_results_with_same_size:
+                    seq_file.write(">chr13:%s\n%s\n" % (s.pos, s.alt))
+                    seq_length = len(s.alt)
+
+            seq_file.close()
+            os.system("/home/shjn/meme/bin/meme %s -dna -mod oops -w %s" % (filename, seq_length))
+            os.system("cp /home/shjn/PycharmProjects/mypipeline/meme_out/logo1.png "
+                      "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
+                      % (run, sample, sample, f.size))
+            os.system("rm %s" % filename)
+
+        # ...add all data to a dictionary which is then added to a list of dictionaries.
+        results = {'id': f.result_id,
+                   'pos': f.pos,
+                   'ref': f.ref,
+                   'alt': f.alt,
+                   'size': f.size,
+                   'ab': ab_total,
+                   'runs': no_of_unique_runs,
+                   'samples': no_of_unique_samples}
+        flt3_results.append(results)
+
+    return render(request, 'aml/flt3.html', {'run': run, 'sample': sample, 'flt3': flt3_results, 'd': duplicate_dict})
 
 
 def get_fastqc(request, sample, run):
