@@ -132,3 +132,16 @@ class Samples(models.Model):
     class Meta:
         app_label = 'aml'
         db_table = 'Samples'
+
+
+class FragmentAnalysis(models.Model):
+    result_id = models.AutoField(primary_key=True, unique=True)
+    sample = models.CharField(max_length=100, default='Unknown')
+    run = models.CharField(max_length=100, default='Unknown')
+    itd = models.IntegerField(default=0)
+    ab = models.FloatField(default='0.0')
+
+    class Meta:
+        app_label = 'aml'
+        db_table = 'Frag'
+

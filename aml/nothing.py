@@ -10,9 +10,9 @@ from illuminate import InteropTileMetrics, InteropControlMetrics, InteropErrorMe
     InteropIndexMetrics, InteropQualityMetrics, InteropCorrectedIntensityMetrics
 from create_interop_pdf import CreatePDF
 
-# os.environ['DJANGO_SETTINGS_MODULE'] = 'mypipeline.settings'
-# django.setup()
-# from aml.models import Results
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mypipeline.settings'
+django.setup()
+from aml.models import Results
 import datetime
 import matplotlib.pyplot as plt
 import glob
@@ -168,29 +168,107 @@ for sample in samples:
               "/home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%s_sample_quality.pdf"
               % (name, name, name, name))
 '''
-from bs4 import BeautifulSoup
-import re
-import requests
+'''
 import pandas as pd
-import urllib2
+from rpy2.robjects import pandas2ri
+from rpy2.robjects.packages import importr
 
-# write chrom location and new base into file
-# run curl polyphen-2 for humdiv and humvar and save to two different output files
+import rpy2.robjects.lib.ggplot2 as ggplot2
+grdevices = importr('grDevices')
+grdevices.png(file="all_samples.png")
 
-html_doc = open("output.txt", "r")
-soup = BeautifulSoup(html_doc, 'html.parser')
-session_id = None
+frag = [1, 2, 3, 4, 5]
+ngs = [6, 7, 8, 9, 2]
+itd = [20, 35, 12, 20, 30]
+d = {'f': frag, 'i': itd, 'n': ngs}
+df = pd.DataFrame(data=d)
+r_df = pandas2ri.py2ri(df)
 
-f = file("output.txt").read()
-for word in f.split():
-    if re.match("polyphenweb2=.{40,};", word):
-        session_id = word[13:53]
-print session_id
+gp = ggplot2.ggplot(r_df)
+pp = gp + ggplot2.aes_string(x='f', y='n') + ggplot2.geom_point(ggplot2.aes_string(size='i'))
+pp.plot()
 
-url = "http://genetics.bwh.harvard.edu/ggi/pph2/%s/1/pph2-short.txt" % session_id
+# os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/ggplot.R %s" % r_df)
 
-opener = urllib2.build_opener()
-opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-response = opener.open(url)
-new_df = pd.read_table(response.read())
-print new_df
+
+grdevices.dev_off()
+'''
+from aml.models import FragmentAnalysis
+import pandas as pd
+'''
+from rpy2.robjects import pandas2ri
+from rpy2.robjects.numpy2ri import numpy2ri
+import rpy2
+rpy2.robjects.numpy2ri.activate()
+from rpy2 import robjects
+from rpy2.robjects.vectors import FloatVector, IntVector
+
+fa = []
+ngs = []
+size = []
+
+frags = FragmentAnalysis.objects.all()
+for item in frags:
+    ngs_temp = []
+    results = Results.objects.filter(sample=item.sample, run=item.run, size=item.itd)
+    if results:
+        for result in results:
+            ngs_temp.append(result.ab)
+        fa.append(item.ab)
+        ngs.append(sum(ngs_temp))
+        size.append(item.itd)
+    else:
+        pass
+
+with open("all_samples.R", "w+") as r_file:
+    r_file.write("library(ggplot2)\npng(\"all_samples.png\")\nfrag <- c(")
+    for f in fa[:-1]:
+        r_file.write("%s, " % f)
+    r_file.write("%s)\nngs <- c(" % fa[-1])
+    for n in ngs[:-1]:
+        r_file.write("%s, " % n)
+    r_file.write("%s)\nitd <- c(" % ngs[-1])
+    for s in size[:-1]:
+        r_file.write("%s, " % s)
+    r_file.write("%s)\ndf <- data.frame(frag, ngs, itd)\np <- ggplot(data = df, aes(x = frag, ngs))\np + "
+                 "geom_point(aes(size=itd))\ndev.off()\n" % size[-1])
+r_file.close()
+
+os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/all_samples.R")
+
+'''
+
+samples = []
+unique_samples = []
+results = Results.objects.all().order_by('sample')
+for result in results:
+    samples.append(result.sample)
+for sample in samples:
+    if sample in unique_samples:
+        pass
+    else:
+        unique_samples.append(sample)
+
+final_dict = {}
+for sample in unique_samples:
+    abs = []
+    sizes = []
+    frags = FragmentAnalysis.objects.filter(sample=sample)
+    if frags:
+        for item in frags:
+            abs.append(item.ab)
+            sizes.append(item.itd)
+        final_dict[sample] = {
+            'size': sizes,
+            'ab': abs
+        }
+    else:
+        pass
+
+# for ngs results ??
+
+
+
+
+
+

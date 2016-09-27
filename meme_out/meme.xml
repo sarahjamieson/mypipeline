@@ -232,7 +232,7 @@
 </background_frequencies>
 </model>
 <motifs>
-<motif id="motif_1" name="1" width="50" sites="2" ic="99.0" re="91.6" llr="127" e_value="6.6e-008" bayes_threshold="-664.386" elapsed_time="0.010392">
+<motif id="motif_1" name="1" width="50" sites="2" ic="99.0" re="91.6" llr="127" e_value="6.6e-008" bayes_threshold="-664.386" elapsed_time="0.009638">
 <scores>
 <alphabet_matrix>
 <alphabet_array>

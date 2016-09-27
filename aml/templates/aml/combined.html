@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Combined FLT3 Results</title>
+    <style type="text/css">
+        select.w3-select {
+            width: 200px;
+        }
+        input.w3-input {
+            width: 200px;
+        }
+        table.dataframe {
+            width: 500px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        table.dataframe, td, th {
+            border: 1px solid #ddd;
+        }
+        div.container {
+            display:inline-block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        form {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="w3-container w3-teal">
+        <h2>Add FLT3-ITD to database</h2>
+    </div>
+    <form action="" method="get">
+        <p>
+        <select class="w3-select w3-border" name="run">
+            <option value="" disabled selected>Choose a run</option>
+            {% for run in runs %}
+            <option value="{{ run }}" name="run">{{ run }}</option>
+            {% endfor %}
+        </select>
+        </p>
+        <p>
+        <select class="w3-select w3-border" name="option">
+            <option value="" disabled selected>Choose a sample</option>
+            {% for sample in samples %}
+            <option value="{{ sample }}" name="sample">{{ sample }}</option>
+            {% endfor %}
+        </select>
+        </p>
+        <p><label class="w3-label">ITD size</label>
+        <input class="w3-input w3-border" name="itd" type="text"></p>
+        <p><label class="w3-label">Allelic ratio</label>
+        <input class="w3-input w3-border" name="ab" type="text"></p>
+        <p><button class="w3-btn w3-teal">Add</button></p>
+    </form>
+    <hr>
+    <form action="" method="get">
+        <button class="w3-btn w3-teal" name="graph" type="submit" value="show">View comparisons</button>
+    </form>
+    <p></p>
+    {% if show %}
+
+
+    <p></p>
+    <br/>
+    <div class="container">
+        <div style="text-align: center;">
+            Allelic ratio from Fragment Analysis vs Allelic ratio from NGS (all samples)
+        </div>
+        <img class="img1" src="/static/aml/all_samples.png" hspace="60"/>
+    </div>
+    <div class="container">
+        <div style="text-align: center;">
+            Allelic ratio from Fragment Analysis vs Allelic ratio from NGS (excludes [14.22, 0.912])
+        </div>
+        <img class="img1" src="/static/aml/all_samples_no14.22.png" hspace="100"/>
+    </div>
+    <p></p>
+    <br/>
+    <div class="container">
+        <div style="text-align: center;">
+            All ITDs from Fragment Analysis (detected/not detected by NGS)
+        </div>
+        <img src="/static/aml/detected.png"/>
+    </div>
+    <div class="container">
+        <div style="text-align: center;">
+            ITDs (excludes [14.22, 0.912]) from Fragment Analysis (detected/not detected by NGS)
+        </div>
+        <img src="/static/aml/detected_no14.22.png"/>
+    </div>
+    {% endif %}
+
+</body>
+</html>

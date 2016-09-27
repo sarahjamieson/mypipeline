@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from aml.models import Runs, Results, Samples, PindelTable, DellyTable, Variants
+from aml.models import Runs, Results, Samples, PindelTable, DellyTable, Variants, FragmentAnalysis
 from django.http import HttpResponse
 from django_tables2 import RequestConfig
 import pandas as pd
 from django.template.defaulttags import register
 import difflib
-from collections import defaultdict
+import sqlite3 as sql
 import os
 import polyphen
 import time
+from rpy2.robjects import pandas2ri
+from rpy2.robjects.packages import importr
+import rpy2.robjects.lib.ggplot2 as ggplot2
 
 
 def index(request):
@@ -278,6 +281,100 @@ def view_polyphen(request, result_id):
     polyphen.get_polyphen_colormap(var_dict.get('prob_score'), 'humvar')
 
     return render(request, 'aml/polyphen.html', {'div_dict': div_dict, 'var_dict': var_dict})
+
+
+def view_flt3_combined(request):
+    # Generate unique list of samples and runs for drop-down menus in template.
+    show_plot = False
+    samples = []
+    runs = []
+    unique_samples = []
+    unique_runs = []
+    results = Results.objects.all().order_by('sample')
+    for result in results:
+        samples.append(result.sample)
+        runs.append(result.run)
+
+    for sample in samples:
+        if sample in unique_samples:
+            pass
+        else:
+            unique_samples.append(sample)
+    for run in runs:
+        if run in unique_runs:
+            pass
+        else:
+            unique_runs.append(run)
+
+    # Form: if filled in, add this data to the database.
+    if 'option' in request.GET and 'itd' in request.GET and 'ab' in request.GET and 'run' in request.GET:
+        sample = request.GET['option']
+        itd = request.GET['itd']
+        ab = request.GET['ab']
+        run = request.GET['run']
+        con = sql.connect('/home/shjn/PycharmProjects/mypipeline/db.sqlite3')
+        curs = con.cursor()
+        curs.execute("CREATE TABLE IF NOT EXISTS Frag(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                     "sample TEXT, run TEXT, itd INTEGER, ab REAL)")
+        curs.execute("INSERT INTO Frag (sample, run, itd, ab) VALUES (?, ?, ?, ?)", (sample, run, itd, ab))
+        con.commit()
+    else:
+        pass
+
+    # Create graph, show only if button clicked
+    if 'graph' in request.GET:
+        show_plot = True
+        final = []
+        frag = []
+        ngs = []
+        itd = []
+        frags = FragmentAnalysis.objects.all()
+        for item in frags:
+            ngs_temp = []
+            results = Results.objects.filter(sample=item.sample, run=item.run, size=item.itd)
+            if results:
+                for result in results:
+                    ngs_temp.append(result.ab)
+                frag.append(item.ab)
+                ngs.append(format(sum(ngs_temp) / 100, '.3f'))
+                itd.append(item.itd)
+                final.append([item.itd, item.ab, format(sum(ngs_temp) / 100, '.3f')])
+            else:
+                pass
+        with open("all_samples.R", "w+") as r_file:
+            r_file.write("library(ggplot2)\npng(\"/home/shjn/PycharmProjects/mypipeline/aml/static/aml/all_samples.png"
+                         "\")\nFrag_Analysis <- c(")
+            for f in frag[:-1]:
+                r_file.write("%s, " % f)
+            r_file.write("%s)\nNGS <- c(" % frag[-1])
+            for n in ngs[:-1]:
+                r_file.write("%s, " % n)
+            r_file.write("%s)\nITD_size <- c(" % ngs[-1])
+            for s in itd[:-1]:
+                r_file.write("%s, " % s)
+            r_file.write("%s)\ndf <- data.frame(Frag_Analysis, NGS, ITD_size)\n"
+                         "p <- ggplot(data = df, aes(x = Frag_Analysis, NGS))\n"
+                         "p + geom_point(aes(size=ITD_size))\ndev.off()\n" % itd[-1])
+        r_file.close()
+        os.system("Rscript /home/shjn/PycharmProjects/mypipeline/all_samples.R")
+        df = pd.DataFrame(final, index=None, columns=['ITD_size', 'Frag_Analysis', 'NGS'])
+        df = df.sort_values('ITD_size', ascending=True)
+        df.to_html('/home/shjn/PycharmProjects/mypipeline/aml/templates/aml/df.html', index=False)
+    else:
+        pass
+
+    # Create dictionaries for summary table
+    all_fa = FragmentAnalysis.objects.all()
+    fa_dict = {}
+    for f in all_fa:
+        fa_dict[f.sample] = {
+            'size': f.itd,
+            'ab': f.ab
+        }
+    # if key in d
+
+
+    return render(request, 'aml/combined.html', {'samples': unique_samples, 'runs': unique_runs, 'show': show_plot})
 
 
 @register.filter
