@@ -250,9 +250,12 @@ for sample in samples:
         unique_samples.append(sample)
 
 final_dict = {}
+ngs_dict = {}
 for sample in unique_samples:
     abs = []
     sizes = []
+    abs_ngs = []
+    sizes_ngs = []
     frags = FragmentAnalysis.objects.filter(sample=sample)
     if frags:
         for item in frags:
@@ -264,11 +267,27 @@ for sample in unique_samples:
         }
     else:
         pass
+    results = Results.objects.filter(sample=sample, gene__icontains='FLT3', caller='Pindel')
+    if results:
+        for item in results:
+            if item.run == '16053' or item.run == '160805':
+                if item.size in sizes_ngs:
+                    size_index = sizes_ngs.index(item.size)
+                    abs_ngs[size_index] = abs_ngs[size_index] + item.ab
+                else:
+                    sizes_ngs.append(item.size)
+                    abs_ngs.append(item.ab)
+            else:
+                pass
+        if sizes_ngs:
+            ngs_dict[sample] = {
+                'size': sizes_ngs,
+                'ab': abs_ngs
+            }
+    else:
+        pass
 
-# for ngs results ??
-
-
-
+print ngs_dict['D15-25430']
 
 
 

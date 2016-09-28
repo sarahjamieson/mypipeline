@@ -66,7 +66,75 @@
     </form>
     <p></p>
     {% if show %}
-
+    <table>
+        <col>
+        <colgroup span="2"></colgroup>
+        <colgroup span="2"></colgroup>
+        <tr>
+            <td rowspan="2"></td>
+            <th colspan="2" scope="colgroup">Fragment Analysis</th>
+            <th colspan="2" scope="colgroup">NGS</th>
+        </tr>
+        <tr>
+            <th scope="col">ITD size</th>
+            <th scope="col">Allelic ratio</th>
+            <th scope="col">ITD size</th>
+            <th scope="col">Allelic ratio</th>
+        </tr>
+        {% for sample in flt3_samples %}
+        <tr>
+            <th scope="row">{{ sample }}</th>
+            <td>
+                {% if sample in frag_d %}
+                {% nested_lookup frag_d sample "size" as frag %}
+                {% for f in frag %}
+                {% if f|divisibleby:3 %}
+                <font color="#008080"><b>{{ f }}</b></font><br/>
+                {% else %}
+                {{ f }} <br/>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                -
+                {% endif %}
+            </td>
+            <td>
+                {% if sample in frag_d %}
+                {% nested_lookup frag_d sample "ab" as frag %}
+                {% for f in frag %}
+                {{ f }} <br/>
+                {% endfor %}
+                {% else %}
+                -
+                {% endif %}
+            </td>
+            <td>
+                {% if sample in ngs_d %}
+                {% nested_lookup ngs_d sample "size" as ngs %}
+                {% for n in ngs %}
+                {% if n|divisibleby:3 %}
+                <font color="#008080"><b>{{ n }}</b></font><br/>
+                {% else %}
+                {{ n }} <br/>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                -
+                {% endif %}
+            </td>
+            <td>
+                {% if sample in ngs_d %}
+                {% nested_lookup ngs_d sample "ab" as ngs %}
+                {% for n in ngs %}
+                {{ n }} <br/>
+                {% endfor %}
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <p></p>
     <br/>

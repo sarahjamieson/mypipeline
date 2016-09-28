@@ -364,19 +364,61 @@ def view_flt3_combined(request):
         pass
 
     # Create dictionaries for summary table
-    all_fa = FragmentAnalysis.objects.all()
-    fa_dict = {}
-    for f in all_fa:
-        fa_dict[f.sample] = {
-            'size': f.itd,
-            'ab': f.ab
-        }
-    # if key in d
+    frag_dict = {}
+    ngs_dict = {}
+    for sample in unique_samples:
+        abs = []
+        sizes = []
+        abs_ngs = []
+        sizes_ngs = []
+        frags = FragmentAnalysis.objects.filter(sample=sample).order_by('sample', 'itd')
+        if frags:
+            for item in frags:
+                abs.append(item.ab)
+                sizes.append(item.itd)
+            frag_dict[sample] = {
+                'size': sizes,
+                'ab': abs
+            }
+        else:
+            pass
+        results = Results.objects.filter(
+            sample=sample, gene__icontains='FLT3', caller='Pindel').order_by('sample', 'size')
+        if results:
+            for item in results:
+                if item.run == '16053' or item.run == '160805':
+                    if item.size in sizes_ngs:
+                        size_index = sizes_ngs.index(item.size)
+                        abs_ngs[size_index] = abs_ngs[size_index] + item.ab
+                    else:
+                        sizes_ngs.append(item.size)
+                        abs_ngs.append(item.ab)
+                else:
+                    pass
+            if sizes_ngs:
+                ngs_dict[sample] = {
+                    'size': sizes_ngs,
+                    'ab': abs_ngs
+                }
+        else:
+            pass
+    flt3_samples = []
+    flt3_results = Results.objects.filter(gene__icontains='FLT3', caller='Pindel')
+    for item in flt3_results:
+        if item.sample in flt3_samples:
+            pass
+        else:
+            flt3_samples.append(item.sample)
 
-
-    return render(request, 'aml/combined.html', {'samples': unique_samples, 'runs': unique_runs, 'show': show_plot})
+    return render(request, 'aml/combined.html', {'samples': unique_samples, 'runs': unique_runs, 'show': show_plot,
+                                                 'frag_d': frag_dict, 'ngs_d': ngs_dict, 'flt3_samples': flt3_samples})
 
 
 @register.filter
 def lookup(dictionary, key):
     return dictionary.get(key)
+
+
+@register.simple_tag
+def nested_lookup(dictionary, key, key2):
+    return dictionary[key][key2]
