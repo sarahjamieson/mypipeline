@@ -12,17 +12,6 @@
         input.w3-input {
             width: 200px;
         }
-        table.dataframe {
-            width: 500px;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            text-align: center;
-        }
-        table.dataframe, td, th {
-            border: 1px solid #ddd;
-        }
         div.container {
             display:inline-block;
             margin-left: auto;
@@ -31,7 +20,17 @@
         form {
             margin-left: 10px;
         }
+        table, td, th {
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 800px;
+        }
     </style>
+
+
 </head>
 <body>
     <div class="w3-container w3-teal">
@@ -164,6 +163,18 @@
         </div>
         <img src="/static/aml/detected_no14.22.png"/>
     </div>
+    {% load chartit %}
+    {% block content %}
+    {% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    {% endblock %}
+    <div class="container">
+        <div class="row">
+            <div id="fa">{{ fragchart|load_charts:"fa" }}</div>
+        </div>
+    </div>
+    {% endblock %}
     {% endif %}
 
 </body>

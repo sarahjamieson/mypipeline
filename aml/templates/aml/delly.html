@@ -54,7 +54,7 @@
     </div>
         {% if delly %}
         <div class="basic" align="center">
-            {% include "aml/circos.html" with run=run sample=sample variant=variant%}
+            {% include "aml/circos.html" with run=run sample=sample %}
         </div>
         <form id="delly_form" method="post">
         {% csrf_token %}

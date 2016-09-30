@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_tables2',
     'aml',
+    'chartit',
+    'mathfilters',
 ]
 
 MIDDLEWARE_CLASSES = [

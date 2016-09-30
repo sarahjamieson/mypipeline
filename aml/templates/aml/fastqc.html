@@ -55,9 +55,8 @@
         <a href="/aml/quality/{{ run }}/{{ sample }}" class="LinkButton"><i class="fa fa-file-pdf-o"></i>   Download full quality results</a>
     </div>
     <p class="ptwo">
-        File type: {{ stats.1 }}
-        <br/>
-        Encoding: {{ stats.2 }}
+        File type: {{ stats_dict|lookup:'File type' }}
+        Encoding: {{ stats_dict|lookup:'Encoding' }}
     </p>
     <table align="center">
         <tr>
@@ -67,23 +66,30 @@
         </tr>
         <tr>
             <td>Total Sequences</td>
-            <td align="center">{{ stats.3 }}</td>
-            <td align="center">{{ stats.4 }} ({{ stats.11 }}%)</td>
+            <td align="center">{{ stats_dict|lookup:'Total Sequences' }}</td>
+            {% with stats_dict|lookup:'Total Sequences' as before %}
+            {% with trim_dict|lookup:'Total Sequences' as after %}
+            {% load mathfilters %}
+            {% with before|div:after as percentage %}
+            <td align="center">{{ trim_dict|lookup:'Total Sequences' }} ({{ percentage|floatformat:1 }}%)</td>
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
         </tr>
         <tr>
             <td>Sequences flagged as poor quality</td>
-            <td align="center">{{ stats.5 }}</td>
-            <td align="center">{{ stats.6 }}</td>
+            <td align="center">{{ stats_dict|lookup:'Sequences flagged as poor quality' }}</td>
+            <td align="center">{{ trim_dict|lookup:'Sequences flagged as poor quality' }}</td>
         </tr>
         <tr>
             <td>Sequence length</td>
-            <td align="center">{{ stats.7 }}</td>
-            <td align="center">{{ stats.8 }}</td>
+            <td align="center">{{ stats_dict|lookup:'Sequence length' }}</td>
+            <td align="center">{{ trim_dict|lookup:'Sequence length' }}</td>
         </tr>
         <tr>
             <td>%GC</td>
-            <td align="center">{{ stats.9 }}</td>
-            <td align="center">{{ stats.10 }}</td>
+            <td align="center">{{ stats_dict|lookup:'%GC' }}</td>
+            <td align="center">{{ trim_dict|lookup:'%GC' }}</td>
         </tr>
     </table>
     <p></p>

@@ -287,7 +287,11 @@ for sample in unique_samples:
     else:
         pass
 
-print ngs_dict['D15-25430']
+flt3_results = Results.objects.filter(gene__icontains='FLT3', caller='Pindel', run='16053') | \
+               Results.objects.filter(gene__icontains='FLT3', caller='Pindel', run='160805')
+
+for item in flt3_results:
+    print item.run, item.sample, item.chrom, item.pos, item.gene, item.size
 
 
 

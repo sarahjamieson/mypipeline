@@ -9,6 +9,9 @@ from matplotlib.colors import ListedColormap
 
 
 def create_polyphen_input(chrom, pos, ref, alt):
+    """Returns a file with variant in format (e.g. chr1:1234567 A/G) required by PolyPhen-2 API.
+
+    """
     input_file = "%s_%s.txt" % (chrom, pos)
     with open(input_file, "w+") as i:
         i.write("%s:%s %s/%s\n" % (chrom, pos, ref, alt))
@@ -18,6 +21,11 @@ def create_polyphen_input(chrom, pos, ref, alt):
 
 
 def run_polyphen(input_file):
+    """Connects to PolyPhen-2 using curl and outputs session information into a .txt file.
+
+    Note: HumDiv and HumVar analysed separately.
+
+    """
     os.system("curl "
               "-F _ggi_project=PPHWeb2 "
               "-F _ggi_origin=query "
@@ -41,6 +49,7 @@ def run_polyphen(input_file):
               "-D - http://genetics.bwh.harvard.edu/cgi-bin/ggi/ggi2.cgi "
               "-c %s.humvar.cookies.txt"
               "> %s.humvar.txt" % (input_file, input_file[:-4], input_file[:-4]))
+
     humdiv_file = "%s.humdiv.txt" % input_file[:-4]
     humvar_file = "%s.humvar.txt" % input_file[:-4]
 
@@ -48,6 +57,12 @@ def run_polyphen(input_file):
 
 
 def get_polyphen_results(hum_file):
+    """Gets session ID from input file, gets polyphen results for the session and reads results into a dataframe then
+    creates a dictionary (easier to call in template).
+
+    Notes: providing cookies and headers to urllib2 reduces connection errors.
+
+    """
     session_id = None
     opened_file = file(hum_file, "r").read()
     for word in opened_file.split():
@@ -63,12 +78,10 @@ def get_polyphen_results(hum_file):
         opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
         home = opener.open("http://genetics.bwh.harvard.edu/ggi/pph2/%s/1/pph2-short.txt" % session_id)
         s = home.read()
-        print s
         with open("hello.txt", "w+") as f:
             f.write(s)
         f.close()
         polyphen_df = pd.read_table("hello.txt", sep='\t', index_col=False)
-        print polyphen_df
         polyphen_df = polyphen_df.rename(columns=lambda x: x.strip())
         polyphen_df = polyphen_df.dropna()
 
@@ -90,9 +103,13 @@ def get_polyphen_results(hum_file):
         print "No session ID detected"
 
 
-# http://matplotlib.org/examples/api/colorbar_only.html
-
 def get_polyphen_colormap(prob_score, hum_type):
+    """Generates a colour bar similar to that seen in the PolyPhen-2 interface using matplotlib. PNG image saved to
+    static folder.
+
+    http://matplotlib.org/examples/api/colorbar_only.html - code here used to help with this.
+
+    """
     fig = pyplot.figure(figsize=(8, 3))
     ax1 = fig.add_axes([0.05, 0.80, 0.9, 0.15])
 
