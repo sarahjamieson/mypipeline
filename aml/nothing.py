@@ -238,60 +238,17 @@ os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/all_samples.R")
 
 '''
 
-samples = []
-unique_samples = []
-results = Results.objects.all().order_by('sample')
-for result in results:
-    samples.append(result.sample)
-for sample in samples:
-    if sample in unique_samples:
-        pass
-    else:
-        unique_samples.append(sample)
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
 
-final_dict = {}
-ngs_dict = {}
-for sample in unique_samples:
-    abs = []
-    sizes = []
-    abs_ngs = []
-    sizes_ngs = []
-    frags = FragmentAnalysis.objects.filter(sample=sample)
-    if frags:
-        for item in frags:
-            abs.append(item.ab)
-            sizes.append(item.itd)
-        final_dict[sample] = {
-            'size': sizes,
-            'ab': abs
-        }
-    else:
-        pass
-    results = Results.objects.filter(sample=sample, gene__icontains='FLT3', caller='Pindel')
-    if results:
-        for item in results:
-            if item.run == '16053' or item.run == '160805':
-                if item.size in sizes_ngs:
-                    size_index = sizes_ngs.index(item.size)
-                    abs_ngs[size_index] = abs_ngs[size_index] + item.ab
-                else:
-                    sizes_ngs.append(item.size)
-                    abs_ngs.append(item.ab)
-            else:
-                pass
-        if sizes_ngs:
-            ngs_dict[sample] = {
-                'size': sizes_ngs,
-                'ab': abs_ngs
-            }
-    else:
-        pass
+config_df = pd.read_table('%s/config.txt' % parent_dir, header=None, names=['Setting', 'Value'], sep='=')
+settings = config_df['Setting'].tolist()
+values = config_df['Value'].tolist()
+config_dict = dict(zip(settings, values))
 
-flt3_results = Results.objects.filter(gene__icontains='FLT3', caller='Pindel', run='16053') | \
-               Results.objects.filter(gene__icontains='FLT3', caller='Pindel', run='160805')
+os.system("%s --help" % config_dict['samtools'])
 
-for item in flt3_results:
-    print item.run, item.sample, item.chrom, item.pos, item.gene, item.size
+
 
 
 

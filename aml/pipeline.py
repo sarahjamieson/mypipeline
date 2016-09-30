@@ -21,6 +21,8 @@ from sorting import sort_pipeline_data
 
 warnings.simplefilter(action="ignore", category=FutureWarning)
 curr_datetime = datetime.datetime.now().isoformat()
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Command line parameters for pipeline script:
@@ -44,28 +46,17 @@ args = parser.parse_args()
 # ----------------------------------------------------------------------------------------------------------------------
 # Paths to all tools used in pipeline. Put in config file?
 # ----------------------------------------------------------------------------------------------------------------------
-Trimmomatic = '/opt/programs/Trimmomatic-0.36/trimmomatic-0.36.jar'
-trim_adapters = '/opt/programs/Trimmomatic-0.36/adapters/NexteraPE-PE.fa'
 InterOp = '%sInterOp/' % args.result_dir
-bwa = '/opt/programs/bwa-0.7.15/bwa'
-samblaster = '/opt/programs/samtools/samblaster-0.1.22/samblaster'
-samtools = '/opt/programs/samtools/samtools-1.3.1/bin/samtools'
-plot_bamstats = '/opt/programs/samtools/samtools-1.3.1/bin/plot-bamstats'
-breakdancer = '/opt/programs/breakdancer-1.4.5/bin/breakdancer-max'
-pindel = '/opt/programs/pindel-0.2.5/pindel'
-genome = '/media/sf_S_DRIVE/genomic_resources/gatk_bundle/ucsc.hg19.fasta'
-pindel2vcf = '/opt/programs/pindel-0.2.5/pindel2vcf'
-annovar = '/media/sf_sarah_share/ANNOVAR/annovar/table_annovar.pl'
-fastqc = '/opt/programs/FastQC-0.11.5/fastqc'
-delly = '/opt/programs/delly-0.7.3/delly_v0.7.3_linux_x86_64bit'
-bcftools = '/opt/programs/samtools/bcftools-1.3.1/bcftools'
+config_df = pd.read_table('%s/config.txt' % parent_dir, header=None, names=['Setting', 'Value'], sep='=')
+settings = config_df['Setting'].tolist()
+values = config_df['Value'].tolist()
+config_dict = dict(zip(settings, values))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # 1) Copy fastqc files to current directory.
 # 2) Parse sample sheet to get run and sample info.
 # 3) Make new directory for results in user-inputted output directory.
 # ----------------------------------------------------------------------------------------------------------------------
-script_dir = os.path.dirname(os.path.abspath(__file__))
 os.system("cp %s/Data/Intensities/BaseCalls/*.fastq.gz %s/" % (args.result_dir, script_dir))
 parse_sheet = ParseSampleSheet(args.sample_sheet)
 run_dict, sample_dict = parse_sheet.parse_sample_sheet()
@@ -91,7 +82,7 @@ def assess_quality():
     corintmetrics = InteropCorrectedIntensityMetrics('%sCorrectedIntMetricsOut.bin' % InterOp)
 
     pdf = CreatePDF(tilemetrics, controlmetrics, errormetrics, extractionmetrics, indexmetrics, qualitymetrics,
-                    corintmetrics, worksheet)
+                    corintmetrics, worksheet, config_dict['pdflatex'])
     pdf.create_pdf()
 
     os.system('cp %s_InterOp_Results.pdf %s%s/' % (worksheet, args.output_dir, worksheet))
@@ -118,8 +109,8 @@ assess_quality()
 def run_fastqc(infile, outfile):
     fastq1 = infile[0]
     fastq2 = infile[1]
-    os.system("%s --extract %s" % (fastqc, fastq1))
-    os.system("%s --extract %s" % (fastqc, fastq2))
+    os.system("%s --extract %s" % (config_dict['fastqc'], fastq1))
+    os.system("%s --extract %s" % (config_dict['fastqc'], fastq2))
 
 
 @follows(run_fastqc)
@@ -139,7 +130,8 @@ def quality_trim(infile, outfile):
               "CROP:150 "  # Crop reads to max 150 from end
               "SLIDINGWINDOW:4:25 "  # Perform trim on every 4bp for minimum quality of 25.
               "MINLEN:50"  # All reads should be minimum length of 50bp.
-              % (Trimmomatic, fastq1, fastq2, fastq1[:-9], fastq1, fastq2[:-9], fastq2, trim_adapters))
+              % (config_dict['Trimmomatic'], fastq1, fastq2, fastq1[:-9], fastq1, fastq2[:-9], fastq2,
+                 config_dict['trim_adapters']))
 
     # glob module: finds path names matching specified pattern (https://docs.python.org/2/library/glob.html).
     # Delete unpaired data no longer required.
@@ -153,8 +145,8 @@ def quality_trim(infile, outfile):
 def run_fastqc_trimmed(infile, outfile):
     fastq1 = infile[0]
     fastq2 = infile[1]
-    os.system("%s --extract %s" % (fastqc, fastq1))
-    os.system("%s --extract %s" % (fastqc, fastq2))
+    os.system("%s --extract %s" % (config_dict['fastqc'], fastq1))
+    os.system("%s --extract %s" % (config_dict['fastqc'], fastq2))
 
 
 @follows(run_fastqc_trimmed)
@@ -176,8 +168,8 @@ def align_bwa(infile, outfile):
               "| %s --removeDups 2> "
               "%s.samblaster.log --splitterFile %s.splitreads.sam --discordantFile %s.discordant.sam "
               "| %s view -Sb - > %s"  # -Sb puts output through samtools sort
-              % (bwa, rg_header, genome, fastq1, fastq2, sample_name, samblaster, sample_name, sample_name,
-                 sample_name, samtools, outfile))
+              % (config_dict['bwa'], rg_header, config_dict['genome'], fastq1, fastq2, sample_name,
+                 config_dict['samblaster'], sample_name, sample_name, sample_name, config_dict['samtools'], outfile))
 
 
 @follows(align_bwa)
@@ -190,24 +182,24 @@ def sort_bam(infile, outfile):
               "-T %s "  # temporary file name
               "-o %s "  # output file
               "%s"  # input file
-              % (samtools, infile, outfile, infile))
+              % (config_dict['samtools'], infile, outfile, infile))
 
 
 @follows(sort_bam)
 @transform("*.bwa.drm.sorted.bam", suffix(".bwa.drm.sorted.bam"), ".bwa.drm.sorted.bam.bai")
 def index_bam(infile, outfile):
-    os.system("%s index %s" % (samtools, infile))
+    os.system("%s index %s" % (config_dict['samtools'], infile))
 
 
 @follows(index_bam)
 @transform("*.bwa.drm.sorted.bam", suffix(".bwa.drm.sorted.bam"), ".bwa.drm.sorted.bam.stats")
 def run_samtools_stats(infile, outfile):
-    os.system("%s stats %s > %s" % (samtools, infile, outfile))
-    os.system("%s -p %s %s" % (plot_bamstats, outfile, outfile))
+    os.system("%s stats %s > %s" % (config_dict['samtools'], infile, outfile))
+    os.system("%s -p %s %s" % (config_dict['plot_bamstats'], outfile, outfile))
 
     joint_sample_name = infile[:-19]
     from create_sample_quality_pdf import CreateFastQCPDF
-    pdf = CreateFastQCPDF(joint_sample_name)
+    pdf = CreateFastQCPDF(joint_sample_name, config_dict['pdflatex'])
     pdf.create_pdf()
 
 
@@ -223,7 +215,7 @@ def create_breakdancer_config(infile, outfile):
 @follows(create_breakdancer_config)
 @transform(create_breakdancer_config, suffix(".breakdancer_config.txt"), ".breakdancer_output.sv")
 def run_breakdancer(infile, outfile):
-    os.system("%s -q 10 %s > %s" % (breakdancer, infile, outfile))
+    os.system("%s -q 10 %s > %s" % (config_dict['breakdancer'], infile, outfile))
 
 
 @follows(run_breakdancer)
@@ -261,7 +253,7 @@ def run_pindel(infile, outfile, pindel_prefix):
               "--report_long_insertions TRUE "
               "--name_of_logfile %spindel.log "
               "-b %s.breakdancer_output.sv"  # file name with BreakDancer results     or -Q???
-              % (pindel, genome, infile, pindel_prefix, pindel_prefix, bd_file))
+              % (config_dict['pindel'], config_dict['genome'], infile, pindel_prefix, pindel_prefix, bd_file))
 
 
 # https://github.com/ELIXIR-ITA-training/VarCall2015/blob/master/Tutorials/T5.2_variantcalling_stucturalvariants_tutorial.md
@@ -282,25 +274,30 @@ def pindel_to_vcf(infile, outfile, pindel_prefix):
               "--het_cutoff 0.1 "
               "--hom_cutoff 0.85 "
               "-G"
-              % (pindel2vcf, pindel_prefix, genome, outfile))
+              % (config_dict['pindel2vcf'], pindel_prefix, config_dict['genome'], outfile))
 
 
 @follows(pindel_to_vcf)
 @transform(["*.bwa.drm.sorted.bam"], suffix(".bwa.drm.sorted.bam"), r"\1.bcf")
 def call_delly(infile, outfile):
     sample_name = infile[:-19]
-    blacklisted_regions = '/home/shjn/PycharmProjects/mypipeline/aml/excluded_regions.excl.bed'
-    os.system("%s call -t DEL -x %s -o %s.del.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
-    os.system("%s call -t TRA -x %s -o %s.tra.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
-    os.system("%s call -t INV -x %s -o %s.inv.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
-    os.system("%s call -t INS -x %s -o %s.ins.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
-    os.system("%s call -t DUP -x %s -o %s.dup.bcf -g %s %s" % (delly, blacklisted_regions, sample_name, genome, infile))
+    blacklisted_regions = '%s/excluded_regions.excl.bed' % script_dir
+    os.system("%s call -t DEL -x %s -o %s.del.bcf -g %s %s" % (
+        config_dict['delly'], blacklisted_regions, sample_name, config_dict['genome'], infile))
+    os.system("%s call -t TRA -x %s -o %s.tra.bcf -g %s %s" % (
+        config_dict['delly'], blacklisted_regions, sample_name, config_dict['genome'], infile))
+    os.system("%s call -t INV -x %s -o %s.inv.bcf -g %s %s" % (
+        config_dict['delly'], blacklisted_regions, sample_name, config_dict['genome'], infile))
+    os.system("%s call -t INS -x %s -o %s.ins.bcf -g %s %s" % (
+        config_dict['delly'], blacklisted_regions, sample_name, config_dict['genome'], infile))
+    os.system("%s call -t DUP -x %s -o %s.dup.bcf -g %s %s" % (
+        config_dict['delly'], blacklisted_regions, sample_name, config_dict['genome'], infile))
 
 
 @follows(call_delly)
 @transform(["*.bcf"], suffix(".bcf"), r"\1.delly.vcf")
 def delly_to_vcf(infile, outfile):
-    os.system("%s view %s > %s" % (bcftools, infile, outfile))
+    os.system("%s view %s > %s" % (config_dict['bcftools'], infile, outfile))
 
 
 @follows(delly_to_vcf)
@@ -369,7 +366,7 @@ def combine_vcfs(infile, outfile):
 def annotate_vcf(infile, outfile):
     os.system("%s "  # table_annovar.pl
               "%s "  # infile
-              "/media/sf_sarah_share/ANNOVAR/annovar/humandb/ "  # directory database files are stored in
+              "%s "  # directory database files are stored in
               "-buildver hg19 "  # genome build
               "-out %s "  # outfile
               "-remove "  # removes all temporary files
@@ -378,7 +375,7 @@ def annotate_vcf(infile, outfile):
               "-operation g,g,g,f,f "  # gene-based or filter-based for protocols
               "-nastring . "  # if variant doesn't have a score from tools (e.g. intronic variant & SIFT), position="."
               "-vcfinput"  # required if input is vcf file
-              % (annovar, infile, outfile))
+              % (config_dict['annovar'], infile, config_dict['humandb'], outfile))
 
     os.rename("%s.hg19_multianno.vcf" % outfile, "%s" % outfile)
 
@@ -491,7 +488,7 @@ def add_freq_to_vcf(infile, outfile):
 def vcf_to_excel(infile, outfile):
     colors = ['blue', 'red', 'green', 'orange', 'purple', 'black', 'cyan4', 'deeppink', 'seagreen', 'yellow']
     color_no = 0
-    con = sql.connect('/home/shjn/PycharmProjects/mypipeline/db.sqlite3')
+    con = sql.connect('%s/db.sqlite3' % parent_dir)
     curs = con.cursor()
     curs.execute("CREATE TABLE IF NOT EXISTS Results(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, run TEXT, "
                  "sample TEXT, caller TEXT, chrom TEXT, pos INTEGER, ref TEXT, alt TEXT, chr2 TEXT, end INTEGER, "
@@ -570,8 +567,8 @@ def vcf_to_excel(infile, outfile):
                     pass
 
     rcircos_file.close()
-    os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/rcircos_link.R %s.txt %s.png"
-              % (sample_name[3:12:], sample_name[3:12:]))
+    os.system("Rscript %s/rcircos_link.R %s.txt %s.png"
+              % (script_dir, sample_name[3:12:], sample_name[3:12:]))
 
     writer = ExcelWriter('%s' % outfile)
     annovar_df.to_excel(writer, sheet_name="Variants-all", index=False)
@@ -588,7 +585,6 @@ def vcf_to_excel(infile, outfile):
     annovar_df.to_sql("Results", con=con, if_exists='append', index=False)
     con.commit()
 
-    static_dir = "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML"
-    sort_pipeline_data(script_dir, static_dir, worksheet, sample_name, args.output_dir)
+    sort_pipeline_data(script_dir, config_dict['static_link_folder'], worksheet, sample_name, args.output_dir)
 
 pipeline_run()

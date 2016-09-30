@@ -7,6 +7,8 @@ from matplotlib import pyplot
 import matplotlib as mpl
 from matplotlib.colors import ListedColormap
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 
 def create_polyphen_input(chrom, pos, ref, alt):
     """Returns a file with variant in format (e.g. chr1:1234567 A/G) required by PolyPhen-2 API.
@@ -159,6 +161,6 @@ def get_polyphen_colormap(prob_score, hum_type):
     pyplot.plot((prob_score, prob_score), (0.0, 1.0), 'k', linewidth=3)
 
     fig.savefig("%s_%s.png" % (hum_type, prob_score))
-    os.system("mv %s_%s.png /home/shjn/PycharmProjects/mypipeline/aml/static/aml/" % (hum_type, prob_score))
+    os.system("mv %s_%s.png %s/static/aml/" % (script_dir, hum_type, prob_score))
 
 

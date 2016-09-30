@@ -5,7 +5,6 @@ def get_fastqc_results(run, sample):
     """Reads results before and after trimming from fastqc_data.txt file and extracts values into lists. Also gets
     results from summary.txt file for each read before and after trimming (r1, r2, r1_trim, r2_trim).
     """
-    fastqc_list = []
 
     # (1) Data into dataframe, pull out property and value data and create dictionary.
     stats_df = pd.read_table('aml/static/aml/%s/%s/fastqc_R1/fastqc_data.txt' % (run, sample), header=None,

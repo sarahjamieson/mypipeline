@@ -7,7 +7,7 @@ import numpy as np
 
 class CreatePDF(object):
     def __init__(self, tilemetrics, controlmetrics, errormetrics, extractionmetrics, indexmetrics, qualitymetrics,
-                 corintmetrics, worksheet):
+                 corintmetrics, worksheet, pdflatex):
         self.tile = tilemetrics
         self.control = controlmetrics
         self.error = errormetrics
@@ -16,6 +16,7 @@ class CreatePDF(object):
         self.quality = qualitymetrics
         self.corint = corintmetrics
         self.worksheet = worksheet
+        self.pdflatex = pdflatex
 
     def create_pdf(self):
         """Creates a LaTeX PDF using the Python module PyLatex (https://jeltef.github.io/PyLaTeX/latest/).
@@ -24,7 +25,6 @@ class CreatePDF(object):
 
 
         """
-        pdflatex = '/usr/local/texlive/2016/bin/x86_64-linux/pdflatex'
         doc = Document()
         doc.packages.append(Package('geometry', options=['tmargin=0.75in', 'lmargin=0.75in', 'rmargin=0.75in']))
         doc.packages.append(Package('datetime', options=['ddmmyyyy']))
@@ -105,8 +105,7 @@ class CreatePDF(object):
                 with doc.create(SubFigure()) as plot:
                     plot.add_plot()
 
-        doc.generate_pdf('%s_InterOp_Results' % self.worksheet, clean_tex=False, compiler=pdflatex)
-        # os.system("xdg-open /home/cuser/PycharmProjects/amlpipeline/output.pdf")
+        doc.generate_pdf('%s_InterOp_Results' % self.worksheet, clean_tex=False, compiler=self.pdflatex)
 
     def get_avg_qual(self):
         """Calculates the percentage of clusters with an average quality score of >=30 using InterOp qualitymetrics.

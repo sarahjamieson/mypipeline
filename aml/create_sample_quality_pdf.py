@@ -13,13 +13,12 @@ class CreateFastQCPDF(object):
             Requires PDFLatex.
 
     """
-    def __init__(self, sample):
+    def __init__(self, sample, pdflatex):
         self.sample = sample
+        self.pdflatex = pdflatex
 
     def create_pdf(self):
         """Creates the PDF using the PyLatex module.
-
-            Notes:-
 
 
         """
@@ -217,8 +216,7 @@ class CreateFastQCPDF(object):
                     plot.add_image('%s.bwa.drm.sorted.bam.stats-quals2.png' % self.sample)
                     plot.add_caption('Quality per cycle')
 
-        pdflatex = '/usr/local/texlive/2016/bin/x86_64-linux/pdflatex'
-        doc.generate_pdf('%ssample_quality' % self.sample, clean_tex=False, compiler='/usr/local/texlive/2016/bin/x86_64-linux/pdflatex')
+        doc.generate_pdf('%ssample_quality' % self.sample, clean_tex=False, compiler=self.pdflatex)
 
     def get_trimmed_data(self):
         # Get R1 trimmed

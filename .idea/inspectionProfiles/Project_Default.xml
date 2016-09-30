@@ -1,10 +1,10 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
-    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="ignoredPackages">
         <value>
-          <list size="14">
+          <list size="15">
             <item index="0" class="java.lang.String" itemvalue="samblaster" />
             <item index="1" class="java.lang.String" itemvalue="python" />
             <item index="2" class="java.lang.String" itemvalue="breakdancer" />
@@ -19,6 +19,7 @@
             <item index="11" class="java.lang.String" itemvalue="bcftools" />
             <item index="12" class="java.lang.String" itemvalue="Trimmomatic" />
             <item index="13" class="java.lang.String" itemvalue="RCircos" />
+            <item index="14" class="java.lang.String" itemvalue="ggplot2" />
           </list>
         </value>
       </option>

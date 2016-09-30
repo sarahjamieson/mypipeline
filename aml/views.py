@@ -10,6 +10,14 @@ import polyphen
 import time
 from chartit import DataPool, Chart
 from get_quality_results import get_fastqc_results, get_bamstat_scores
+import pandas as pd
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+config_df = pd.read_table('%s/config.txt' % parent_dir, header=None, names=['Setting', 'Value'], sep='=')
+settings = config_df['Setting'].tolist()
+values = config_df['Value'].tolist()
+config_dict = dict(zip(settings, values))
 
 
 def index(request):
@@ -92,8 +100,8 @@ def get_interop_for_run(request, run):
     Note: make path to static folder general.
 
     """
-    with open('/home/shjn/PycharmProjects/mypipeline/aml/static/aml/%s/%s_InterOp_Results.pdf' % (
-            run, run), 'r') as pdf:
+    with open('%s/static/aml/%s/%s_InterOp_Results.pdf' % (
+            script_dir, run, run), 'r') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-disposition'] = 'filename=%s_InterOp_Results.pdf' % run
         return response
@@ -106,8 +114,7 @@ def get_sample_quality(request, sample, run):
     Note2: "request" is required as argument for browser connection even though not used.
 
     """
-    with open('/home/shjn/PycharmProjects/mypipeline/aml/static/aml/%s/%s/%s_sample_quality.pdf' % (
-            run, sample, sample), 'r') as pdf:
+    with open('%s/static/aml/%s/%s/%s_sample_quality.pdf' % (script_dir, run, sample, sample), 'r') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         # browser will treat file as attachment
         response['Content-disposition'] = 'filename=%s_sample_quality.pdf' % sample
@@ -189,10 +196,9 @@ def get_flt3_only(request, sample, run):
                     seq_length = len(s.alt)
 
             seq_file.close()
-            os.system("/home/shjn/meme/bin/meme %s -dna -mod oops -w %s" % (filename, seq_length))
-            os.system("cp /home/shjn/PycharmProjects/mypipeline/meme_out/logo1.png "
-                      "/media/sf_S_DRIVE/MiSeq_data/Nextera_Rapid_Capture/Sarah_STP_Project_AML/%s/%s/%s_%s.meme.png"
-                      % (run, sample, sample, f.size))
+            os.system("%s %s -dna -mod oops -w %s" % (config_dict['meme'], filename, seq_length))
+            os.system("cp %s/meme_out/logo1.png %s/%s/%s/%s_%s.meme.png"
+                      % (parent_dir, config_dict['static_link_folder'], run, sample, sample, f.size))
             os.system("rm %s" % filename)
 
         # ...add all data to a dictionary which is then added to a list of dictionaries.
@@ -229,8 +235,7 @@ def get_fastqc(request, sample, run):
 
 def get_bamstats(request, run, sample):
     """Takes a run and sample and returns BAMStats from .bam.stats file to bamstats.html page."""
-    stats_file = '/home/shjn/PycharmProjects/mypipeline/aml/static/aml/%s/%s/bamstats/%s.bam.stats' \
-                 % (run, sample, sample)
+    stats_file = '%s/static/aml/%s/%s/bamstats/%s.bam.stats' % (script_dir, run, sample, sample)
     bamstats_list = get_bamstat_scores(stats_file)
     return render(request, 'aml/bamstats.html', {'bamstats_list': bamstats_list, 'run': run, 'sample': sample})
 
@@ -306,7 +311,7 @@ def view_flt3_combined(request):
         itd = request.GET['itd']
         ab = request.GET['ab']
         run = request.GET['run']
-        con = sql.connect('/home/shjn/PycharmProjects/mypipeline/db.sqlite3')
+        con = sql.connect('%s/db.sqlite3' % parent_dir)
         curs = con.cursor()
         curs.execute("CREATE TABLE IF NOT EXISTS Frag(result_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                      "sample TEXT, run TEXT, itd INTEGER, ab REAL)")
@@ -339,8 +344,7 @@ def view_flt3_combined(request):
             else:
                 pass
         with open("all_samples.R", "w+") as r_file:
-            r_file.write("library(ggplot2)\npng(\"/home/shjn/PycharmProjects/mypipeline/aml/static/aml/all_samples.png"
-                         "\")\nFrag_Analysis <- c(")
+            r_file.write("library(ggplot2)\npng(\"%s/static/aml/all_samples.png\")\nFrag_Analysis <- c(" % script_dir)
             for f in frag[:-1]:
                 r_file.write("%s, " % f)
             r_file.write("%s)\nNGS <- c(" % frag[-1])
@@ -353,7 +357,8 @@ def view_flt3_combined(request):
                          "p <- ggplot(data = df, aes(x = Frag_Analysis, NGS))\n"
                          "p + geom_point(aes(size=ITD_size))\ndev.off()\n" % itd[-1])
         r_file.close()
-        os.system("Rscript /home/shjn/PycharmProjects/mypipeline/all_samples.R")
+        r_file.close()
+        os.system("Rscript %s/all_samples.R" % parent_dir)
     else:
         pass
 
