@@ -44,7 +44,7 @@ parser.add_argument('-o', '--output_dir', action='store', dest='output_dir',
 args = parser.parse_args()
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Paths to all tools used in pipeline. Put in config file?
+# Get values from config.txt file.
 # ----------------------------------------------------------------------------------------------------------------------
 InterOp = '%sInterOp/' % args.result_dir
 config_df = pd.read_table('%s/config.txt' % parent_dir, header=None, names=['Setting', 'Value'], sep='=')
@@ -102,7 +102,14 @@ assess_quality()
 #   5) Run SAMtools "Sort" on aligned data [.bwa.drm.bam --> .bwa.drm.sorted.bam].
 #   6) Run SAMtools "Index" on sorted data to generate index file [.bwa.drm.sorted.bam --> .bwa.drm.sorted.bam.bai].
 #   7) Run SAMtools "Stats" and "Plot-bamstats" & combine with FastQC results.
-#   8)
+#   8) Create breakdancer config and run breakdancer.
+#   9) Create pindel config, run pindel and convert pindel output to VCF file.
+#  10) Run delly and convert BCF output to VCF file.
+#  11) Merge all VCFs.
+#  12) Annotate merged VCF using ANNOVAR.
+#  13) Calculate frequency of each variant in data so far by compressing and combining all variants into database, and
+#      add to annotated VCF file.
+#  14) Convert annotated VCF file to an excel spreadsheet and add to db.sqlite3 database for use in web app.
 # ----------------------------------------------------------------------------------------------------------------------
 
 @collate("*.fastq.gz", formatter("([^/]+)R[12]_001.fastq.gz$"), "{path[0]}/{1[0]}.fastq.gz")

@@ -1,4 +1,6 @@
 import pandas as pd
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_fastqc_results(run, sample):
@@ -7,13 +9,13 @@ def get_fastqc_results(run, sample):
     """
 
     # (1) Data into dataframe, pull out property and value data and create dictionary.
-    stats_df = pd.read_table('aml/static/aml/%s/%s/fastqc_R1/fastqc_data.txt' % (run, sample), header=None,
+    stats_df = pd.read_table('%s/static/aml/%s/%s/fastqc_R1/fastqc_data.txt' % (script_dir, run, sample), header=None,
                              names=['Property', 'Value'], usecols=[0, 1], skiprows=3, nrows=7)
     properties = stats_df['Property'].tolist()
     values = stats_df['Value'].tolist()
     stats_dict = dict(zip(properties, values))
-    stats_trim_df = pd.read_table('aml/static/aml/%s/%s/fastqc_R1_trim/fastqc_data.txt' % (run, sample), header=None,
-                                  names=['Property', 'Value'], usecols=[0, 1], skiprows=3, nrows=7)
+    stats_trim_df = pd.read_table('%s/static/aml/%s/%s/fastqc_R1_trim/fastqc_data.txt' % (script_dir, run, sample),
+                                  header=None, names=['Property', 'Value'], usecols=[0, 1], skiprows=3, nrows=7)
     trim_properties = stats_trim_df['Property'].tolist()
     trim_values = stats_trim_df['Value'].tolist()
     stats_trim_dict = dict(zip(trim_properties, trim_values))
@@ -29,7 +31,7 @@ def get_fastqc_results(run, sample):
 
 def get_summary(folder, run, sample):
     """Get data from .txt file and put into dictionary."""
-    scores_df = pd.read_table('aml/static/aml/%s/%s/%s/summary.txt' % (run, sample, folder), header=None,
+    scores_df = pd.read_table('%s/static/aml/%s/%s/%s/summary.txt' % (script_dir, run, sample, folder), header=None,
                               names=['Score', 'Parameter'], usecols=[0, 1])
     scores = scores_df['Score'].tolist()
     params = scores_df['Parameter'].tolist()
