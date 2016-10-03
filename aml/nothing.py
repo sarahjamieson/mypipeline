@@ -238,17 +238,8 @@ os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/all_samples.R")
 
 '''
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+tilemetrics = InteropTileMetrics('/media/sf_sarah_share/160805/InterOp/TileMetricsOut.bin')
 
-config_df = pd.read_table('%s/config.txt' % parent_dir, header=None, names=['Setting', 'Value'], sep='=')
-settings = config_df['Setting'].tolist()
-values = config_df['Value'].tolist()
-config_dict = dict(zip(settings, values))
-
-os.system("%s --help" % config_dict['samtools'])
-
-
-
+print tilemetrics.df
 
 

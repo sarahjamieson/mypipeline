@@ -110,8 +110,7 @@ def get_interop_for_run(request, run):
 def get_sample_quality(request, sample, run):
     """Takes a sample and run and downloads the Quality PDF file saved in the static folder for that sample.
 
-    Note1: make path to static folder general.
-    Note2: "request" is required as argument for browser connection even though not used.
+    Note: "request" is required as argument for browser connection even though not used.
 
     """
     with open('%s/static/aml/%s/%s/%s_sample_quality.pdf' % (script_dir, run, sample, sample), 'r') as pdf:
@@ -144,8 +143,6 @@ def get_flt3_only(request, sample, run):
             -w : search for motif with length <length>
 
         Duplicate results are also added to a dictionary so the size and positions can be displayed in the template.
-
-    Note: make path general.
 
     """
     flt3_results = []
@@ -223,8 +220,6 @@ def get_fastqc(request, sample, run):
         r1/r2: dictionary of scores for each measurement before trimming e.g. per base sequence quality.
         r1_trim/r2_trim: dictionary of scores for each measurement after trimming.
 
-    Note: make paths in other file general.
-
     """
     r1, r2, r1_trim, r2_trim, stats_dict, stats_trim_dict = get_fastqc_results(run, sample)
 
@@ -281,11 +276,8 @@ def view_flt3_combined(request):
         (2) Table of results comparing Fragment Analysis to NGS data.
         (3) Graphs showing the results.
 
-    Note1: currently multiple runs with same samples in this version, so results are filtered for the two main runs to
+    Note: currently multiple runs with same samples in this version, so results are filtered for the two main runs to
     avoid lots of duplicates (16053 and 160805).
-
-    Note2: make paths general.
-
     """
     show_plot = False
     samples = []

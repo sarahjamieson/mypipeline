@@ -172,10 +172,15 @@ class CreatePDF(object):
         return (value / self.tile.num_clusters_pf) * 100
 
     def get_qual_graph(self, avg_qual):
-        """Takes
+        """Takes quality metrics and produces a bar plot.
 
-        :param avg_qual:
-        :return:
+        Qualitymetrics dataframe has the following headings:
+            q1  q2  q3  q4  q5...q50    cycle   lane    tile
+        So all rows for each possible quality value are summed and split into lists (<30 and >30 as 30 is cut-off).
+        Total clusters with each quality score are y-values for graph (divided by 1,000,000 just to reduce total zeros).
+        x-values are quality scores 1-50.
+        x and y values split into two groups for below and above cut-off so they can have different coloured bars.
+
         """
         quality_df = self.quality.df
 
@@ -186,9 +191,8 @@ class CreatePDF(object):
         less_than_q30 = qual_list[0: 29]
         more_than_q30 = qual_list[30: 50]
 
-        myint = 1000000
-        y1 = [x / myint for x in less_than_q30]
-        y2 = [x / myint for x in more_than_q30]
+        y1 = [x / 1000000 for x in less_than_q30]
+        y2 = [x / 1000000 for x in more_than_q30]
         x1 = range(1, 30)
         x2 = range(30, 50)
         y_max = max(y1 + y2)
@@ -199,12 +203,23 @@ class CreatePDF(object):
         ax.bar(x2, y2, color='g', width=1.0)
         ax.set_ylabel('Total (millions)')
         ax.set_xlabel('Q score')
-        ax.plot([30, 30], [0, y_max], color='g', linewidth=1, zorder=5)
+        ax.plot([30, 30], [0, y_max], color='g', linewidth=1, zorder=5)  # plot divider line at q30 threshold
         percent = '%s%%' % format(avg_qual, '.2f')
         ax.text(23, y_max - 100, percent, fontsize=16, color='g')
         fig.savefig('%s_qual_bar.png' % self.worksheet)
 
     def get_qual_heatmap(self):
+        """Takes quality metrics and draw heatmap of cycles against quality score.
+
+        Column names changed to integers to use as axis.
+        Results grouped by cycle and summed.
+        Dataframe is transposed so graph can be drawn directly with cycles as x-axis and quality scores as y-axis.
+        All values are percentage of total clusters.
+        Custom colourmap specified to match colours in Illumina Sequence Analysis Viewer using tool here:
+            http://jdherman.github.io/colormap/
+        All colours need to be a fraction of 255 (white/all colours).
+
+        """
         quality_df = self.quality.df
         cols_to_drop = ['lane', 'tile', 'total']
         quality_df = quality_df.drop(cols_to_drop, axis=1)
@@ -279,6 +294,7 @@ class CreatePDF(object):
         fig.savefig('%s_qual_heatmap.png' % self.worksheet)
 
     def get_phas_prephas(self):
+        """Calculates phasing and prephasing scores for each read (provided in InterOp tilemetrics)."""
         read_1_phas = self.tile.mean_phasing[0] * 100
         read_2_phas = self.tile.mean_phasing[1] * 100
         read_1_prephas = self.tile.mean_prephasing[0] * 100
@@ -287,6 +303,29 @@ class CreatePDF(object):
         return read_1_phas, read_1_prephas, read_2_phas, read_2_prephas
 
     def get_indexing(self):
+        """Takes indexmetrics, generates per sample data for two tables and draws scatter plot of samples against
+        clusters.
+
+        Tables to generate in PDF:
+            (1) Summary
+            Total reads | PF reads | % Reads Identified (PF) | Min | Max
+
+                Total reads = total_aligned_clusters
+                PF reads = pf_aligned_clusters
+                % Reads Identified (PF) = percent_pf
+                min = minimum value in percent_clusters
+                max = maximum value in percent_clusters
+
+            (2) Per sample
+            Sample_ID | Index | Index2 | % Reads Identified (PF)
+
+                Sample_ID = name_str
+                Index = first part of index
+                Index2 = second part of index
+                % Reads Identified (PF) = clusters
+
+
+        """
         total_aligned_clusters = float(self.tile.num_clusters * self.tile.aligned)
         pf_aligned_clusters = float(self.index.df['clusters'].sum())
         percent_pf = format(float(pf_aligned_clusters / total_aligned_clusters) * 100, '.4f')
@@ -313,6 +352,12 @@ class CreatePDF(object):
         return sample_id, index1, index2, percent_clusters, percent_pf, total_aligned_clusters, pf_aligned_clusters
 
     def get_clusters_heatmap(self):
+        """Takes tilemetrics and generates a spatial heatmap of clusters per tile.
+
+        Gets density value per tile and splits results into two groups (1101-1114 and 2101-2114) as per slide layout.
+        Uses a ready-made colourmap scheme called "jet" (http://matplotlib.org/users/colormaps.html).
+
+        """
         tile_df = self.tile.df[self.tile.df['code'] == 100]
         cols_to_drop = ['code', 'lane']
         tile_df = tile_df.drop(cols_to_drop, axis=1)
@@ -325,9 +370,8 @@ class CreatePDF(object):
         num_tiles = self.tile.num_tiles
         tiles_11 = tile_df['value'][0:num_tiles / 2].tolist()
         tiles_21 = tile_df['value'][num_tiles / 2:num_tiles].tolist()
-        myint = 1000
-        tiles_11_div = [x / myint for x in tiles_11]
-        tiles_21_div = [x / myint for x in tiles_21]
+        tiles_11_div = [x / 1000 for x in tiles_11]
+        tiles_21_div = [x / 1000 for x in tiles_21]
 
         data = []
         item = 0
