@@ -15,7 +15,7 @@ The pipeline takes 3 arguments:
 
 To run the pipeline:
 ```
-$ pipeline.py -s /path/to/samplesheet.csv -d /path/to/miseq/output/ -o /path/to/result/
+$ python pipeline.py -s /path/to/samplesheet.csv -d /path/to/miseq/output/ -o /path/to/result/
 ```
 
 To deploy the app:
