@@ -280,13 +280,16 @@ def view_flt3_combined(request):
     avoid lots of duplicates (16053 and 160805).
     """
     show_plot = False
+    show_matches = False
     samples = []
     runs = []
     unique_samples = []
     unique_runs = []
+    matching_samples = []
 
     # Generate unique sample list and unique run list for drop down menus in template.
     results = Results.objects.all().order_by('sample')
+    frag_results = FragmentAnalysis.objects.all()
     for result in results:
         samples.append(result.sample)
         runs.append(result.run)
@@ -328,7 +331,8 @@ def view_flt3_combined(request):
             sample_results = Results.objects.filter(sample=item.sample, run=item.run, size=item.itd)
             if results:
                 for result in sample_results:
-                    ngs_temp.append(result.ab)
+                    ar = float(format(float(result.alleles.split(',')[1]) / float(result.alleles.split(',')[0]), '.3f'))
+                    ngs_temp.append(ar)
                 frag.append(item.ab)
                 ngs.append(format(sum(ngs_temp) / 100, '.3f'))
                 itd.append(item.itd)
@@ -368,44 +372,12 @@ def view_flt3_combined(request):
     #    size, add together the allelic ratios.
     #  - Add the two lists to a nested dictionary with the sample name as the key.
     # These two dictionaries will then be called in the template to generate the table.
-    frag_dict = {}
-    ngs_dict = {}
-    for sample in unique_samples:
-        abs = []
-        sizes = []
-        abs_ngs = []
-        sizes_ngs = []
-        frags = FragmentAnalysis.objects.filter(sample=sample).order_by('sample', 'itd')
-        if frags:
-            for item in frags:
-                abs.append(item.ab)
-                sizes.append(item.itd)
-            frag_dict[sample] = {
-                'size': sizes,
-                'ab': abs
-            }
-        else:
-            pass
-        results = Results.objects.filter(
-            sample=sample, gene__icontains='FLT3', caller='Pindel').order_by('sample', 'size')
-        if results:
-            for item in results:
-                if item.run == '16053' or item.run == '160805':  # ideally remove this if statement
-                    if item.size in sizes_ngs:
-                        size_index = sizes_ngs.index(item.size)
-                        abs_ngs[size_index] = abs_ngs[size_index] + item.ab
-                    else:
-                        sizes_ngs.append(item.size)
-                        abs_ngs.append(item.ab)
-                else:
-                    pass
-            if sizes_ngs:
-                ngs_dict[sample] = {
-                    'size': sizes_ngs,
-                    'ab': abs_ngs
-                }
-        else:
-            pass
+    if 'toggle' in request.GET:
+        show_plot = True
+        show_matches = True
+        ngs_dict, frag_dict, matching_samples = get_matching_flt3(unique_samples)
+    else:
+        ngs_dict, frag_dict = get_all_flt3(unique_samples)
 
     # Get list of unique samples with FLT3 results to use as keys for dictionaries to generate table.
     flt3_samples = []
@@ -413,8 +385,16 @@ def view_flt3_combined(request):
                                           run='16053') | Results.objects.filter(gene__icontains='FLT3', caller='Pindel',
                                                                                 run='160805')
     for item in flt3_results:
+        flt3_samples.append(item.sample)
+    for item in frag_results:
         if item.sample not in flt3_samples:
             flt3_samples.append(item.sample)
+    flt3_samples = list(set(flt3_samples))
+    flt3_samples.sort()
+    if 'toggle' in request.GET:
+        flt3_samples = matching_samples
+    else:
+        flt3_samples = flt3_samples
 
     # Django chartit example
     # 1) Create DataPool with data for chart
@@ -447,7 +427,7 @@ def view_flt3_combined(request):
 
     return render(request, 'aml/combined.html', {'samples': unique_samples, 'runs': unique_runs, 'show': show_plot,
                                                  'frag_d': frag_dict, 'ngs_d': ngs_dict, 'flt3_samples': flt3_samples,
-                                                 'fragchart': cht})
+                                                 'fragchart': cht, 'show_matches': show_matches})
 
 
 @register.filter
@@ -464,3 +444,102 @@ def nested_lookup(dictionary, key1, key2):
             {{ nested_lookup dictionary key1 key2 }}
     """
     return dictionary[key1][key2]
+
+
+def get_all_flt3(unique_samples):
+    frag_dict = {}
+    ngs_dict = {}
+    for sample in unique_samples:
+        abs = []
+        sizes = []
+        abs_ngs = []
+        sizes_ngs = []
+        frags = FragmentAnalysis.objects.filter(sample=sample).order_by('sample', 'itd')
+        if frags:
+            for item in frags:
+                abs.append(item.ab)
+                sizes.append(item.itd)
+            frag_dict[sample] = {
+                'size': sizes,
+                'ab': abs
+            }
+        else:
+            pass
+        results = Results.objects.filter(
+            sample=sample, gene__icontains='FLT3', caller='Pindel').order_by('sample', 'size')
+        if results:
+            for item in results:
+                if item.run == '16053' or item.run == '160805':  # ideally remove this if statement
+                    ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
+                    ar = float(format(ar, '.3f'))
+                    if item.size in sizes_ngs:
+                        size_index = sizes_ngs.index(item.size)
+                        abs_ngs[size_index] += ar
+                    else:
+                        sizes_ngs.append(item.size)
+                        abs_ngs.append(ar)
+                else:
+                    pass
+            if sizes_ngs:
+                ngs_dict[sample] = {
+                    'size': sizes_ngs,
+                    'ab': abs_ngs
+                }
+
+    return ngs_dict, frag_dict
+
+
+def get_matching_flt3(unique_samples):
+    ngs_sample_sizes = []
+    frag_sample_sizes = []
+    frag_dict = {}
+    ngs_dict = {}
+    samples_with_matches = []
+
+    for result in Results.objects.filter(caller='Pindel', gene__icontains='FLT3', run='16053') | Results.objects.filter(
+            caller='Pindel', gene__icontains='FLT3', run='160805'):
+        ngs_sample_sizes.append("%s_%s" % (result.sample, result.size))
+    for frag in FragmentAnalysis.objects.all():
+        frag_sample_sizes.append("%s_%s" % (frag.sample, frag.itd))
+
+    for sample in unique_samples:
+        abs = []
+        sizes = []
+        abs_ngs = []
+        sizes_ngs = []
+        frags = FragmentAnalysis.objects.filter(sample=sample).order_by('sample', 'itd')
+        if frags:
+            for item in frags:
+                check = "%s_%s" % (sample, item.itd)
+                if check in ngs_sample_sizes and check in frag_sample_sizes:
+                    samples_with_matches.append(sample)
+                    abs.append(item.ab)
+                    sizes.append(item.itd)
+            frag_dict[sample] = {
+                'size': sizes,
+                'ab': abs
+            }
+        else:
+            pass
+        results = Results.objects.filter(
+            sample=sample, gene__icontains='FLT3', caller='Pindel').order_by('sample', 'size')
+        if results:
+            for item in results:
+                check = "%s_%s" % (sample, item.size)
+                if check in ngs_sample_sizes and check in frag_sample_sizes:
+                    if item.run == '16053' or item.run == '160805':  # ideally remove this if statement
+                        ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
+                        ar = float(format(ar, '.3f'))
+                        if item.size in sizes_ngs:
+                            size_index = sizes_ngs.index(item.size)
+                            abs_ngs[size_index] += ar
+                        else:
+                            sizes_ngs.append(item.size)
+                            abs_ngs.append(ar)
+                if sizes_ngs:
+                    ngs_dict[sample] = {
+                        'size': sizes_ngs,
+                        'ab': abs_ngs
+                    }
+
+    return ngs_dict, frag_dict, list(set(samples_with_matches))

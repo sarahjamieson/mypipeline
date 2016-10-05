@@ -65,6 +65,15 @@
     </form>
     <p></p>
     {% if show %}
+    {% if show_matches %}
+    <form action="" method="get">
+        <button class="w3-btn w3-teal" name="graph" type="submit" value="show" style="float:right">Show all</button>
+    </form>
+    {% else %}
+    <form action="" method="get">
+        <button class="w3-btn w3-teal" name="toggle" type="submit" value="toggle" style="float: right;">Show matches only</button>
+    </form>
+    {% endif %}
     <table>
         <col>
         <colgroup span="2"></colgroup>

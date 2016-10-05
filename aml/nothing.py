@@ -237,9 +237,8 @@ r_file.close()
 os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/all_samples.R")
 
 '''
+for result in Results.objects.filter(sample='D15-18331', run='16053', caller='Pindel', gene__icontains='FLT3'):
+    print result.size, float(result.alleles.split(',')[1])/float(result.alleles.split(',')[0])
 
-tilemetrics = InteropTileMetrics('/media/sf_sarah_share/160805/InterOp/TileMetricsOut.bin')
-
-print tilemetrics.df
 
 
