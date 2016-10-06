@@ -11,6 +11,7 @@ import time
 from chartit import DataPool, Chart
 from get_quality_results import get_fastqc_results, get_bamstat_scores
 import pandas as pd
+from generate_R_plots import generate_ngs_vs_frag, generate_ngs_vs_frag_exclude_outliers
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
@@ -329,32 +330,18 @@ def view_flt3_combined(request):
         for item in frags:
             ngs_temp = []
             sample_results = Results.objects.filter(sample=item.sample, run=item.run, size=item.itd)
-            if results:
+            if sample_results:
                 for result in sample_results:
                     ar = float(format(float(result.alleles.split(',')[1]) / float(result.alleles.split(',')[0]), '.3f'))
                     ngs_temp.append(ar)
                 frag.append(item.ab)
-                ngs.append(format(sum(ngs_temp) / 100, '.3f'))
+                ngs.append(format(sum(ngs_temp), '.3f'))
                 itd.append(item.itd)
-                final.append([item.itd, item.ab, format(sum(ngs_temp) / 100, '.3f')])
+                final.append([item.itd, item.ab, format(sum(ngs_temp), '.3f')])
             else:
                 pass
-        with open("all_samples.R", "w+") as r_file:
-            r_file.write("library(ggplot2)\npng(\"%s/static/aml/all_samples.png\")\nFrag_Analysis <- c(" % script_dir)
-            for f in frag[:-1]:
-                r_file.write("%s, " % f)
-            r_file.write("%s)\nNGS <- c(" % frag[-1])
-            for n in ngs[:-1]:
-                r_file.write("%s, " % n)
-            r_file.write("%s)\nITD_size <- c(" % ngs[-1])
-            for s in itd[:-1]:
-                r_file.write("%s, " % s)
-            r_file.write("%s)\ndf <- data.frame(Frag_Analysis, NGS, ITD_size)\n"
-                         "p <- ggplot(data = df, aes(x = Frag_Analysis, NGS))\n"
-                         "p + geom_point(aes(size=ITD_size))\ndev.off()\n" % itd[-1])
-        r_file.close()
-        r_file.close()
-        os.system("Rscript %s/all_samples.R" % parent_dir)
+        generate_ngs_vs_frag(frag, ngs, itd)  # ggplot function
+        generate_ngs_vs_frag_exclude_outliers(frag, ngs, itd)  # ggplot function
     else:
         pass
 
@@ -382,8 +369,8 @@ def view_flt3_combined(request):
     # Get list of unique samples with FLT3 results to use as keys for dictionaries to generate table.
     flt3_samples = []
     flt3_results = Results.objects.filter(gene__icontains='FLT3', caller='Pindel',
-                                          run='16053') | Results.objects.filter(gene__icontains='FLT3', caller='Pindel',
-                                                                                run='160805')
+                                          run='160628_merged') | Results.objects.filter(gene__icontains='FLT3',
+                                                                                        caller='Pindel', run='160805')
     for item in flt3_results:
         flt3_samples.append(item.sample)
     for item in frag_results:
@@ -469,7 +456,7 @@ def get_all_flt3(unique_samples):
             sample=sample, gene__icontains='FLT3', caller='Pindel').order_by('sample', 'size')
         if results:
             for item in results:
-                if item.run == '16053' or item.run == '160805':  # ideally remove this if statement
+                if item.run == '160628_merged' or item.run == '160805':  # ideally remove this if statement
                     ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
                     ar = float(format(ar, '.3f'))
                     if item.size in sizes_ngs:
@@ -496,8 +483,10 @@ def get_matching_flt3(unique_samples):
     ngs_dict = {}
     samples_with_matches = []
 
-    for result in Results.objects.filter(caller='Pindel', gene__icontains='FLT3', run='16053') | Results.objects.filter(
-            caller='Pindel', gene__icontains='FLT3', run='160805'):
+    for result in Results.objects.filter(caller='Pindel', gene__icontains='FLT3',
+                                         run='160628_merged') | Results.objects.filter(caller='Pindel',
+                                                                                       gene__icontains='FLT3',
+                                                                                       run='160805'):
         ngs_sample_sizes.append("%s_%s" % (result.sample, result.size))
     for frag in FragmentAnalysis.objects.all():
         frag_sample_sizes.append("%s_%s" % (frag.sample, frag.itd))
@@ -527,7 +516,7 @@ def get_matching_flt3(unique_samples):
             for item in results:
                 check = "%s_%s" % (sample, item.size)
                 if check in ngs_sample_sizes and check in frag_sample_sizes:
-                    if item.run == '16053' or item.run == '160805':  # ideally remove this if statement
+                    if item.run == '160628_merged' or item.run == '160805':  # ideally remove this if statement
                         ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
                         ar = float(format(ar, '.3f'))
                         if item.size in sizes_ngs:

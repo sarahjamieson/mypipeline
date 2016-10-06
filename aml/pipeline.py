@@ -541,7 +541,10 @@ def vcf_to_excel(infile, outfile):
                 ab = format((float(alt_reads) / float(total_reads) * 100), '.2f')
             else:
                 ab = format(int(0), '.2f')
-            size = info_dict.get("SVLEN")
+            if sv_type == "DUP:TANDEM":
+                size = len(alt) - len(ref)
+            else:
+                size = info_dict.get("SVLEN")
             ad_str = '%s,%s' % (str(ref_reads), str(alt_reads))
             caller = info_dict.get("Caller")
             prec = ",".join(str(a) for a in info_dict.get("PRECISION"))
