@@ -9,79 +9,20 @@ import numpy as np
 from illuminate import InteropTileMetrics, InteropControlMetrics, InteropErrorMetrics, InteropExtractionMetrics, \
     InteropIndexMetrics, InteropQualityMetrics, InteropCorrectedIntensityMetrics
 from create_interop_pdf import CreatePDF
-
+import pandas as pd
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mypipeline.settings'
 django.setup()
 from aml.models import Results
 import datetime
 import matplotlib.pyplot as plt
 import glob
+from aml.models import FragmentAnalysis, Results
 
 '''
-worksheet = '160628_merged'
-
 samples = ['D15-18331', 'D15-21584', 'D15-22373', 'D15-20343', 'D15-25430', 'D03-21521', 'D15-08791', 'D15-08798',
            'D15-04183', 'D15-00899', 'D15-50424', 'D15-45066', 'D14-45300', 'D15-35262', 'D14-33938', 'D13-42537',
            'D14-16565', 'D15-31492', 'D15-41762', 'D14-30832', 'D14-27112', 'D15-02217', 'D15-26810'
            ]
-
-for sample in samples:
-    os.system("cp /media/sf_sarah_share/MiSeq_Nextera_Results/16053/*%s*/Data/*%s*.annovar.final.vcf /home/cuser/PycharmProjects/django_apps/mypipeline/aml/"
-              % (sample, sample))
-
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-worksheet = '16053'
-
-
-@transform(["*.annovar.final.vcf"], suffix(".annovar.final.vcf"), ".annovar.xlsx")
-def vcf_to_excel(infile, outfile):
-    vcf_reader = vcf.Reader(open(infile, 'r'))
-    sample_name = infile[:-18]
-    rcircos_file = open("%s.txt" % sample_name[3:12:], "w")
-    for record in vcf_reader:
-        for sample in record:
-            # PyVCF reader
-            chrom = record.CHROM
-            pos = record.POS
-            info_dict = record.INFO
-            chr2 = info_dict.get("CHR2")
-            end_pos = info_dict.get("END")
-            caller = info_dict.get("Caller")
-            prec = ",".join(str(a) for a in info_dict.get("PRECISION"))
-
-            if caller == 'Delly':
-                if prec == 'PRECISE':
-                    rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\n" % (chrom, pos, pos, chr2, end_pos, end_pos))
-
-    rcircos_file.close()
-    if os.stat("%s.txt" % sample_name[3:12:]).st_size != 0:
-        os.system("Rscript /home/cuser/PycharmProjects/django_apps/mypipeline/aml/rcircos_link.R %s.txt %s.png"
-                  % (sample_name[3:12:], sample_name[3:12:]))
-    os.system("mkdir -p %s/static/rcircos/%s/" % (script_dir, worksheet))
-    os.system("mv %s.png %s/static/rcircos/%s/" % (sample_name[3:12:], script_dir, worksheet))
-
-
-pipeline_run()
-
-
-from aml.models import Results
-colors = ['blue', 'red', 'green', 'orange', 'purple', 'black', 'cyan4', 'deeppink', 'seagreen', 'yellow']
-sample = 'D14-16565'
-run = '16053'
-color_no = 0
-row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Delly')
-rcircos_file = open("%s.txt" % sample, "w+")
-for item in row:
-    rcircos_file.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n"
-                       % (item.chrom, item.pos, item.pos, item.chr2, item.end, item.end, colors[color_no]))
-    color_no += 1
-
-rcircos_file.close()
-os.system("Rscript /home/shjn/PycharmProjects/mypipeline/rcircos_link.R %s.txt %s.png" % (sample, sample))
-
-colors = ['blue', 'red', 'green', 'orange', 'purple', 'black', 'cyan4', 'deeppink', 'seagreen', 'yellow', 'black', 'black', 'black', 'black', 'black']
-color_no = 0
 
 samples = ['02-D15-18331-AR-Nextera-Myeloid-Val1-Repeat_S2_L001_',
            '03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_',
@@ -106,15 +47,6 @@ samples = ['02-D15-18331-AR-Nextera-Myeloid-Val1-Repeat_S2_L001_',
            '23-D15-02217-LT-Nextera-Myeloid-Val1-Repeat_S23_L001_',
            '24-D15-26810-FM-Nextera-Myeloid-Val1-Repeat_S24_L001_'
            ]
-for sample in samples:
-    os.system("cp /media/sf_sarah_share/MiSeq_Nextera_Results/160725/%s/Data/*.bcf /home/shjn/PycharmProjects/mypipeline/aml/" % sample)
-    os.system("cp /media/sf_sarah_share/MiSeq_Nextera_Results/160725/%s/Data/*.delly.vcf /home/shjn/PycharmProjects/mypipeline/aml/" % sample)
-
-
-
-xvals = [0.24, 0.17, 0.04, 0.21, 0.77, 0.5, 0.34, 0.42, 0.3, 0.1, 0.36, 0.4, 0.04]
-yvals = [0.0643, 0.0583, 0.0193, 0.0461, 0.2825, 0.2625, 0.2095, 0.1669, 0.0272, 0.0347, 0.1658, 0.2261, 0.0134]
-
 
 # http://stackoverflow.com/questions/19612348/break-x-axis-in-r
 
@@ -136,23 +68,6 @@ plt.xlim(0, 1.0)
 plt.legend(loc='best')
 plt.show()
 
-from collections import defaultdict
-
-new_dict = {"1": ["val1", "val2"], "2": ["abc", "def"]}
-for key, value in new_dict.items():
-    for v in new_dict[key]:
-        print v
-
-sample = "D15-08798"
-run = "16053"
-row = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Pindel', gene__icontains='FLT3',
-                             size__icontains="57")
-d = defaultdict(list)
-for item in row:
-    d[item.size].append(item.pos)
-for ke, va in d.items():
-    print va
-
 samples = [
     '02-D06-20828-SG-Val2-Enrich3-Run4_S2_L001_',
     '03-D13-25437-PG-Val2-Enrich3-Run4_S3_L001_',
@@ -162,79 +77,61 @@ samples = [
     '07-D15-37942-GH-Val2-Enrich3-Run4_S7_L001_',
     '08-D14-31377-LM-Val2-Enrich3-Run4_S8_L001_'
 ]
+'''
+samples = ['D03-21521', 'D06-20828']
+cols = ['SAMPLE', 'FRAG ITD SIZE', 'FRAG AR', 'NGS ITD SIZE', 'NGS AR']
+combined_df = pd.DataFrame(columns=cols)
 for sample in samples:
-    name = sample[3:12:]
-    os.system("mv /home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%ssample_quality.pdf "
-              "/home/shjn/PycharmProjects/mypipeline/aml/static/aml/160805/%s/%s_sample_quality.pdf"
-              % (name, name, name, name))
-'''
-'''
-import pandas as pd
-from rpy2.robjects import pandas2ri
-from rpy2.robjects.packages import importr
+    frag_dict = {}
+    ngs_dict = {}
+    for item in FragmentAnalysis.objects.filter(sample=sample):
+        frag_dict[item.itd] = item.ab
+    for item in Results.objects.filter(sample=sample, run='160628_merged', caller='Pindel', gene='FLT3') | Results.objects.filter(sample=sample, run='160805', caller='Pindel', gene='FLT3'):
+        ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
+        ar = float(format(ar, '.3f'))
+        if item.size in ngs_dict:
+            ngs_dict[item.size] += ar
+        else:
+            ngs_dict[item.size] = ar
 
-import rpy2.robjects.lib.ggplot2 as ggplot2
-grdevices = importr('grDevices')
-grdevices.png(file="all_samples.png")
+    for key, value in frag_dict.items():
+        if key in ngs_dict:
+            ngs_size = key
+            ngs_ar = ngs_dict.get(key)
+            del ngs_dict[key]
+        else:
+            ngs_size = "-"
+            ngs_ar = "-"
+        combined_df_temp = pd.DataFrame([[sample, key, value, ngs_size, ngs_ar]], columns=cols)
+        combined_df = combined_df.append(combined_df_temp)
+    if ngs_dict:
+        for key, value in ngs_dict.items():
+            combined_df_temp = pd.DataFrame([[sample, "-", "-", key, value]], columns=cols)
+            combined_df = combined_df.append(combined_df_temp)
+combined_df = combined_df.reset_index(drop=True)
 
-frag = [1, 2, 3, 4, 5]
-ngs = [6, 7, 8, 9, 2]
-itd = [20, 35, 12, 20, 30]
-d = {'f': frag, 'i': itd, 'n': ngs}
-df = pd.DataFrame(data=d)
-r_df = pandas2ri.py2ri(df)
+# for sample in samples, get indexes where SAMPLE == sample, xlsx writer -> merge cells
+sample_index_dict = {}
+for sample in samples:
+    index_list = combined_df[combined_df['SAMPLE'] == sample].index.tolist()
+    sample_index_dict[sample] = index_list
 
-gp = ggplot2.ggplot(r_df)
-pp = gp + ggplot2.aes_string(x='f', y='n') + ggplot2.geom_point(ggplot2.aes_string(size='i'))
-pp.plot()
+writer = pd.ExcelWriter("combined_flt3_results.xlsx", engine="xlsxwriter")
+combined_df.to_excel(writer, sheet_name="Sheet1", index=False)
+workbook = writer.book
+worksheet = writer.sheets["Sheet1"]
+merge_format = workbook.add_format({
+    'valign': 'vcenter'
+})
+for key, value in sample_index_dict.items():
+    if len(value) > 1:
+        start_index = min(value) + 2
+        end_index = max(value) + 2
+        worksheet.merge_range('A%s:A%s' % (start_index, end_index), key, merge_format)
+writer.save()
+# works, now just adjust columns and add to app
 
-# os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/ggplot.R %s" % r_df)
 
 
-grdevices.dev_off()
-'''
-from aml.models import FragmentAnalysis
-import pandas as pd
-'''
-from rpy2.robjects import pandas2ri
-from rpy2.robjects.numpy2ri import numpy2ri
-import rpy2
-rpy2.robjects.numpy2ri.activate()
-from rpy2 import robjects
-from rpy2.robjects.vectors import FloatVector, IntVector
 
-fa = []
-ngs = []
-size = []
-
-frags = FragmentAnalysis.objects.all()
-for item in frags:
-    ngs_temp = []
-    results = Results.objects.filter(sample=item.sample, run=item.run, size=item.itd)
-    if results:
-        for result in results:
-            ngs_temp.append(result.ab)
-        fa.append(item.ab)
-        ngs.append(sum(ngs_temp))
-        size.append(item.itd)
-    else:
-        pass
-
-with open("all_samples.R", "w+") as r_file:
-    r_file.write("library(ggplot2)\npng(\"all_samples.png\")\nfrag <- c(")
-    for f in fa[:-1]:
-        r_file.write("%s, " % f)
-    r_file.write("%s)\nngs <- c(" % fa[-1])
-    for n in ngs[:-1]:
-        r_file.write("%s, " % n)
-    r_file.write("%s)\nitd <- c(" % ngs[-1])
-    for s in size[:-1]:
-        r_file.write("%s, " % s)
-    r_file.write("%s)\ndf <- data.frame(frag, ngs, itd)\np <- ggplot(data = df, aes(x = frag, ngs))\np + "
-                 "geom_point(aes(size=itd))\ndev.off()\n" % size[-1])
-r_file.close()
-
-os.system("Rscript /home/shjn/PycharmProjects/mypipeline/aml/all_samples.R")
-
-'''
 
