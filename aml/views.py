@@ -12,6 +12,7 @@ from chartit import DataPool, Chart
 from get_quality_results import get_fastqc_results, get_bamstat_scores
 import pandas as pd
 from generate_R_plots import generate_ngs_vs_frag, generate_ngs_vs_frag_exclude_outliers
+from wsgiref.util import FileWrapper
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
@@ -532,3 +533,68 @@ def get_matching_flt3(unique_samples):
                     }
 
     return ngs_dict, frag_dict, list(set(samples_with_matches))
+
+
+def download(request, samples):
+    cols = ['SAMPLE', 'FRAG ITD SIZE', 'FRAG AR', 'NGS ITD SIZE', 'NGS AR']
+    samples = samples.split(',')
+    combined_df = pd.DataFrame(columns=cols)
+    for sample in samples:
+        sample = sample[3:12:]
+        frag_dict = {}
+        ngs_dict = {}
+        for item in FragmentAnalysis.objects.filter(sample=sample):
+            frag_dict[item.itd] = item.ab
+        for item in Results.objects.filter(sample=sample, run='160628_merged', caller='Pindel',
+                                           gene='FLT3') | Results.objects.filter(sample=sample, run='160805',
+                                                                                 caller='Pindel', gene='FLT3'):
+            ar = float(item.alleles.split(',')[1]) / float(item.alleles.split(',')[0])
+            ar = float(format(ar, '.3f'))
+            if item.size in ngs_dict:
+                ngs_dict[item.size] += ar
+            else:
+                ngs_dict[item.size] = ar
+
+        for key, value in frag_dict.items():
+            if key in ngs_dict:
+                ngs_size = key
+                ngs_ar = ngs_dict.get(key)
+                del ngs_dict[key]
+            else:
+                ngs_size = "-"
+                ngs_ar = "-"
+            combined_df_temp = pd.DataFrame([[sample, key, value, ngs_size, ngs_ar]], columns=cols)
+            combined_df = combined_df.append(combined_df_temp)
+        if ngs_dict:
+            for key, value in ngs_dict.items():
+                combined_df_temp = pd.DataFrame([[sample, "-", "-", key, value]], columns=cols)
+                combined_df = combined_df.append(combined_df_temp)
+    combined_df = combined_df.reset_index(drop=True)
+
+    # for sample in samples, get indexes where SAMPLE == sample, xlsx writer -> merge cells
+    sample_index_dict = {}
+    for sample in samples:
+        index_list = combined_df[combined_df['SAMPLE'] == sample].index.tolist()
+        sample_index_dict[sample] = index_list
+
+    writer = pd.ExcelWriter("combined_flt3_results.xlsx", engine="xlsxwriter")
+    combined_df.to_excel(writer, sheet_name="Sheet1", index=False)
+    workbook = writer.book
+    worksheet = writer.sheets["Sheet1"]
+    merge_format = workbook.add_format({
+        'valign': 'vcenter'
+    })
+    format1 = workbook.add_format()
+    for key, value in sample_index_dict.items():
+        if len(value) > 1:
+            start_index = min(value) + 2
+            end_index = max(value) + 2
+            worksheet.merge_range('A%s:A%s' % (start_index, end_index), key, merge_format)
+    worksheet.set_column('A:E', 15, format1)
+    writer.save()
+
+    wrapper = FileWrapper(file("combined_flt3_results.xlsx"))
+    response = HttpResponse(wrapper, content_type='application/vnd.ms-excel')
+    response['Content-Length'] = os.path.getsize("combined_flt3_results.xlsx")
+    response['Content-Disposition'] = 'attachment; filename="combined_flt3_results.xlsx"'
+    return response

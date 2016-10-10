@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86faf9ef-4a8b-48c1-a903-56407dccdda2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/logo1.png" afterPath="$PROJECT_DIR$/meme_out/logo1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/logo_rc1.png" afterPath="$PROJECT_DIR$/meme_out/logo_rc1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/combined_flt3_results.xlsx" afterPath="$PROJECT_DIR$/aml/combined_flt3_results.xlsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/nothing.py" afterPath="$PROJECT_DIR$/aml/nothing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/logo1.eps" afterPath="$PROJECT_DIR$/meme_out/logo1.eps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/logo_rc1.eps" afterPath="$PROJECT_DIR$/meme_out/logo_rc1.eps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/meme.html" afterPath="$PROJECT_DIR$/meme_out/meme.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/meme.txt" afterPath="$PROJECT_DIR$/meme_out/meme.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meme_out/meme.xml" afterPath="$PROJECT_DIR$/meme_out/meme.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/templates/aml/combined.html" afterPath="$PROJECT_DIR$/aml/templates/aml/combined.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/urls.py" afterPath="$PROJECT_DIR$/aml/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aml/views.py" afterPath="$PROJECT_DIR$/aml/views.py" />
     </list>
     <ignored path="mypipeline.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/aml/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="520" column="53" selection-start-line="519" selection-start-column="24" selection-end-line="520" selection-end-column="53" />
+            <state relative-caret-position="653">
+              <caret line="563" column="30" selection-start-line="563" selection-start-column="30" selection-end-line="563" selection-end-column="30" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -43,21 +40,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pipeline.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aml/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-522">
-              <caret line="531" column="51" selection-start-line="531" selection-start-column="51" selection-end-line="531" selection-end-column="51" />
-              <folding />
+            <state relative-caret-position="396">
+              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nothing.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="nothing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/nothing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="128" column="34" selection-start-line="128" selection-start-column="34" selection-end-line="128" selection-end-column="34" />
+            <state relative-caret-position="473">
+              <caret line="132" column="13" selection-start-line="81" selection-start-column="0" selection-end-line="132" selection-end-column="13" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -78,8 +77,8 @@
       <file leaf-file-name="combined.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aml/templates/aml/combined.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
+            <state relative-caret-position="248">
+              <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#form#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#form#3;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -126,7 +125,6 @@
         <option value="$PROJECT_DIR$/aml/gravity.py" />
         <option value="$PROJECT_DIR$/aml/templates/aml/flt3.html" />
         <option value="$PROJECT_DIR$/aml/templates/aml/index.html" />
-        <option value="$PROJECT_DIR$/aml/urls.py" />
         <option value="$PROJECT_DIR$/aml/models.py" />
         <option value="$PROJECT_DIR$/aml/templates/aml/df.html" />
         <option value="$PROJECT_DIR$/aml/templates/aml/delly.html" />
@@ -143,13 +141,14 @@
         <option value="$PROJECT_DIR$/aml/tests.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/aml/create_interop_pdf.py" />
-        <option value="$PROJECT_DIR$/aml/templates/aml/combined.html" />
         <option value="$PROJECT_DIR$/all_samples.R" />
-        <option value="$PROJECT_DIR$/aml/views.py" />
         <option value="$PROJECT_DIR$/aml/generate_R_plots.py" />
         <option value="$PROJECT_DIR$/aml/pipeline.py" />
         <option value="$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_.annovar.vcf" />
         <option value="$PROJECT_DIR$/aml/nothing.py" />
+        <option value="$PROJECT_DIR$/aml/templates/aml/combined.html" />
+        <option value="$PROJECT_DIR$/aml/urls.py" />
+        <option value="$PROJECT_DIR$/aml/views.py" />
       </list>
     </option>
   </component>
@@ -237,8 +236,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -560,10 +559,9 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2358839" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281046" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32702702" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31216216" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31216216" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -573,6 +571,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32702702" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -789,13 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aml/create_interop_pdf.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-505">
@@ -856,37 +848,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="554" column="58" selection-start-line="554" selection-start-column="58" selection-end-line="554" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_.pindel.merged.vcf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="53" column="245" selection-start-line="53" selection-start-column="100" selection-end-line="53" selection-end-column="245" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_.annovar.vcf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="86" column="245" selection-start-line="86" selection-start-column="245" selection-end-line="86" selection-end-column="245" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aml/templates/aml/combined.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#form#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#form#3;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_.pindel.merged.vcf" />
+    <entry file="file://$PROJECT_DIR$/aml/03-D15-21584-RD-Nextera-Myeloid-Val1-Repeat_S3_L001_.annovar.vcf" />
     <entry file="file://$PROJECT_DIR$/aml/generate_R_plots.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
@@ -895,30 +861,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/aml/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="520" column="53" selection-start-line="519" selection-start-column="24" selection-end-line="520" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aml/pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
+        <state relative-caret-position="-265">
           <caret line="531" column="51" selection-start-line="531" selection-start-column="51" selection-end-line="531" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/aml/templates/aml/combined.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="71" column="14" selection-start-line="71" selection-start-column="14" selection-end-line="71" selection-end-column="14" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#form#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#form#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/aml/nothing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="128" column="34" selection-start-line="128" selection-start-column="34" selection-end-line="128" selection-end-column="34" />
+        <state relative-caret-position="473">
+          <caret line="132" column="13" selection-start-line="81" selection-start-column="0" selection-end-line="132" selection-end-column="13" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aml/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="563" column="30" selection-start-line="563" selection-start-column="30" selection-end-line="563" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -123,11 +123,13 @@ worksheet = writer.sheets["Sheet1"]
 merge_format = workbook.add_format({
     'valign': 'vcenter'
 })
+format1 = workbook.add_format()
 for key, value in sample_index_dict.items():
     if len(value) > 1:
         start_index = min(value) + 2
         end_index = max(value) + 2
         worksheet.merge_range('A%s:A%s' % (start_index, end_index), key, merge_format)
+worksheet.set_column('A:E', 15, format1)
 writer.save()
 # works, now just adjust columns and add to app
 
