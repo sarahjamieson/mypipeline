@@ -77,7 +77,10 @@ def get_delly_for_sample(request, sample, run):
     """Takes a run and sample and returns matching Delly entries from Results model to delly.html page. Each variant is
     matched to a colour corresponding to the colour in the sample's circos plot.
 
-    Note: need to update to colour match only PRECISE results -- remove IMPRECISE results??
+    Note: current RCircos plots in app for run 16053 show PRECISE and IMPRECISE results, pipeline would need to be
+    re-run to change this to PRECISE only.
+
+    Note2: remove PRECISE results eventually??
     """
     color_no = 0
     color_dict = {}
@@ -85,12 +88,14 @@ def get_delly_for_sample(request, sample, run):
     delly_results = Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Delly')
     delly_table = DellyTable(Results.objects.filter(sample__icontains=sample, run__icontains=run, caller='Delly'))
     for result in delly_results:
-        if color_no > 9:
-            color_no = 0
-        else:
-            color_no = color_no
-        color_dict[result.result_id] = colors[color_no]
-        color_no += 1
+        if result.precision == 'PRECISE':
+            if color_no > 9:
+                color_no = 0
+            else:
+                color_no = color_no
+            color_dict[result.result_id] = colors[color_no]
+            color_no += 1
+
     RequestConfig(request).configure(delly_table)  # allows sorting of django_tables2 columns
     return render(request, 'aml/delly.html', {'sample': sample, 'delly': delly_table, 'run': run,
                                               'color_dict': color_dict})
