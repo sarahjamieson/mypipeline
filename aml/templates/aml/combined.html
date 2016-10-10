@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <title>Combined FLT3 Results</title>
     <style type="text/css">
@@ -36,6 +37,7 @@
     <div class="w3-container w3-teal">
         <h2>Add FLT3-ITD to database</h2>
     </div>
+    <p align="right"><a href="/aml/"><i class="fa fa-home w3-xxlarge"  ></i></a></p>
     <form action="" method="get">
         <p>
         <select class="w3-select w3-border" name="run">
@@ -57,12 +59,9 @@
         <input class="w3-input w3-border" name="itd" type="text"></p>
         <p><label class="w3-label">Allelic ratio</label>
         <input class="w3-input w3-border" name="ab" type="text"></p>
-        <p><button class="w3-btn w3-teal">Add</button></p>
+        <p><button class="w3-btn w3-teal">Add</button><button class="w3-btn w3-teal" name="graph" type="submit" value="show" style="float: right;">View comparisons</button></p>
     </form>
     <hr>
-    <form action="" method="get">
-        <button class="w3-btn w3-teal" name="graph" type="submit" value="show">View comparisons</button>
-    </form>
     <p></p>
     {% if show %}
     {% if show_matches %}
@@ -70,11 +69,11 @@
         <button class="w3-btn w3-teal" name="graph" type="submit" value="show" style="float:right">Show all</button>
     </form>
     {% else %}
+    <a href="/aml/download/{{ samples }}"><i class="material-icons">file_download</i></a>
     <form action="" method="get">
         <button class="w3-btn w3-teal" name="toggle" type="submit" value="toggle" style="float: right;">Show matches only</button>
     </form>
     {% endif %}
-    <a href="/aml/download/{{ samples }}">Download table</a>
     <table>
         <col>
         <colgroup span="2"></colgroup>
