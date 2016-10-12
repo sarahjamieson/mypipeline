@@ -603,3 +603,9 @@ def download(request, samples):
     response['Content-Length'] = os.path.getsize("combined_flt3_results.xlsx")
     response['Content-Disposition'] = 'attachment; filename="combined_flt3_results.xlsx"'
     return response
+
+
+def jquery(request):
+    results = PindelTable(Results.objects.filter(caller='Pindel', sample='D15-18331', run='160628_merged'))
+    return render(request, 'aml/jquery.html', {'results': results})
+

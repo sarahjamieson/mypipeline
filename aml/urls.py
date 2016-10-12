@@ -2,11 +2,12 @@ from django.conf.urls import url
 from django.contrib import admin
 from aml.views import index, get_samples_for_run, get_results_for_sample, get_interop_for_run, get_delly_for_sample, \
     get_sample_quality, get_fastqc, get_bamstats, get_flt3_only, view_variants, view_polyphen, view_flt3_combined, \
-    download
+    download, jquery
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
+    url(r'^jquery/', jquery, name='jquery'),
     url(r'^variants/', view_variants, name='vars'),
     url(r'^combined/', view_flt3_combined, name='combined'),
     url(r'^download/(?P<samples>[^/]+)/$', download, name='download'),
