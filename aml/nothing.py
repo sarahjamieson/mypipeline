@@ -48,6 +48,31 @@ samples = ['02-D15-18331-AR-Nextera-Myeloid-Val1-Repeat_S2_L001_',
            '24-D15-26810-FM-Nextera-Myeloid-Val1-Repeat_S24_L001_'
            ]
 
+samples = ['02-D15-18331-AR-Nextera-Myeloid-Val1-Run3-600-V3_S2_merged_L001_',
+           '03-D15-21584-RD-Nextera-Myeloid-Val1-Run3-600-V3_S3_merged_L001_',
+           '04-D15-22373-HT-Nextera-Myeloid-Val1-Run3-600-V3_S4_merged_L001_',
+           '05-D15-20343-JR-Nextera-Myeloid-Val1-Run3-600-V3_S5_merged_L001_',
+           '06-D15-25430-BH-Nextera-Myeloid-Val1-Run3-600-V3_S6_merged_L001_',
+           '07-D03-21521-KT-Nextera-Myeloid-Val1-Run3-600-V3_S7_merged_L001_',
+           '08-D15-08791-AD-Nextera-Myeloid-Val1-Run3-600-V3_S8_merged_L001_',
+           '09-D15-08798-MK-Nextera-Myeloid-Val1-Run3-600-V3_S9_merged_L001_',
+           '10-D15-04183-CS-Nextera-Myeloid-Val1-Run3-600-V3_S10_merged_L001_',
+           '11-D15-00899-DR-Nextera-Myeloid-Val1-Run3-600-V3_S11_merged_L001_',
+           '12-D15-50424-LB-Nextera-Myeloid-Val1-Run3-600-V3_S12_merged_L001_',
+           '13-D15-45066-AG-Nextera-Myeloid-Val1-Run3-600-V3_S13_merged_L001_',
+           '14-D14-45300-CB-Nextera-Myeloid-Val1-Run3-600-V3_S14_merged_L001_',
+           '15-D15-35262-GP-Nextera-Myeloid-Val1-Run3-600-V3_S15_merged_L001_',
+           '16-D14-33938-ES-Nextera-Myeloid-Val1-Run3-600-V3_S16_merged_L001_',
+           '17-D13-42537-RB-Nextera-Myeloid-Val1-Run3-600-V3_S17_merged_L001_',
+           '18-D14-16565-AA-Nextera-Myeloid-Val1-Run3-600-V3_S18_merged_L001_',
+           '19-D15-31492-AC-Nextera-Myeloid-Val1-Run3-600-V3_S19_merged_L001_',
+           '20-D15-41762-MC-Nextera-Myeloid-Val1-Run3-600-V3_S20_merged_L001_',
+           '21-D14-30832-BY-Nextera-Myeloid-Val1-Run3-600-V3_S21_merged_L001_',
+           '22-D14-27112-BD-Nextera-Myeloid-Val1-Run3-600-V3_S22_merged_L001_',
+           '23-D15-02217-LT-Nextera-Myeloid-Val1-Run3-600-V3_S23_merged_L001_',
+           '24-D15-26810-FM-Nextera-Myeloid-Val1-Run3-600-V3_S24_merged_L001_'
+           ]
+
 # http://stackoverflow.com/questions/19612348/break-x-axis-in-r
 
 
@@ -77,6 +102,7 @@ samples = [
     '07-D15-37942-GH-Val2-Enrich3-Run4_S7_L001_',
     '08-D14-31377-LM-Val2-Enrich3-Run4_S8_L001_'
 ]
+'''
 '''
 samples = ['D03-21521', 'D06-20828']
 cols = ['SAMPLE', 'FRAG ITD SIZE', 'FRAG AR', 'NGS ITD SIZE', 'NGS AR']
@@ -132,7 +158,24 @@ for key, value in sample_index_dict.items():
 worksheet.set_column('A:E', 15, format1)
 writer.save()
 # works, now just adjust columns and add to app
+'''
+breakdancer = '/opt/programs/breakdancer-1.4.5/bin/breakdancer-max'
 
+
+@transform("*.bwa.drm.sorted.bam", suffix(".bwa.drm.sorted.bam"), ".breakdancer_config.txt")
+def create_breakdancer_config(infile, outfile):
+    sample_name = infile[:-19]
+    config_file = open("%s" % outfile, "w")  # write into output file
+    config_file.write("map:%s\tmean:160\tstd:50\treadlen:150\tsample:%s\texe:bwa-0.7.12\n" % (infile, sample_name))
+    config_file.close()
+
+
+@follows(create_breakdancer_config)
+@transform(create_breakdancer_config, suffix(".breakdancer_config.txt"), ".breakdancer_output.sv")
+def run_breakdancer(infile, outfile):
+    os.system("%s -q 35 %s > %s" % (breakdancer, infile, outfile))
+
+pipeline_run(verbose=4)
 
 
 

@@ -8,40 +8,37 @@
     {% load staticfiles %}
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script type='text/javascript' src='{% static "js/script.js" %}'></script>
     <script type="text/javascript" src='{% static "js/jquery.tablesorter.js" %}'></script>
     <script type="text/javascript" src='{% static "js/colResizable-1.6.min.js" %}'></script>
     <script type="text/javascript" src='{% static "js/jquery.tablesorter.widget.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/jquery.tablesorter.pager.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/paging.js" %}'></script>
     <link rel="stylesheet" type="text/css" href='{% static "js/jquery.dataTables.css" %}'/>
     <script type="text/javascript" src='{% static "js/jquery.dataTables.js" %}'></script>
-    <script src="https://rawgit.com/maca88/datatables.plugins/master/Source/dataTables.colResize.js"></script>
+    <script type="text/javascript" src='{% static "js/dataTables.colResize.js" %}'></script>
 
     <style>
         th {
             cursor:pointer;
         }
-        .overflow {
-            overflow: hidden;
-            width: 120px;
-            text-overflow: ellipsis;
-        }
         th, td {
             text-align: center;
         }
-
     </style>
 </head>
 <body>
     <h1>Pindel results</h1>
     {% if results %}
-    <!--<button>Show all</button>-->
+    <button>Keep selected</button>
     <div>
-    <table class="w3-table w3-bordered w3-striped w3-border">
+    <table class="w3-table w3-bordered w3-striped w3-border" id="myTable">
         <thead>
         <tr class="w3-light-blue">
             <th>Chrom</th>
             <th>Pos</th>
-            <th>Ref <button>+</button></th>
+            <th>Ref</th>
             <th>Alt</th>
             <th>End</th>
             <th>Region</th>
@@ -63,7 +60,7 @@
         <tr>
             <td>{{ row.chrom }}</td>
             <td>{{ row.pos }}</td>
-            <td><div class="overflow" id="overflow">{{ row.ref }}</div></td>
+            <td><div>{{ row.ref }}</div></td>
             <td>{{ row.alt }}</td>
             <td>{{ row.end }}</td>
             <td>{{ row.region }}</td>

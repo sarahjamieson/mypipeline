@@ -9,11 +9,14 @@ $(document).ready(function() {
         $('.result').show();
     });
     */
-    $('table').DataTable({
+    $('#myTable').DataTable({
+        "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "All"]],
         "scrollX":true
     });
-    $('button').click(function(){
-        $('#overflow').removeClass("overflow");
+    $('#myTable tbody').on('click', 'tr', function(){
+        $(this).toggleClass('selected');
     });
+
 });
-// button only works for first row.
+
+
