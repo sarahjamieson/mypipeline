@@ -24,4 +24,21 @@ To deploy the app:
 2. `$ python manage.py runserver 127.0.0.1:8000`
 
 `127.0.0.1:8000` is a development server; to deploy on another server replace this with another IP address.
-  
+
+
+## Requirements
+All required Python (v2.7.5) modules are listed in requirements.txt. Additional requirements:
+* TeX Live 2016
+* R v3.3.0
+* RCircos v1.1.3
+* Trimmomatic v0.36
+* BWA v0.7.15
+* Samblaster v0.1.22
+* Samtools v1.3.1
+* BreakDancer v1.4.5
+* Pindel v0.2.5
+* FASTQC v0.11.5
+* Delly v0.7.3
+* Bcftools v1.3.1
+* ggplot2 v2.1.0
+* SQLite v3.7.17
